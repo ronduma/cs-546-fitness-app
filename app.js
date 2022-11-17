@@ -18,3 +18,18 @@ app.listen(3000, () => {
   console.log("We've now got a server!");
   console.log('Your routes will be running on http://localhost:3000');
 });
+
+// const users = require('./data/users.js');
+// const connection = require('./config/mongoConnection');
+// const main = async () => {
+//     const db = await connection.dbConnection();
+//     await db.dropDatabase();
+//     user1 = await users.createUser("dtran3@stevens.edu", "dtran", "12345678", "dylan", 20, "5ft 10in", 170, ["Hit a PR for bench", "Do 3x12 with 25's on bicep curl", "Bench 80's"], "PF", "Zyzz");
+//     console.log(user1);//2
+//     console.log('user1 Dylan has been added!');
+
+
+//     await connection.closeConnection();
+// }
+
+// main();
