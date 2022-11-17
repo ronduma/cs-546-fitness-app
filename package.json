@@ -1,0 +1,24 @@
+{
+  "name": "cs-546-fitness-app",
+  "version": "1.0.0",
+  "description": "Fitness Web Application Final Project for CS-546 at Stevens Institute of Technology. ",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronduma/cs-546-fitness-app.git"
+  },
+  "author": "Ron Dumalagan, Dylan Tran, Jae Jang, Erik Anhorn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ronduma/cs-546-fitness-app/issues"
+  },
+  "homepage": "https://github.com/ronduma/cs-546-fitness-app#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "mongodb": "^4.12.0"
+  }
+}
