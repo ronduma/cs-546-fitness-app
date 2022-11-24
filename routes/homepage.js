@@ -3,9 +3,8 @@ const router = express.Router();
 const data = require('../data');
 const path = require('path');
 
-router.route("/").get(async (req, res) => {
-    //code here for GET
-    res.sendFile(path.resolve('static/homepage.html'));
+router.get('/', async (req, res) => {
+    res.sendFile(path.resolve('./static/homepage.html'));
 });
 
 module.exports = router;

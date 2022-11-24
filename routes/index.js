@@ -1,9 +1,9 @@
-const routes = require('./routes');
+const homepageRoutes = require('./homepage');
 
 const constructorMethod = (app) => {
-    app.use('/', routes);
+    app.use('/homepage', homepageRoutes);
     app.use('*', (req, res) => {
-        res.status(404).json({ error: 'Not found' });
+        res.redirect('/homepage');
     });
 };
 
