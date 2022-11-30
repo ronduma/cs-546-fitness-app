@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const data = require('../data');
+const users = require('../data/users');
 const path = require('path');
 
 router.get('/', async (req, res) => {
-    res.status(200).render('homepage', {
-        title : "Home \• Jimbro",
-        message : "this is the homepage"
-    });
+    res.clearCookie('AuthCookie');
+    req.session.destroy();
+    return res.redirect("/homepage")
 });
 
 module.exports = router;

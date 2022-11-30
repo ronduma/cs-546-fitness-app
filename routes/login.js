@@ -4,9 +4,10 @@ const users = require('../data/users');
 const path = require('path');
 
 router.get('/', async (req, res) => {
-    res.status(200).render('login', {
+    return res.status(200).render('login', {
         title : "Log In \• Jimbro",
-        message : "this is the login page"
+        message : "this is the login page",
+        session : req.session.user
     });
 });
 

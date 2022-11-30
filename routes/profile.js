@@ -7,7 +7,8 @@ router.get('/', async (req, res) => {
     if(req.session.user){
         return res.status(200).render('profile', {
             title : "Profile \• Jimbro",
-            message : "this is the profile page"
+            message : "this is the profile page",
+            session : req.session.user
         });
       }
       else{

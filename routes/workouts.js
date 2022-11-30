@@ -6,7 +6,8 @@ const path = require('path');
 router.get('/', async (req, res) => {
     res.status(200).render('workouts', {
         title : "Workouts \• Jimbro",
-        message : "this is the workouts page"
+        message : "this is the workouts page",
+        session : req.session.user
     });
 });
 

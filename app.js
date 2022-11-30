@@ -10,8 +10,8 @@ app.use('/public', static);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-// app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
-// app.set('view engine', 'handlebars');
+app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 // TODO: copy paste from lab 10 to figure out signup/login
 app.use(
@@ -55,10 +55,10 @@ app.use(async (req, res, next) => {
 
 configRoutes(app);
 
-// app.listen(3000, () => {
-//   console.log("We've now got a server!");
-//   console.log('Your routes will be running on http://localhost:3000');
-// });
+app.listen(3000, () => {
+  console.log("We've now got a server!");
+  console.log('Your routes will be running on http://localhost:3000');
+});
 
 //TEST POSTS AND USER ADD
 // const users = require('./data/users');

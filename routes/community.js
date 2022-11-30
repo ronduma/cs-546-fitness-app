@@ -6,7 +6,8 @@ const path = require('path');
 router.get('/', async (req, res) => {
     res.status(200).render('community', {
         title : "Community \• Jimbro",
-        message : "this is the community page"
+        message : "this is the community page",
+        session : req.session.user
     });
 });
 
