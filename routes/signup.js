@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
       else{
         return res.status(200).render('signup', {
             title : "Sign Up \• Jimbro",
-            message : "this is the signup page lol"
+            message : "this is the signup page lol",
+            session : req.session.user
         });
       }
 });

@@ -6,7 +6,8 @@ const path = require('path');
 router.get('/', async (req, res) => {
     res.status(200).render('scheduler', {
         title : "Scheduler \• Jimbro",
-        message : "this is the scheduler page"
+        message : "this is the scheduler page",
+        session : req.session.user
     });
 });
 
