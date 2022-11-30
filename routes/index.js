@@ -6,6 +6,7 @@ const aboutRoutes = require('./about');
 const signupRoutes = require('./signup');
 const loginRoutes = require('./login');
 const profileRoutes = require('./profile');
+const logoutRoutes = require('./logout');
 
 const constructorMethod = (app) => {
     app.use('/homepage', homepageRoutes);
@@ -16,6 +17,7 @@ const constructorMethod = (app) => {
     app.use('/signup', signupRoutes);
     app.use('/login', loginRoutes);
     app.use('/profile', profileRoutes);
+    app.use('/logout', logoutRoutes);
     app.use('*', (req, res) => {
         res.redirect('/homepage');
     });
