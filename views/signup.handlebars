@@ -1,18 +1,23 @@
 <h1>Welcome to <span class="navbar-brand">jimbro</span></h1>
 <div>{{message}}</div>
-<form action="/signup" method="POST">
+<form method="POST" id="registration-form" action="/signup">
     <div>
-        <input type="text" name="searchPersonName" id="searchPersonName" placeholder="Username"/>
-        <div id="signupError1"></div>
+        <label for="usernameInput">Username</label>
+        <input type="text" name="usernameInput" id="usernameInput">
     </div>
     <div>
-        <input type="text" name="searchPersonName" id="searchPersonName" placeholder="Email"/>
+        <label for="emailInput">Email</label>
+        <input type="text" name="emailInput" id="emailInput">
     </div>
     <div>
-        <input type="text" name="searchPersonName" id="searchPersonName" placeholder="Password"/>
+        <label type="password" for="passwordInput">Password</label>
+        <input type="text" name="passwordInput" id="passwordInput">
     </div>
     <div>
-        <input type="text" name="searchPersonName" id="searchPersonName" placeholder="Confirm Password"/>
+        <label type="confirmPassword" for="confirmPasswordInput">Confirm Password</label>
+        <input type="text" name="confirmPasswordInput" id="confirmPasswordInput">
     </div>
-    <button type="submit">Sign Up</button>
+    <button type="submit">Submit</button>
 </form>
+<div>{{error}}</div>
+<a href="/login">Already have an account? Click here to log-in</a>
