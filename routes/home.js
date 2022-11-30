@@ -4,9 +4,9 @@ const data = require('../data');
 const path = require('path');
 
 router.get('/', async (req, res) => {
-    res.status(200).render('homepage', {
+    res.status(200).render('home', {
         title : "Home \• Jimbro",
-        message : "this is the homepage",
+        message : "this is the home page",
         session : req.session.user
     });
 });
