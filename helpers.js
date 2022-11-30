@@ -1,3 +1,5 @@
+const emailValidator = require("email-validator");
+
 function checkString(strVal, varName) {
   if (!strVal) throw `Error: You must supply a ${varName}!`;
   if (typeof strVal !== "string") throw `Error: ${varName} must be a string!`;
@@ -16,12 +18,32 @@ function checkNumber(numVal, varName) {
     throw `Error: ${numVal} is not a valid value for ${varName} as it only contains nondigits`;
   return numVal;
 }
-
-function validatePassword(Val) {
-  if (!Val) throw `Error: You must supply a password}!`;
-  if (typeof Val !== "string") throw `Error: Password must be a string!`;
-  if (Val.length < 8) throw "Error: Password must be 8 characters long!";
-  return Val;
+function validateUsername(username){
+  if (!username) throw 'Error: You must supply a username.'
+  if (typeof username != "string"){
+      throw 'Error: Username must be a string.'
+  }
+  username = username.toLowerCase();
+  if (username.length < 3){
+      throw 'Error: Username must at least be 3 characters long.'
+  }
+  for (let i = 0; i < username.length; i++){
+      if (!(username.charAt(i) >= 'a' && username.charAt(i) <= 'z') && !(username.charAt(i) >= '0' && username.charAt(i) <= '9')){
+          throw 'Error: Username must only consist of alphanumeric characters.'
+      }
+  }
+  return true
+}
+function validatePassword(password) {
+  if (!password) throw `Error: You must supply a password.`;
+  if (typeof password !== "string") throw `Error: Password must be a string.`;
+  //source for regex
+  //https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+  if (!/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(password)) throw 'Error: Password should be at least 6 characters long, and have at least one uppercase character, one number and one special character.'
+  return true;
+}
+function validateEmail(email) {
+  return emailValidator.validate(email);
 }
 function checkStringHasAtPeriod(str) {
   let specialChar = /[.@]/;
@@ -39,7 +61,7 @@ function checkStringHasSpecialChar(str) {
     return false;
   }
 }
-function checkStingHasPunc(str) {
+function checkStringHasPunc(str) {
   let puncMarks = /[.,;:!?']/;
   if (puncMarks.test(str)) {
     return true;
@@ -51,7 +73,7 @@ function checkHeight(height) {
   //Correct Format
   if (!height) throw `Error: You must supply a height}!`;
   if (typeof height !== "string") throw `Error: height must be a string!`;
-  if (checkStringHasSpecialChar(height) || checkStingHasPunc(height)) {
+  if (checkStringHasSpecialChar(height) || checkStringHasPunc(height)) {
     throw "Runtime has special characters or Punctuation.";
   }
   height = height.trim();
@@ -120,6 +142,8 @@ function checkGoals(goals){
 module.exports = {
   checkString,
   checkNumber,
+  validateUsername,
+  validateEmail,
   validatePassword,
   checkStringHasAtPeriod,
   checkHeight,

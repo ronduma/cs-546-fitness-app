@@ -2,66 +2,54 @@ const {ObjectId} = require('mongodb');
 const mongoCollections = require("../config/mongoCollections");
 const helpers = require("../helpers");
 const users = mongoCollections.users;
+const bcrypt = require('bcryptjs');
+const saltRounds = 16;
 
 const createUser = async (
-  email,
   username,
-  password,
-  firstName,
-  age,
-  height,
-  weight,
-  goals,
-  studio,
-  coach
+  email,
+  password
 ) => {
-  if (!email || email == undefined) {
-    throw "You must provide a email for movie";
-  }
-  if (typeof email != "string") {
-    throw "You must provide a string for email";
-  }
-  if (email.trim().length == 0) {
-    throw "Empty String or just just spaces";
-  }
-  if (helpers.checkStringHasAtPeriod == false){
-    throw 'Need to be valid email';
-
-  }
+  helpers.validateUsername(username);
   helpers.validatePassword(password);
-  helpers.checkString(firstName);
-  helpers.checkNumber(age);
-  helpers.checkHeight(height)
-  helpers.checkNumber(weight);
-  helpers.checkGoals(goals);
-  helpers.checkString(studio);
-  helpers.checkString(coach);
   //create user
   const userCollection = await users();
+  const userExists = await userCollection.findOne({username: username});
+  if (userExists){throw 'Error: A user with that username already exists.'}
+  password = await bcrypt.hash(password, saltRounds);
   let newUser = {
-    email: email,
     username: username,
+    email: email,
     password: password,
-    firstName: firstName,
-    age: age,
-    height: height,
-    weight: weight,
-    goals: goals,
-    studio: studio,
-    coach: coach,
+    firstName: undefined,
+    age: undefined,
+    height: undefined,
+    weight: undefined,
+    goals: undefined,
+    studio: undefined,
+    coach: undefined,
     posts: [],
-    workoutRoutine: [],
+    workoutRoutine: []
   };
   const insertInfo = await userCollection.insertOne(newUser);
+  console.log(insertInfo)
   if (!insertInfo.acknowledged || !insertInfo.insertedId) {
     throw "Could not add user";
   }
+  return {insertedUser : true} 
+};
 
-  const newId = insertInfo.insertedId.toString();
-
-  const movie = await getUserById(newId);
-  movie._id = movie._id.toString();
-  return movie;
+const checkUser = async (
+  username,
+  password
+) => {
+  username = username.toLowerCase();
+  const userCollection = await users();
+  const userExists = await userCollection.findOne({username: username});
+  if (!userExists){throw 'Error: The given username and/or password does not match our records. Please try again.'}
+  let compare = await bcrypt.compare(password, userExists.password);
+  if (compare){return {authenticatedUser : true}}
+  else throw 'Error: Invalid password. Please try again.'
 };
 
 const getAllUsers = async () => {
@@ -93,5 +81,6 @@ const getUserById = async (userId) => {
 module.exports = {
   getAllUsers,
   createUser,
+  checkUser,
   getUserById,
 };

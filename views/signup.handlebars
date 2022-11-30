@@ -1,0 +1,23 @@
+<h1>Welcome to <span class="navbar-brand">jimbro</span></h1>
+<div>{{message}}</div>
+<form method="POST" id="registration-form" action="/signup">
+    <div>
+        <label for="usernameInput">Username</label>
+        <input type="text" name="usernameInput" id="usernameInput">
+    </div>
+    <div>
+        <label for="emailInput">Email</label>
+        <input type="text" name="emailInput" id="emailInput">
+    </div>
+    <div>
+        <label type="password" for="passwordInput">Password</label>
+        <input type="text" name="passwordInput" id="passwordInput">
+    </div>
+    <div>
+        <label type="confirmPassword" for="confirmPasswordInput">Confirm Password</label>
+        <input type="text" name="confirmPasswordInput" id="confirmPasswordInput">
+    </div>
+    <button type="submit">Submit</button>
+</form>
+<div>{{error}}</div>
+<a href="/login">Already have an account? Click here to log-in</a>
