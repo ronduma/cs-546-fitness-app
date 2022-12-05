@@ -38,7 +38,7 @@ const sampleWorkouts = [
             reps: 20
         }
     ],
-    day: 'Monday'
+    dayPlanned: 'Monday'
 },
 {
     name: 'Lower Body',
@@ -74,13 +74,13 @@ const sampleWorkouts = [
             reps: 12
         }
     ],
-    day: 'Wednesday'
+    dayPlanned: 'Wednesday'
 }]
 
 router.get('/', async (req, res) => {
     res.status(200).render('workouts', {
         title : "Workouts \• Jimbro",
-        message : "this is the workouts page",
+        message : "Welcome to the Workouts Page!",
         session : req.session.user,
         samples : sampleWorkouts
     });
