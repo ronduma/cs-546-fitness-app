@@ -1,1 +1,18 @@
-<h1>{{message}}</h1>
+<body>
+    <h1 class="header-spacing">{{message}}</h1>
+    <p class="header-spacing">Here are some sample workouts: </p>
+    <ul class="display-list">
+        {{#each samples}}
+            <li class="display-item">
+                <h3 class="workout">{{name}}</h3>
+                <p class="ital-title">Day of week: {{dayPlanned}}</p>
+                {{#each workout}}
+                    <h4 class="exercise">Exercise: {{exercise}}</h4>
+                    <p class="sub-exercise">{{weight}} lb Weight</p>
+                    <p class="sub-exercise">{{sets}} Sets</p>
+                    <p class="sub-exercise">{{reps}} Reps each</p>
+                {{/each}}
+            </li>
+        {{/each}}
+    </ul>
+</body>

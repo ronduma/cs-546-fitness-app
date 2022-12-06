@@ -3,3 +3,39 @@
 .navbar-brand{
     font-family: 'Comfortaa', cursive;
 }
+
+.ital-title{
+    font-style: italic;
+    font-size: 14px;
+    color: grey;
+}
+
+.header-spacing{
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.display-list{
+    display: table;
+}
+
+.display-item{
+    display: table-cell;
+    padding: 20px;
+}
+
+.workout{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.exercise{
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    font-size: 14px;
+    font-weight: 700;
+}
+.sub-exercise{
+    line-height: 1;
+    font-size: 12px;
+}
