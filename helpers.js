@@ -1,7 +1,15 @@
 const emailValidator = require("email-validator");
+const e = require("express");
 
 function checkString(strVal, varName) {
-  if (!strVal) throw `Error: You must supply a ${varName}!`;
+  if (!strVal){
+    if (/^[aeiou]$/.test(varName.charAt(0))){
+      `Error: You must supply an ${varName}!`;
+    }
+    else{
+      `Error: You must supply a ${varName}!`;
+    }
+  }
   if (typeof strVal !== "string") throw `Error: ${varName} must be a string!`;
   strVal = strVal.trim();
   if (strVal.length === 0)
@@ -11,12 +19,22 @@ function checkString(strVal, varName) {
   return strVal;
 }
 function checkNumber(numVal, varName) {
-  if (!numVal) throw `Error: You must supply a ${varName}!`;
-  if (typeof numVal !== "number") throw `Error: ${varName} must be a string!`;
-
+  if (!numVal){
+    if (/^[aeiou]$/.test(varName.charAt(0))){
+      `Error: You must supply an ${varName}!`;
+    }
+    else{
+      `Error: You must supply a ${varName}!`;
+    }
+  }
   if (isNaN(numVal))
     throw `Error: ${numVal} is not a valid value for ${varName} as it only contains nondigits`;
-  return numVal;
+
+  numVal = parseInt(numVal);
+
+  if (typeof numVal !== "number") throw `Error: ${varName} must be a number!`;
+
+  return parseInt(numVal);
 }
 function validateUsername(username){
   if (!username) throw 'Error: You must supply a username.'
