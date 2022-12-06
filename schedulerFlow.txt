@@ -1,0 +1,12 @@
+1) Check if user is logged in, if not direct them to login page
+2) User selects day of week
+3) Give common muscle groups for that day?
+    3a) Give option for preset workout autofill for that day
+    3b) Have sample workouts stored in Mongodb, access them here
+4) Ask for muscle group?
+5) Ask for Workout name
+6) Create iterative input?
+    6a) Exercise name    
+    6b) Exercise weight
+    6c) Exercise sets 
+    6d) Exercise reps

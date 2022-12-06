@@ -1,1 +1,34 @@
 <h1>{{message}}</h1>
+<form method="POST" id="scheduler-form" action="/scheduler">
+    <div>
+        <label for="dayOfWeek" class="input-param">Choose a day of the week for the workout: </label>
+        <select name="dayOfWeek" id="dayOfWeek">
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+        </select>
+        <br>
+        <label for="workoutName" class="input-param">Workout Name: </label>
+        <input type="text" name="workoutName" id="workoutName" required="required" placeholder="Workout Name">
+        <br>
+        <label for="exerciseName" class="input-param">Exercise Name: </label>
+        <input type="text" name="exerciseName" id="exerciseName" required="required" placeholder="Exercise Name">
+        <br>
+        <label for="exerciseWeight" class="input-param">Exercise Weight</label>
+        <input type="number" name="exerciseWeight" id="exerciseWeight" required="required" placeholder="Exercise Weight">
+        <br>
+        <label for="numSets" class="input-param">Number of Sets: </label>
+        <input type="number" name="numSets" id="numSets" required="required" placeholder="Number of Sets">
+        <br>
+        <label for="numReps" class="input-param">Number of Reps: </label>
+        <input type="number" name="numReps" id="numReps" required="required" placeholder="Number of Reps">
+
+        <br>
+        <label for="submitButton" class="input-param">Submit</label>
+        <input type="submit" name="submitButton" id="submitButton">
+    </div>
+</form> 
