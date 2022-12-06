@@ -54,11 +54,11 @@ router.post('/edit', async (req, res) => {
     helpers.checkNumber(heightFt, "height");
     helpers.checkNumber(heightIn, "height");
     helpers.checkNumber(weight, "weight");
-    helpers.checkString(studio, "weight");
-    helpers.checkString(coach, "weight");
+    helpers.checkString(studio, "studio");
+    helpers.checkString(coach, "coach");
     helpers.checkString(goals, "goals");
   } catch (e) {
-    return res.status(400).render("../views/signup", { error : e });
+    return res.status(400).render("../views/edit", { error : e });
   }
   try {
     let user = await users.updateProfile(req.session.user, age, heightFt, heightIn, weight, studio, coach, goals);
