@@ -1,0 +1,16 @@
+<form action="/communitypost" method="POST" id="community-post" class="user-post">
+            <label for="postTitleInput">Post Title</label>
+             <input id = "postTitleInput"  class="postTitleInput" placeholder="Enter post" name="postTitleInput" required minlength="2">
+            <br>
+            <label for="postDetailsInput">Post Details</label>
+             <input id = "postDetailsInput" class="postDetailsInput" placeholder="Enter your post" name="postDetailsInput" required minlength="3">
+            <br>
+            {{!-- </div> --}}
+            {{!-- {{#if err}}
+                        <br>
+                        <p class="err">{{message}}</p>
+                        {{/if}} --}}
+
+            <button type="submit" class="paymentsubmission">Submit</button>
+        </div>
+        </form>
