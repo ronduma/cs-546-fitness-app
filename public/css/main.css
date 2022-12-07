@@ -63,3 +63,34 @@
 .postDetailsInput{
     height:200px;
 }
+/* how to make cards */
+.communityContainer{
+    grid-template-columns: auto auto auto;
+
+}
+.cards {
+    margin-left: 25px;
+    margin-right: 25px;
+    max-width: 300px;
+    display: grid;
+    grid-auto-rows: auto;
+    gap: 20px;
+    padding-top: 30px;
+    border: 10px;
+}
+.card{
+    border-radius: 10px;
+}
+
+.card_stats {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #555555;
+    background: #eeeeee;
+    font-size: 0.8em;
+    border-bottom: 2px solid #333333;
+    border-right: 2px solid #333333;
+    border-left: 2px solid #333333;
+}

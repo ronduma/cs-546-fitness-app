@@ -1,5 +1,6 @@
 const emailValidator = require("email-validator");
 const e = require("express");
+const { post } = require("./routes/communitypost");
 
 function checkString(strVal, varName) {
   if (!strVal){
@@ -157,6 +158,38 @@ function checkGoals(goals){
     return true;
 
 }
+//COMMUNITY POSTS
+function validatePostTitle(postTitle){
+  if (postTitle == undefined) {
+    throw 'Must provide valid Post Title';
+}
+if (typeof postTitle != 'string') {
+    throw 'Incorrect type'
+}
+if (postTitle.trim().length < 3) {
+    throw 'Enter a Post Title minimum of 3 letters';
+  }
+
+
+return postTitle.trim();
+
+
+}
+function validatePostBody(postbody){
+  if (str == undefined) {
+    throw 'Must provide valid Post Details';
+}
+if (typeof postTitle != 'string') {
+    throw 'Incorrect type'
+}
+if (postTitle.trim().length <5) {
+    throw 'Enter a Post Details minimum of 5 letters';
+  }
+
+return postbody.trim();
+
+}
+
 module.exports = {
   checkString,
   checkNumber,
@@ -166,4 +199,6 @@ module.exports = {
   checkStringHasAtPeriod,
   checkHeight,
   checkGoals,
+  validatePostTitle,
+  validatePostBody,
 };
