@@ -39,3 +39,59 @@
     line-height: 1;
     font-size: 12px;
 }
+
+/* Community */
+.createbutton {
+    background-color: #1DA1F2;
+    display: inline-block;
+    border-radius: 16px;
+    padding: 10px 20px;
+    color: #eeeeee;
+    border: none;
+    text-align: center;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+font-weight: bold;
+font-size: 20px;
+width: auto;
+    
+}
+.createbutton:hover {
+background-color: #007FFF;
+font-weight: bold;
+}
+.postDetailsInput{
+height:200px;
+}
+/* how to make cards */
+.communityContainer{
+grid-template-columns: auto auto auto;
+
+}
+.cards {
+margin-left: 25px;
+margin-right: 25px;
+max-width: 300px;
+display: grid;
+grid-auto-rows: auto;
+gap: 20px;
+padding-top: 30px;
+border: 10px;
+}
+.card{
+border-radius: 10px;
+}
+
+.card_stats {
+padding: 15px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+color: #555555;
+background: #eeeeee;
+font-size: 0.8em;
+border-bottom: 2px solid #333333;
+border-right: 2px solid #333333;
+border-left: 2px solid #333333;
+}

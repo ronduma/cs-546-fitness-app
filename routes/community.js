@@ -11,4 +11,14 @@ router.get('/', async (req, res) => {
     });
 });
 
+router.post('/', async (req, res) => {
+    res.status(200).render('communitypost', {
+        title : "Communitypost \• Jimbro",
+        message : "this is the community Post page",
+        session : req.session.user
+    });
+
+
+});
+
 module.exports = router;
