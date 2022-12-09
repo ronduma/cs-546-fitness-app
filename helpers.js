@@ -157,6 +157,38 @@ function checkGoals(goals){
     return true;
 
 }
+
+//COMMUNITY POSTS
+function validatePostTitle(postTitle){
+  if (postTitle == undefined) {
+    throw 'Must provide valid Post Title';
+}
+if (typeof postTitle != 'string') {
+    throw 'Incorrect type'
+}
+if (postTitle.trim().length < 3) {
+    throw 'Enter a Post Title minimum of 3 letters';
+  }
+
+
+return postTitle.trim();
+
+
+}
+function validatePostBody(postbody){
+  if (postbody == undefined) {
+    throw 'Must provide valid Post Details';
+}
+if (typeof postbody != 'string') {
+    throw 'Incorrect type'
+}
+if (postbody.trim().length <5) {
+    throw 'Enter a Post Details minimum of 5 letters';
+  }
+
+return postbody.trim();
+
+}
 module.exports = {
   checkString,
   checkNumber,
@@ -166,4 +198,7 @@ module.exports = {
   checkStringHasAtPeriod,
   checkHeight,
   checkGoals,
+  validatePostTitle,
+  validatePostBody,
+
 };
