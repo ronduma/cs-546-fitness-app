@@ -44,11 +44,15 @@ router.post('/', async (req, res) => {
         let post= await postData.createPost(req.session.user, postTitle, postDetails);
         console.log(post);
         if ((await post).insertedPost == true){
-           res.status(200).render('community'), {
-            title : "Community \• Jimbro",
-            message : "this is the community page",
-            session : req.session.user
-           };
+            let allpost = await postData.getAllPostsNoUser();
+            console.log(allpost);
+        //    res.status(200).render('community'), {
+        //     title : "Community \• Jimbro",
+        //     message : "this is the community page",
+        //     session : req.session.user,
+        //     allpost : allpost
+        //    };
+        res.redirect('community')
            return;
         }
     }

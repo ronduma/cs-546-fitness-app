@@ -2,16 +2,21 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const path = require('path');
-const posts = data.post;
+const users = data.user;
+const postData = data.post;
 
 router.get('/', async (req, res) => {
-    let allposts = await posts.getAllPostsNoUser();
-    
+    let allposts = await postData.getAllPostsNoUser();
+    console.log(allposts);
+    console.log(allposts[0].username);
+    console.log(allposts[0].postTitle)
     res.status(200).render('community', {
         title : "Community \• Jimbro",
         message : "this is the community page",
-        session : req.session.user
+        session : req.session.user,
+        allpost : allposts,
     });
+    return;
 });
 
 // router.post('/', async (req, res) => {

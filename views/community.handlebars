@@ -40,5 +40,32 @@
                 </div>
             </div>
         </div>
+<div class="card">
+    {{#if allpost.length}}
+    {{#each allpost}}
+            <h3>{{postTitle}}</h3>
+            <div class="card__content">
+                <p>
+                    {{post}}
+                </p>
+                <div class="card_stats">
+                    <div>
+                        <p>{{username}} </p>
+                    </div>
+                    <div>
+                        <p>Likes:{{likes}} </p>
+                    </div>
+                    <div>
+                        <p>Comments</p>
+                    </div>
+                    <div>
+                        <p>{{postDate}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+{{/if}}
+        </div>
+
     </div>
         <a class="nav-link" href="/community">Click here view the top posts!</a>
