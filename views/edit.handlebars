@@ -1,0 +1,30 @@
+<h1>{{message}}</h1>
+<form method="POST" id="registration-form" action="/profile/edit">
+    <div>
+        <label for="ageInput">Age</label>
+        <input type="number" name="ageInput" id="ageInput">
+    </div>
+    <div>
+        <label for="heightInput">Height</label>
+        <input type="number" name="heightFeetInput" id="heightFeetInput">
+        <input type="number" name="heightInchesInput" id="heightInchesInput">
+    </div>
+    <div>
+        <label for="weightInput">Weight</label>
+        <input type="number" name="weightInput" id="weightInput">
+    </div>
+    <div>
+        <label for="studioInput">Gym/Studio</label>
+        <input type="text" name="studioInput" id="studioInput">
+    </div>
+    <div>
+        <label for="coachInput">Coach</label>
+        <input type="text" name="coachInput" id="coachInput">
+    </div>
+    <div>
+        <label for="goalsInput">Goals</label>
+        <textarea name="goalsInput" id="goalsInput" placeholder="Write your goals here, each goal separated by a new line!"></textarea>
+    </div>
+    <button type="submit">Update profile</button>
+</form>
+<div>{{error}}</div>

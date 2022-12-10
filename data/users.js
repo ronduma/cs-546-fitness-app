@@ -61,6 +61,56 @@ const checkUser = async (
   else throw 'Error: Invalid password. Please try again.'
 };
 
+const getUserByUsername = async (username) => {
+  username = username.toLowerCase();
+  const userCollection = await users();
+  const user = await userCollection.findOne({username: username});
+  if (!user){throw 'Error: The given username does not match our records. Please try again.'}
+  user._id = user._id.toString();
+  return user
+}
+
+
+const updateProfile = async (
+  username,
+  age,
+  heightFt,
+  heightIn,
+  weight,
+  studio,
+  coach,
+  goals
+) => {
+  getUserByUsername(username);
+  helpers.checkNumber(age, "age");
+  helpers.checkNumber(heightFt, "height");
+  helpers.checkNumber(heightIn, "height");
+  helpers.checkNumber(weight, "weight");
+  studio = helpers.checkString(studio, "studio")
+  coach = helpers.checkString(coach, "weight");
+  goals = helpers.checkString(goals, "goals");
+  const updatedValues = {
+    age : age,
+    heightFt : heightFt,
+    heightIn : heightIn,
+    weight : weight,
+    studio : studio,
+    coach : coach,
+    goals : goals
+  }
+  const userCollection = await users();
+  let user = await getUserByUsername(username);
+  console.log(user._id)
+  const update = await userCollection.updateOne(
+    {_id: user._id},
+    {$set: updatedValues}
+  );
+  console.log(update)
+  user = await getUserByUsername(username);
+
+  return user
+}
+
 const getAllUsers = async () => {
   const userCollection = await users();
   const userList = await userCollection.find({}).toArray();
@@ -87,14 +137,6 @@ const getUserById = async (userId) => {
       return usero;
 }
 
-const getUserByUsername = async (userName) => {
-  helpers.validateUsername(userName);
-  const userCollection = await users();
-  const thisUser = await userCollection.findOne({username: userName});
-  if(!thisUser) throw 'No user exists with that userName';
-  thisUser._id = thisUser._id.toString();
-  return thisUser;
-}
 
 const addExercise = async (
   userId,
@@ -159,5 +201,6 @@ module.exports = {
   checkUser,
   getUserById,
   getUserByUsername,
-  addExercise
+  addExercise,
+  updateProfile,
 };
