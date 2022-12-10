@@ -8,7 +8,16 @@ const saltRounds = 10;
 const createUser = async (
   username,
   email,
-  password
+  password,
+  firstName=undefined,
+  age=undefined,
+  height=undefined,
+  weight=undefined,
+  goals=undefined,
+  studio=undefined,
+  coach=undefined,
+  posts=[],
+  workoutRoutine=[]
 ) => {
   helpers.validateUsername(username);
   helpers.validatePassword(password);
@@ -21,15 +30,15 @@ const createUser = async (
     username: username,
     email: email,
     password: password,
-    firstName: undefined,
-    age: undefined,
-    height: undefined,
-    weight: undefined,
-    goals: undefined,
-    studio: undefined,
-    coach: undefined,
-    posts: [],
-    workoutRoutine: []
+    firstName: firstName,
+    age: age,
+    height: height,
+    weight: weight,
+    goals: goals,
+    studio: studio,
+    coach: coach,
+    posts: posts,
+    workoutRoutine: workoutRoutine
   };
   const insertInfo = await userCollection.insertOne(newUser);
   console.log(insertInfo)
@@ -78,9 +87,77 @@ const getUserById = async (userId) => {
       return usero;
 }
 
+const getUserByUsername = async (userName) => {
+  helpers.validateUsername(userName);
+  const userCollection = await users();
+  const thisUser = await userCollection.findOne({username: userName});
+  if(!thisUser) throw 'No user exists with that userName';
+  thisUser._id = thisUser._id.toString();
+  return thisUser;
+}
+
+const addExercise = async (
+  userId,
+  name,
+  weight,
+  sets,
+  reps, 
+  day
+) => {
+  userId = helpers.checkId(userId, 'userId');
+  name = helpers.checkString(name, 'Exercise Name');
+  weight = helpers.checkNumber(weight, 'Exercise Weight');
+  sets = helpers.checkNumber(sets, 'Number of Sets');
+  reps = helpers.checkNumber(reps, 'Number of Reps');
+  day = helpers.checkDay(day);
+  const thisUser = await getUserById(userId);
+  const userName = thisUser.username;
+  let newExercise = {
+    _id: new ObjectId(),
+    user: userName,
+    name: name,
+    weight: weight,
+    sets: sets,
+    reps: reps,
+    dayPlanned: day
+  }
+  const exerciseId = newExercise._id.toString();
+  thisUser.workoutRoutine.push(newExercise);
+  let updatedUser = {
+    username: thisUser.username,
+    email: thisUser.email,
+    password: thisUser.password,
+    firstName: thisUser.firstName,
+    age: thisUser.age,
+    height: thisUser.height,
+    weight: thisUser.weight,
+    goals: thisUser.goals,
+    studio: thisUser.studio,
+    coach: thisUser.coach,
+    posts: thisUser.posts,
+    workoutRoutine: thisUser.workoutRoutine
+  }
+  const userCollection = await users();
+  const updateInfo = await userCollection.updateOne({_id: ObjectId(userId)}, {$set: updatedUser});
+  if(!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed'
+  return getExercise(exerciseId);
+}
+
+const getExercise = async (exerciseId) => {
+  exerciseId = helpers.checkId(exerciseId, 'exerciseId');
+  const userCollection = await users();
+  let exercise = await userCollection.findOne({'workoutRoutine._id': ObjectId(exerciseId)},{projection:{_id: 0, 'workoutRoutine.$':1}});
+  if(!exercise) throw 'Error: no exercise found with the given exerciseId'
+  let retExer = exercise;
+  retExer.workoutRoutine[0]._id = exercise.workoutRoutine[0]._id.toString();
+  return retExer.workoutRoutine[0];
+}
+
 module.exports = {
   getAllUsers,
   createUser,
   checkUser,
   getUserById,
+  getUserByUsername,
+  addExercise
 };

@@ -1,4 +1,5 @@
 const emailValidator = require("email-validator");
+const {ObjectId} = require('mongodb');
 
 function checkString(strVal, varName) {
   if (!strVal) throw `Error: You must supply a ${varName}!`;
@@ -12,11 +13,20 @@ function checkString(strVal, varName) {
 }
 function checkNumber(numVal, varName) {
   if (!numVal) throw `Error: You must supply a ${varName}!`;
-  if (typeof numVal !== "number") throw `Error: ${varName} must be a string!`;
+  if (typeof numVal !== "number") throw `Error: ${varName} must be a number!`;
 
   if (isNaN(numVal))
     throw `Error: ${numVal} is not a valid value for ${varName} as it only contains nondigits`;
   return numVal;
+}
+function checkId (id, varName){
+  if (!id) throw `Error: You must provide a ${varName}`;
+  if (typeof id !== 'string') throw `Error: ${varName} must be of type string`;
+  id = id.trim();
+  if (id.length === 0)
+    throw `Error: ${varName} must not be empty`;
+  if(!ObjectId.isValid(ObjectId(id))) throw `${varName} must be a valid ObjectId`
+  return id
 }
 function validateUsername(username){
   if (!username) throw 'Error: You must supply a username.'
@@ -139,13 +149,22 @@ function checkGoals(goals){
     return true;
 
 }
+function checkDay(day){
+  let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  if(!days.includes(day)){
+    throw `${day} is not a valid day of the week`
+  }
+  return day;
+}
 module.exports = {
   checkString,
   checkNumber,
+  checkId,
   validateUsername,
   validateEmail,
   validatePassword,
   checkStringHasAtPeriod,
   checkHeight,
   checkGoals,
+  checkDay
 };
