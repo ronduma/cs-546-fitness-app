@@ -21,16 +21,15 @@ function checkString(strVal, varName) {
 }
 function checkNumber(numVal, varName) {
   if (!numVal) throw `Error: You must supply a ${varName}!`;
-  if (typeof numVal !== "number") throw `Error: ${varName} must be a number!`;
-
-  if (isNaN(numVal))
-    throw `Error: ${numVal} is not a valid value for ${varName} as it only contains nondigits`;
-
   numVal = parseInt(numVal);
-
+  if (isNaN(numVal)) throw `Error: ${numVal} is not a valid value for ${varName} as it contains nondigits`;
   if (typeof numVal !== "number") throw `Error: ${varName} must be a number!`;
-
   return parseInt(numVal);
+}
+function checkPosNum(numVal, varName){
+  numVal = checkNumber(numVal, varName);
+  if(numVal <= 0) throw `Error: ${varName} must be a positive number!`
+  return numVal
 }
 function checkId (id, varName){
   if (!id) throw `Error: You must provide a ${varName}`;
@@ -172,6 +171,7 @@ function checkDay(day){
 module.exports = {
   checkString,
   checkNumber,
+  checkPosNum,
   checkId,
   validateUsername,
   validateEmail,

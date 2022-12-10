@@ -26,13 +26,17 @@ router.get('/', async (req, res) => {
 router.post('/', async (req,res) => {
     if(req.session.user){
         try{
-            req.body.exerciseName = helpers.checkString(req.body.exerciseName, 'exerciseName');
-            req.body.exerciseWeight = helpers.checkNumber(parseInt(req.body.exerciseWeight), 'exerciseWeight');
-            req.body.numSets = helpers.checkNumber(parseInt(req.body.numSets), 'numSets');
-            req.body.numReps = helpers.checkNumber(parseInt(req.body.numReps), 'numReps');
+            req.body.exerciseName = helpers.checkString(req.body.exerciseName, 'Exercise Name');
+            req.body.exerciseWeight = helpers.checkPosNum(parseInt(req.body.exerciseWeight), 'Exercise Weight');
+            req.body.numSets = helpers.checkPosNum(parseInt(req.body.numSets), 'Number of Sets');
+            req.body.numReps = helpers.checkPosNum(parseInt(req.body.numReps), 'Number of Reps');
             req.body.dayOfWeek = helpers.checkDay(req.body.dayOfWeek);
         }catch(e){
-            res.status(400).json({error: e});
+            res.status(400).render('scheduler', {
+                title: 'Scheduler \• Jimbro',
+                message: e,
+                session: req.session.user
+            });
             return;
         }
         try{
@@ -45,7 +49,11 @@ router.post('/', async (req,res) => {
                 session: req.session.user
             });
         }catch(e){
-            res.status(500).json({error: e});
+            res.status(500).render('scheduler', {
+                title: 'Scheduler \• Jimbro',
+                message: e,
+                session: req.session.user
+            });
         }
     }
     else{
