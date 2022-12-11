@@ -49,6 +49,7 @@ router.post('/edit', async (req, res) => {
   let studio = req.body.studioInput;
   let coach = req.body.coachInput;
   let goals = req.body.goalsInput;
+  let user = await users.getUserByUsername(req.session.user);
   try {
     helpers.checkNumber(age, "age");
     helpers.checkNumber(heightFt, "height");
@@ -58,7 +59,12 @@ router.post('/edit', async (req, res) => {
     helpers.checkString(coach, "coach");
     helpers.checkString(goals, "goals");
   } catch (e) {
-    return res.status(400).render("../views/edit", { error : e });
+    return res.status(400).render('edit', {
+      title : "Edit Profile \• Jimbro",
+      message : e,
+      session : req.session.user,
+      username : user.username
+    });
   }
   try {
     let user = await users.updateProfile(req.session.user, age, heightFt, heightIn, weight, studio, coach, goals);
