@@ -1,5 +1,5 @@
-<h1>{{message}}</h1>
-<form method="POST" id="scheduler-form" action="/scheduler">
+<h1 class="header-spacing">{{message}}</h1>
+<form method="POST" id="scheduler-form" class="input-param" action="/scheduler">
     <div>
         <label for="dayOfWeek" class="input-param">Choose a day of the week for the workout: </label>
         <select name="dayOfWeek" id="dayOfWeek">
@@ -15,7 +15,7 @@
         <label for="exerciseName" class="input-param">Exercise Name: </label>
         <input type="text" name="exerciseName" id="exerciseName" required="required" placeholder="Exercise Name">
         <br>
-        <label for="exerciseWeight" class="input-param">Exercise Weight</label>
+        <label for="exerciseWeight" class="input-param">Exercise Weight: </label>
         <input type="number" name="exerciseWeight" id="exerciseWeight" required="required" placeholder="Exercise Weight">
         <br>
         <label for="numSets" class="input-param">Number of Sets: </label>
@@ -25,6 +25,14 @@
         <input type="number" name="numReps" id="numReps" required="required" placeholder="Number of Reps">
         <br>
         <label for="submitButton" class="input-param" hidden="true">Submit</label>
-        <input type="submit" name="submitButton" id="submitButton">
+        <button type="submit" name="submitButton" id="submitButton" >Submit</button>
+        <br>
     </div>
 </form>
+<label for="presetButton" class="input-param" hidden="true">Use preset workout</label>
+<button type="button" onclick="sampleRedirect()">Use Preset Workout</button>
+<script>
+    function sampleRedirect(){
+        window.location.href='/scheduler/preset';
+    }
+</script>

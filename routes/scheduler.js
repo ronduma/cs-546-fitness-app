@@ -1,16 +1,16 @@
 const express = require('express');
+const { workouts, users } = require('../data');
 const router = express.Router();
 const data = require('../data');
 const userData = data.users;
-const scheduler = data.scheduler;
-const path = require('path');
+const workoutData = data.workouts;
 const helpers = require('../helpers');
 
 router.get('/', async (req, res) => {
     if(req.session.user){
         res.status(200).render('scheduler', {
             title : "Scheduler \• Jimbro",
-            message : "this is the scheduler page",
+            message : "Welcome to the Workout Scheduler Page!",
             session : req.session.user
         });
     }
@@ -54,6 +54,75 @@ router.post('/', async (req,res) => {
                 message: e,
                 session: req.session.user
             });
+        }
+    }
+    else{
+        res.status(200).render('login', {
+            title : "Log In \• Jimbro",
+            message : "You need to log in to use the Scheduler",
+            session : req.session.user
+        });
+    }
+});
+
+router.get('/preset', async (req,res) => {
+    if(req.session.user){
+        //Get all the available workouts
+        const allWorkouts = await workoutData.getAllWorkouts();
+        const options = [];
+        allWorkouts.forEach(elem => options.push(elem.name));
+        res.status(200).render('schedulerPreset', {
+            title : "Scheduler \• Jimbro",
+            message : "Welcome to the Workout Scheduler Preset Page!",
+            session : req.session.user,
+            options: options
+        });
+    }
+    else{
+        res.status(200).render('login', {
+            title : "Log In \• Jimbro",
+            message : "You need to log in to use the Scheduler",
+            session : req.session.user
+        });
+    }
+});
+
+router.post('/preset', async (req,res) => {
+    if(req.session.user){
+        try{
+            req.body.sampleWorkoutName = helpers.checkString(req.body.sampleWorkoutName, 'Sample Workout Name');
+            req.body.dayOfWeek = helpers.checkDay(req.body.dayOfWeek);
+        }catch(e){
+            res.status(400).render('scheduler', {
+                title: 'Scheduler \• Jimbro',
+                message: e,
+                session: req.session.user
+            });
+            return;
+        }
+        try{
+            const thisWorkout = await workoutData.getWorkoutByName(req.body.sampleWorkoutName);
+            const thisUser = await users.getUserByUsername(req.session.user);
+            const userId = thisUser._id;
+            const dayOfWeek = req.body.dayOfWeek;
+            for(let i=0; i< thisWorkout.workout.length; i++){
+                const exerciseName = thisWorkout.workout[i].exercise;
+                const exerciseWeight = thisWorkout.workout[i].weight;
+                const numSets = thisWorkout.workout[i].sets;
+                const numReps = thisWorkout.workout[i].reps;
+                await userData.addExercise(userId, exerciseName, exerciseWeight, numSets, numReps, dayOfWeek);
+            }
+            res.status(200).render('scheduler', {
+                title: 'Scheduler \• Jimbro',
+                message: `${thisWorkout.name} has been added successfully!`,
+                session: req.session.user
+            });
+        }catch(e){
+            res.status(500).render('scheduler', {
+                title: 'Scheduler \• Jimbro',
+                message: e,
+                session: req.session.user
+            })
         }
     }
     else{
