@@ -35,7 +35,12 @@
     font-size: 14px;
     font-weight: 700;
 }
+
 .sub-exercise{
     line-height: 1;
     font-size: 12px;
+}
+
+.input-param{
+    padding: 5px;
 }
