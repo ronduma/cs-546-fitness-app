@@ -64,6 +64,25 @@ const getAllPostsNoUser = async () => {
   return arrayofPosts;
 };
 
+function sortedDesc(array) {
+  return array.sort((objA, objB) => Number(objB.postDate) - Number(objA.postDate),);
+}
+
+// const getDateOrderPosts = async (arrayofPosts) => {
+//   if (arrayofPosts == []){
+//     throw "No posts to order"
+//   }
+//   arrayofOrderedPosts = [];
+//   for (let i = 0; i < arrayofPosts.length; i++) {
+//     if (arrayofPosts[i].!=) {
+//       for (let j = 0; j < userList[i].posts.length; j++) {
+//         arrayofPosts.push(userList[i].posts[j]);
+//       }
+//     }
+//   }
+//   return arrayofPosts;
+// };
+
 //GIVEN user: _id objectID 
 const getAllPosts = async (userId) => {
     if (!userId) throw 'You must provide an id to search for';
@@ -83,23 +102,6 @@ const getAllPosts = async (userId) => {
     return userList.posts;
   };
 
-  const OrderedAllPosts = async (userId) => {
-    if (!userId) throw 'You must provide an id to search for';
-    if (typeof userId !== 'string') throw 'Id must be a string';
-    if (userId.trim().length === 0)
-      throw 'userId cannot be an empty string or just spaces';
-      userId = userId.trim();
-    if (!ObjectId.isValid(userId)) throw 'invalid object ID';
-
-    //fetch all reviews
-    const userCollection = await userDatabase();
-    const userList = await userData.getUserById(userId);
-    for (let i =0; i <userList.posts.length; i++){
-        userList.posts[i]._id=userList.posts[i]._id.toString();
-    }
-
-    return userList.posts;
-  };
 
   const getPost = async (postId) => {
     if (!postId) throw 'You must provide an id to search for';
@@ -137,5 +139,6 @@ module.exports = {
     getAllPosts,
     getPost,
     getAllPostsNoUser,
+    sortedDesc,
 
 };
