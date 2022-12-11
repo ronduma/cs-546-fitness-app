@@ -10,6 +10,13 @@
     color: grey;
 }
 
+.bold-title{
+    font-weight: 700;
+    color: black;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
 .header-spacing{
     padding-left: 20px;
     padding-top: 10px;
@@ -22,6 +29,10 @@
 .display-item{
     display: table-cell;
     padding: 20px;
+}
+
+.item-border{
+    border: 2px solid black;
 }
 
 .workout{
@@ -38,6 +49,11 @@
 
 .sub-exercise{
     line-height: 1;
+    font-size: 12px;
+}
+
+.schedule-exercise{
+    line-height: 0.5;
     font-size: 12px;
 }
 

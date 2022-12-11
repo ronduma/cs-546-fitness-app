@@ -133,4 +133,41 @@ router.post('/preset', async (req,res) => {
         });
     }
 });
+
+router.get('/schedule', async (req,res) => {
+    if(req.session.user){
+        const thisUser = await users.getUserByUsername(req.session.user);
+        let lists = {
+            mondayList: {dayPlanned: 'Monday', list: []},
+            tuesdayList: {dayPlanned: 'Tuesday', list: []},
+            wednesdayList: {dayPlanned: 'Wednesday', list: []},
+            thursdayList: {dayPlanned: 'Thursday', list: []},
+            fridayList: {dayPlanned: 'Friday', list: []},
+            saturdayList: {dayPlanned: 'Saturday', list: []},
+            sundayList: {dayPlanned: 'Sunday', list: []},
+        }
+        thisUser.workoutRoutine.forEach(elem => {
+            if (elem.dayPlanned === 'Monday') lists.mondayList.list.push(elem)
+            else if(elem.dayPlanned === 'Tuesday') lists.tuesdayList.list.push(elem)
+            else if(elem.dayPlanned === 'Wednesday') lists.wednesdayList.list.push(elem)
+            else if(elem.dayPlanned === 'Thursday') lists.thursdayList.list.push(elem)
+            else if(elem.dayPlanned === 'Friday') lists.fridayList.list.push(elem)
+            else if(elem.dayPlanned === 'Saturday') lists.saturdayList.list.push(elem)
+            else if(elem.dayPlanned === 'Sunday') lists.sundayList.list.push(elem)
+        })
+        res.status(200).render('schedule', {
+            title: 'Scheduler \• Jimbro',
+            message: `Here is your schedule for this week`,
+            session: req.session.user,
+            lists: lists
+        });
+    }
+    else{
+        res.status(200).render('login', {
+            title : "Log In \• Jimbro",
+            message : "You need to log in to use the Scheduler",
+            session : req.session.user
+        });
+    }
+});
 module.exports = router;

@@ -30,9 +30,14 @@
     </div>
 </form>
 <label for="presetButton" class="input-param" hidden="true">Use preset workout</label>
-<button type="button" onclick="sampleRedirect()">Use Preset Workout</button>
+<button type="button" id="presetButton" onclick="sampleRedirect()">Use Preset Workout</button>
+<label for="scheduleButton" class="input-param" hidden="true">View your schedule</label>
+<button type="button" id="scheduleButton" onclick="scheduleRedirect()">View your schedule</button>
 <script>
     function sampleRedirect(){
         window.location.href='/scheduler/preset';
+    }
+    function scheduleRedirect(){
+        window.location.href='/scheduler/schedule';
     }
 </script>

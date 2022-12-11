@@ -1,0 +1,24 @@
+<h1 class="header-spacing">{{message}}</h1>
+<ul class="display-list">
+    {{#each lists}}
+        <li class="display-item item-border">
+            <h2 class="bold-title">{{dayPlanned}}</h3>
+            {{#each list}}
+                <h4 class="exercise">{{name}}</h4>
+                <p class="schedule-exercise">{{weight}} lb Weight</p>
+                <p class="schedule-exercise">{{sets}} Sets</p>
+                <p class="schedule-exercise">{{reps}} Reps each</p>
+                {{else}}
+                <p class="schedule-exercise">No exercises for {{dayPlanned}}.</p>
+                <p class="schedule-exercise">Enjoy your rest!</p>
+            {{/each}}
+        </li>
+    {{/each}}
+</ul>
+<label for="schedulerButton" class="input-param" hidden="true">Return to scheduler</label>
+<button type="button" id="schedulerButton" onclick="schedulerRedirect()">Return to scheduler</button>
+<script>
+    function schedulerRedirect(){
+        window.location.href='/scheduler';
+    }
+</script>
