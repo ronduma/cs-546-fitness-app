@@ -17,7 +17,12 @@ const createUser = async (
   studio=undefined,
   coach=undefined,
   posts=[],
-  workoutRoutine=[]
+  workoutRoutine=[],
+  bodyGroupGoals = {
+    upperGoal: 0,
+    lowerGoal: 0,
+    coreGoal: 0
+  }
 ) => {
   helpers.validateUsername(username);
   helpers.validatePassword(password);
@@ -38,7 +43,8 @@ const createUser = async (
     studio: studio,
     coach: coach,
     posts: posts,
-    workoutRoutine: workoutRoutine
+    workoutRoutine: workoutRoutine,
+    bodyGroupGoals: bodyGroupGoals
   };
   const insertInfo = await userCollection.insertOne(newUser);
   console.log(insertInfo)
@@ -144,7 +150,8 @@ const addExercise = async (
   weight,
   sets,
   reps, 
-  day
+  day,
+  bodyGroup
 ) => {
   userId = helpers.checkId(userId, 'userId');
   name = helpers.checkString(name, 'Exercise Name');
@@ -152,6 +159,7 @@ const addExercise = async (
   sets = helpers.checkNumber(sets, 'Number of Sets');
   reps = helpers.checkNumber(reps, 'Number of Reps');
   day = helpers.checkDay(day);
+  bodyGroup = helpers.checkBodyGroup(bodyGroup);
   const thisUser = await getUserById(userId);
   const userName = thisUser.username;
   let newExercise = {
@@ -161,7 +169,8 @@ const addExercise = async (
     weight: weight,
     sets: sets,
     reps: reps,
-    dayPlanned: day
+    dayPlanned: day,
+    bodyGroup: bodyGroup
   }
   const exerciseId = newExercise._id.toString();
   thisUser.workoutRoutine.push(newExercise);
@@ -177,7 +186,8 @@ const addExercise = async (
     studio: thisUser.studio,
     coach: thisUser.coach,
     posts: thisUser.posts,
-    workoutRoutine: thisUser.workoutRoutine
+    workoutRoutine: thisUser.workoutRoutine,
+    bodyGroupGoals: thisUser.bodyGroupGoals
   }
   const userCollection = await users();
   const updateInfo = await userCollection.updateOne({_id: ObjectId(userId)}, {$set: updatedUser});
@@ -195,6 +205,38 @@ const getExercise = async (exerciseId) => {
   return retExer.workoutRoutine[0];
 }
 
+const updateGoals = async (userId, upperGoal, lowerGoal, coreGoal) => {
+  userId = helpers.checkId(userId, 'userId');
+  upperGoal= helpers.checkNumber(upperGoal, 'upperGoal');
+  lowerGoal = helpers.checkNumber(lowerGoal, 'lowerGoal');
+  coreGoal = helpers.checkNumber(coreGoal, 'coreGoal');
+  const thisUser = await getUserById(userId);
+  const newGoals = {
+    upperGoal: upperGoal,
+    lowerGoal: lowerGoal,
+    coreGoal: coreGoal
+  };
+  const updatedUser = {
+    username: thisUser.username,
+    email: thisUser.email,
+    password: thisUser.password,
+    firstName: thisUser.firstName,
+    age: thisUser.age,
+    height: thisUser.height,
+    weight: thisUser.weight,
+    goals: thisUser.goals,
+    studio: thisUser.studio,
+    coach: thisUser.coach,
+    posts: thisUser.posts,
+    workoutRoutine: thisUser.workoutRoutine,
+    bodyGroupGoals: newGoals
+  };
+  const userCollection = await users();
+  const updateInfo = await userCollection.updateOne({_id: ObjectId(userId)}, {$set: updatedUser});
+  if(!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed'
+  return getUserById(userId);
+}
+
 module.exports = {
   getAllUsers,
   createUser,
@@ -202,5 +244,7 @@ module.exports = {
   getUserById,
   getUserByUsername,
   addExercise,
+  getExercise,
+  updateGoals,
   updateProfile,
 };

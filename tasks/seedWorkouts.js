@@ -38,7 +38,8 @@ const main = async () => {
             sets: 4,
             reps: 20
         }],
-        'Monday'
+        'Monday',
+        'Upper Body'
     );   
     const lower = await workout.addWorkout(
         'Lower Body',
@@ -72,7 +73,8 @@ const main = async () => {
             sets: 4,
             reps: 12
         }],
-        'Wednesday'
+        'Wednesday',
+        'Lower Body'
     ); 
 
     console.log('Done seeding workout collection');
