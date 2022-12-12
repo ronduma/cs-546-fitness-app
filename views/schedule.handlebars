@@ -8,6 +8,7 @@
                 <p class="schedule-exercise">{{weight}} lb Weight</p>
                 <p class="schedule-exercise">{{sets}} Sets</p>
                 <p class="schedule-exercise">{{reps}} Reps each</p>
+                <p class="schedule-exercise">Body Group: {{bodyGroup}}</p>
                 {{else}}
                 <p class="schedule-exercise">No exercises for {{dayPlanned}}.</p>
                 <p class="schedule-exercise">Enjoy your rest!</p>
@@ -15,6 +16,15 @@
         </li>
     {{/each}}
 </ul>
+<ul class="display-list">
+    {{#each bodySatisfying}}
+        <li>
+            <p class="exercise-simple">Current {{bodyGroup}} goal: {{currGoal}}</p>
+            <p class="exercise-simple">Number of exercises satisfying the {{bodyGroup}} goal: {{numSat}}</p>
+        </li>
+    {{/each}}
+</ul>
+<br>
 <label for="schedulerButton" class="input-param" hidden="true">Return to scheduler</label>
 <button type="button" id="schedulerButton" onclick="schedulerRedirect()">Return to scheduler</button>
 <script>

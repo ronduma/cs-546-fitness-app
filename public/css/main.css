@@ -33,6 +33,12 @@
 
 .item-border{
     border: 2px solid black;
+
+}
+
+.item-border-dash{
+    border: 1px dashed black;
+    max-width: 50%
 }
 
 .workout{
@@ -43,6 +49,11 @@
 .exercise{
     text-decoration-line: underline;
     text-decoration-style: wavy;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.exercise-simple{
     font-size: 14px;
     font-weight: 700;
 }

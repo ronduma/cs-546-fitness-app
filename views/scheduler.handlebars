@@ -1,7 +1,7 @@
 <h1 class="header-spacing">{{message}}</h1>
 <form method="POST" id="scheduler-form" class="input-param" action="/scheduler">
     <div>
-        <label for="dayOfWeek" class="input-param">Choose a day of the week for the workout: </label>
+        <label for="dayOfWeek" class="input-param">Choose a day of the week for the exercise: </label>
         <select name="dayOfWeek" id="dayOfWeek">
             <option value="Monday">Monday</option>
             <option value="Tuesday">Tuesday</option>
@@ -24,6 +24,13 @@
         <label for="numReps" class="input-param">Number of Reps: </label>
         <input type="number" name="numReps" id="numReps" required="required" placeholder="Number of Reps">
         <br>
+        <label for="bodyGroup" class="input-param">Choose a body group for the exercise</label>
+        <select name="bodyGroup" id="bodyGroup">
+            <option value="Upper Body">Upper Body</option>
+            <option value="Lower Body">Lower Body</option>
+            <option value="Core">Core</option>
+        </select>
+        <br>
         <label for="submitButton" class="input-param" hidden="true">Submit</label>
         <button type="submit" name="submitButton" id="submitButton" >Submit</button>
         <br>
@@ -33,11 +40,16 @@
 <button type="button" id="presetButton" onclick="sampleRedirect()">Use Preset Workout</button>
 <label for="scheduleButton" class="input-param" hidden="true">View your schedule</label>
 <button type="button" id="scheduleButton" onclick="scheduleRedirect()">View your schedule</button>
+<label for="goalsButton" class="input-param" hidden="true">Set/Update your body group goals</label>
+<button type="button" id="goalsButton" onclick="goalRedirect()">Set/Update your body group goals</button>
 <script>
     function sampleRedirect(){
         window.location.href='/scheduler/preset';
     }
     function scheduleRedirect(){
         window.location.href='/scheduler/schedule';
+    }
+    function goalRedirect(){
+        window.location.href='/scheduler/goals'
     }
 </script>
