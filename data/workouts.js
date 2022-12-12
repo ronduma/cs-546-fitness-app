@@ -3,12 +3,13 @@ const {ObjectId} = require('mongodb');
 const { workouts } = require('../config/mongoCollections');
 const helpers = require('../helpers');
 
-const addWorkout = async (name, workout, dayPlanned) => {
+const addWorkout = async (name, workout, dayPlanned, bodyGroup) => {
     const workoutCollection = await workouts();
     const newWorkout = {
         name: name,
         workout: workout,
-        dayPlanned, dayPlanned
+        dayPlanned: dayPlanned,
+        bodyGroup: bodyGroup
     };
     const insertedInfo = await workoutCollection.insertOne(newWorkout);
     if(!insertedInfo.acknowledged || !insertedInfo.insertedId) throw 'Could not add workout'

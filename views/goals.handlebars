@@ -1,0 +1,22 @@
+<h1 class="header-spacing">{{message}}</h1>
+<form method="POST" id="goal-form" class="input-param" action="/scheduler/goals">
+    {{#each goals}}
+        <div class="item-border-dash">
+            <p>Current {{text}} Goal: {{goal}} </p>
+            <label for="{{@key}}" class="input-param">New {{text}} Goal: </label>
+            <input type="number" name="{{@key}}" id="{{@key}}" placeholder="{{goal}}">
+            <p></p>
+            <p></p>
+        </div>
+    {{/each}}
+    <br>
+    <label for="submitButton" class="input-param" hidden="true">Submit</label>
+    <button type="submit" name="submitButton" id="submitButton" >Submit</button>
+</form>
+<label for="schedulerButton" class="input-param" hidden="true">Return to scheduler</label>
+<button type="button" id="schedulerButton" onclick="schedulerRedirect()">Return to scheduler</button>
+<script>
+    function schedulerRedirect(){
+        window.location.href='/scheduler';
+    }
+</script>
