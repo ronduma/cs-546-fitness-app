@@ -1,16 +1,17 @@
-<h1>Welcome to <span class="navbar-brand">jimbro</span></h1>
-<div>{{message}}</div>
-<form method="POST" id="login-form" action="/login">
-    <div>
-        <label for="usernameInput">Username</label>
-        <input type="text" name="usernameInput" id="usernameInput" placeholder="Username">
-    </div>
-    <div>
-        <label type="password" for="passwordInput">Password</label>
-        <input type="password" name="passwordInput" id="passwordInput" placeholder="Password">
-    </div>
-    </div>
-    <button type="submit">Submit</button>
-</form>
-<div>{{error}}</div>
-<a href="/signup">Don't have an account yet? Click here to register!</a>
+<div class="d-flex flex-column justify-content-center align-items-center mt-5">
+    {{!-- <div>{{message}}</div>  --}}
+    <h1>Welcome to <span class="navbar-brand">jimbro</span></h1>
+    <form method="POST" id="login-form" action="/login">
+        <div class="form-row my-3">
+            <input type="text" name="usernameInput" id="usernameInput" placeholder="Username">
+        </div>
+        <div class="form-row my-3">
+            <input type="password" name="passwordInput" id="passwordInput" placeholder="Password">
+        </div>
+        <div class="form-row d-flex justify-content-center my-3">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    <div>{{error}}</div>
+    <a href="/signup">Don't have an account yet? Click here to register!</a>
+</div>
