@@ -55,12 +55,12 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// configRoutes(app);
+configRoutes(app);
 
-// app.listen(3000, () => {
-//   console.log("We've now got a server!");
-//   console.log('Your routes will be running on http://localhost:3000');
-// });
+app.listen(3000, () => {
+  console.log("We've now got a server!");
+  console.log('Your routes will be running on http://localhost:3000');
+});
 
 //TEST POSTS AND USER ADD
 // const users = require('./data/users');

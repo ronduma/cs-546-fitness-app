@@ -6,6 +6,7 @@ const path = require('path');
 
 router.get('/', async (req, res) => {
     if(req.session.user){
+      // what is protected? 
         return res.redirect('/protected');
       }
       else{
