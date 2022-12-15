@@ -207,9 +207,9 @@ const getExercise = async (exerciseId) => {
 
 const updateGoals = async (userId, upperGoal, lowerGoal, coreGoal) => {
   userId = helpers.checkId(userId, 'userId');
-  upperGoal= helpers.checkNumber(upperGoal, 'upperGoal');
-  lowerGoal = helpers.checkNumber(lowerGoal, 'lowerGoal');
-  coreGoal = helpers.checkNumber(coreGoal, 'coreGoal');
+  upperGoal= helpers.checkNumGoal(upperGoal, 'upperGoal');
+  lowerGoal = helpers.checkNumGoal(lowerGoal, 'lowerGoal');
+  coreGoal = helpers.checkNumGoal(coreGoal, 'coreGoal');
   const thisUser = await getUserById(userId);
   const newGoals = {
     upperGoal: upperGoal,
