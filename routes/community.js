@@ -8,9 +8,13 @@ const postData = data.post;
 router.get('/', async (req, res) => {
     let allposts = await postData.getAllPostsNoUser();
     // console.log(allposts);
-    console.log(allposts[0].username);
-    console.log(allposts[0].postTitle)
-    let orderedpost = postData.sortedDesc(allposts);
+    // console.log(allposts[0].username);
+    // console.log(allposts[0].postTitle)
+    if (!req.session.user){
+        return res.redirect("login");
+    }
+    else {
+        let orderedpost = postData.sortedDesc(allposts);
     console.log(orderedpost);
     res.status(200).render('community', {
         title : "Community \• Jimbro",
@@ -19,6 +23,8 @@ router.get('/', async (req, res) => {
         allpost : orderedpost,
     });
     return;
+
+    }
 });
 
 // router.post('/', async (req, res) => {
