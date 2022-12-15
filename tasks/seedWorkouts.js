@@ -76,6 +76,17 @@ const main = async () => {
         'Wednesday',
         'Lower Body'
     ); 
+    const core = await workout.addWorkout(
+        'Core',
+        [{
+            exercise: 'Crunches',
+            weight: 120,
+            sets: 5,
+            reps: 30
+        }],
+        'Friday',
+        'Core'
+    )
 
     console.log('Done seeding workout collection');
     await dbConnection.closeConnection();

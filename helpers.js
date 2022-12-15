@@ -20,10 +20,19 @@ function checkString(strVal, varName) {
   return strVal;
 }
 function checkNumber(numVal, varName) {
+  if (!numVal) throw `Error: You must supply a ${varName}!`;
+  numVal = parseInt(numVal);
+  if (isNaN(numVal)) throw `Error: ${numVal} is not a valid value for ${varName} as it contains nondigits`;
+  if (typeof numVal !== "number") throw `Error: ${varName} must be a number!`;
+  return parseInt(numVal);
+}
+function checkNumGoal(numVal, varName){
   if (numVal === null) throw `Error: You must supply a ${varName}!`;
   numVal = parseInt(numVal);
   if (isNaN(numVal)) throw `Error: ${numVal} is not a valid value for ${varName} as it contains nondigits`;
   if (typeof numVal !== "number") throw `Error: ${varName} must be a number!`;
+  if(numVal < 0) throw `Error: ${varName} must be a positive number!`;
+  if(numVal > 35) throw `Error: You must have a realistic value for ${varName}. ${numVal} is too high!`
   return parseInt(numVal);
 }
 function checkPosNum(numVal, varName){
@@ -178,6 +187,7 @@ function checkBodyGroup(group){
 module.exports = {
   checkString,
   checkNumber,
+  checkNumGoal,
   checkPosNum,
   checkId,
   validateUsername,
