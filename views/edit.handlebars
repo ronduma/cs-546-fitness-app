@@ -1,72 +1,44 @@
-<div class="d-flex flex-column justify-content-center align-items-center mt-5">
-    <h1>Edit Profile</h1> 
-    <form method="POST" id="registration-form" action="/profile/edit">
-        <div class="form-row my-3">
-            <input type="number" name="ageInput" id="ageInput" required="required" placeholder="Age">
+<div class="container text-center">
+    <div class="row d-flex justify-content-center mt-4">
+        <div class="col-md-4">
+            <i class="fa fa-solid fa-dumbbell fa-2xl mb-3"></i>
+            <h1>Edit Profile</h1> 
+            <h5 class="mt-3 mb-4">Your Information</h5> 
+            <form class="row g-3" method="POST" id="registration-form" action="/profile/edit">
+                <div class="col-md-6 form-floating gx-1">
+                    <input type="number" class="form-control" name="ageInput" id="ageInput" required="required" placeholder="Age" value="{{age}}">
+                    <label for="ageInput">Age</label>
+                </div>
+                <div class="col-md-6 form-floating gx-1">
+                    <input type="number" class="form-control" name="weightInput" id="weightInput" required="required" placeholder="Weight" value="{{weight}}">
+                    <label for="weightInput">Weight</label>
+                </div>
+                <div class="col-md-6 form-floating gx-1">
+                    <input type="number" class="form-control" name="heightFeetInput" id="heightFeetInput" required="required" placeholder="Height (Feet)" value="{{heightFt}}">
+                    <label for="heightFeetInput">Height (Feet)</label>
+                </div>
+                <div class="col-md-6 form-floating gx-1">
+                    <input type="number" class="form-control" name="heightInchesInput" id="heightInchesInput" required="required" placeholder="Height (Inches)" value="{{heightIn}}">
+                    <label for="heightInchesInput">Height (Inches)</label>
+                </div>
+                <div class="col-12 form-floating gx-1">
+                    <input type="text" class="form-control" name="studioInput" id="studioInput" required="required" placeholder="Gym/Studio" value="{{studio}}">
+                    <label for="studioInput">Studio</label>
+                </div>
+                <div class="col-12 form-floating gx-1">
+                    <input type="text" class="form-control" name="coachInput" id="coachInput" required="required" placeholder="Coach" value="{{coach}}">
+                    <label for="coachInput">Coach</label>
+                </div>
+                <div class="col-12 form-floating gx-1">
+                    <textarea name="goalsInput" class="form-control" id="goalsInput" placeholder="Write your goals here, each goal separated by a new line!" style="height:15vh">{{goals}}</textarea>
+                    <label for="goalsInput">Goals</label>
+                </div>
+                <div class="col-12">
+                    <a href="/profile" class="btn btn-secondary">Go Back</a>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
         </div>
-        <div class="form-row my-3">
-            <input type="number" name="heightFeetInput" id="heightFeetInput" required="required" placeholder="Height (Feet)">
-            <input type="number" name="heightInchesInput" id="heightInchesInput" required="required" placeholder="Height (Inches)">
-        </div>
-        <div class="form-row my-3">
-            <input type="number" name="weightInput" id="weightInput" required="required" placeholder="Weight">
-        </div>
-        <div class="form-row my-3">
-            <input type="text" name="studioInput" id="studioInput" required="required" placeholder="Gym/Studio">
-        </div>
-        <div class="form-row my-3">
-            <input type="text" name="coachInput" id="coachInput" required="required" placeholder="Coach">
-        </div>
-        <div class="form-row my-3">
-            <textarea name="goalsInput" id="goalsInput" placeholder="Write your goals here, each goal separated by a new line!"></textarea>
-        </div>
-        <button type="submit">Update profile</button>
-    </form>
-</div>
-<div>{{error}}</div>
-
-
-<form class="row g-3">
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4">
-  </div>
-  <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">Password</label>
-    <input type="password" class="form-control" id="inputPassword4">
-  </div>
-  <div class="col-12">
-    <label for="inputAddress" class="form-label">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-  </div>
-  <div class="col-12">
-    <label for="inputAddress2" class="form-label">Address 2</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-  </div>
-  <div class="col-md-6">
-    <label for="inputCity" class="form-label">City</label>
-    <input type="text" class="form-control" id="inputCity">
-  </div>
-  <div class="col-md-4">
-    <label for="inputState" class="form-label">State</label>
-    <select id="inputState" class="form-select">
-      <option selected>Choose...</option>
-      <option>...</option>
-    </select>
-  </div>
-  <div class="col-md-2">
-    <label for="inputZip" class="form-label">Zip</label>
-    <input type="text" class="form-control" id="inputZip">
-  </div>
-  <div class="col-12">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck">
-      <label class="form-check-label" for="gridCheck">
-        Check me out
-      </label>
     </div>
-  </div>
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </div>
-</form>
+    <div>{{error}}</div>
+</div>
