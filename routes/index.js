@@ -8,13 +8,18 @@ const signupRoutes = require('./signup');
 const loginRoutes = require('./login');
 const profileRoutes = require('./profile');
 const logoutRoutes = require('./logout');
+const communityPostRoutes = require('./communitypost');
 
 const constructorMethod = (app) => {
     app.use('/home', homeRoutes);
     app.use('/workouts', workoutsRoutes);
     app.use('/scheduler', schedulerRoutes);
     app.use('/community', communityRoutes);
+<<<<<<< HEAD
     app.use('/communitypost', communitypostRoutes);
+=======
+    app.use('/communitypost', communityPostRoutes);
+>>>>>>> main
     app.use('/about', aboutRoutes);
     app.use('/signup', signupRoutes);
     app.use('/login', loginRoutes);

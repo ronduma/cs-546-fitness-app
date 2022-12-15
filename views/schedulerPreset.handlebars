@@ -1,0 +1,30 @@
+<h1 class="header-spacing">{{message}}</h1>
+<form method="POST" id="scheduler-form" class="input-param" action="/scheduler/preset">
+    <label for="dayOfWeek" class="input-param">Choose a day of the week for the workout: </label>
+    <select name="dayOfWeek" id="dayOfWeek">
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+        <option value="Sunday">Sunday</option>
+    </select>
+    <br>
+    <label for="sampleWorkoutName" class="input-param">Choose a preset workout: </label>
+    <select name="sampleWorkoutName" id="sampleWorkoutName">
+        {{#each options}}
+            <option value="{{this}}">{{this}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label for="submitButton" class="input-param" hidden="true">Submit</label>
+    <button type="submit" name="submitButton" id="submitButton">Submit</button>
+</form>
+<label for="schedulerButton" class="input-param" hidden="true">Return to scheduler</label>
+<button type="button" id="schedulerButton" onclick="schedulerRedirect()">Return to scheduler</button>
+<script>
+    function schedulerRedirect(){
+        window.location.href='/scheduler';
+    }
+</script>

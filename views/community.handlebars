@@ -1,8 +1,16 @@
 <h1>{{message}}</h1>
+<<<<<<< HEAD
 
 <form action="/communitypost">
     <input type="submit" class="createbutton" value="Create Post">
 </form>
+=======
+{{!-- <form action="/communitypost">
+    <input type="submit" class="createbutton" value="Create Post">
+</form> --}}
+
+ <a href="/communitypost" class="createbutton">Create a Post</a>
+>>>>>>> main
 
 
 <div class="communityContainer">
@@ -39,5 +47,35 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+<div class="card">
+    {{#if allpost.length}}
+    {{#each allpost}}
+            <h3>{{postTitle}}</h3>
+            <div class="card__content">
+                <p>
+                    {{post}}
+                </p>
+                <div class="card_stats">
+                    <div>
+                        <p>{{username}} </p>
+                    </div>
+                    <div>
+                        <p>Likes:{{likes}} </p>
+                    </div>
+                    <div>
+                        <p>Comments</p>
+                    </div>
+                    <div>
+                        <p>{{postDate}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+{{/if}}
+        </div>
+
+>>>>>>> main
     </div>
         <a class="nav-link" href="/community">Click here view the top posts!</a>

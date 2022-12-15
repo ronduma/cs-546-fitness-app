@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<h1>{{message}}</h1>
+>>>>>>> main
 <form action="/communitypost" method="POST" id="community-post" class="user-post">
             <label for="postTitleInput">Post Title</label>
              <input id = "postTitleInput"  class="postTitleInput" placeholder="Enter post" name="postTitleInput" required minlength="2">
@@ -12,5 +16,16 @@
                         {{/if}} --}}
 
             <button type="submit" class="paymentsubmission">Submit</button>
+<<<<<<< HEAD
         </div>
         </form>
+=======
+        </form>
+        <div>
+                {{#if err}}
+                        <br>
+                        <p class="err">{{error}}</p>
+                        {{/if}}
+
+            </div>
+>>>>>>> main

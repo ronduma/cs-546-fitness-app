@@ -11,7 +11,8 @@ const createPost = async (user, postTitle, post) => {
   if (typeof user != "string") {
     throw "You must provide user string";
   }
-  if (!ObjectId.isValid(user)) throw "invalid object ID";
+  await userData.getUserByUsername(user.trim());
+
   if (!postTitle || postTitle == undefined) {
     throw "You must provide a postTitle for user";
   }
@@ -32,6 +33,7 @@ const createPost = async (user, postTitle, post) => {
 
   let newPost = {
     _id : ObjectId(),
+    username: user.trim(),
     postTitle: postTitle.trim(),
     postDate: currDate,
     post: post,
@@ -39,12 +41,47 @@ const createPost = async (user, postTitle, post) => {
     comments: [],
     likeArray: [],
   };
-  const insertedInfo = await userCollection.updateOne({_id: ObjectId(user)},{$push: 
+  const insertedInfo = await userCollection.updateOne({username:user.trim()},{$push: 
     {posts: newPost}}); 
 
   return {insertedPost: true};
 
 };
+//Get all posts in db
+const getAllPostsNoUser = async () => {
+  const userCollection = await userDatabase();
+  const userList = await userCollection.find({}).toArray();
+  if (!userList) throw "Could not get any users";
+  // console.log(movieList);
+  arrayofPosts = [];
+  for (let i = 0; i < userList.length; i++) {
+    if (userList[i].posts != []) {
+      for (let j = 0; j < userList[i].posts.length; j++) {
+        arrayofPosts.push(userList[i].posts[j]);
+      }
+    }
+  }
+  return arrayofPosts;
+};
+
+function sortedDesc(array) {
+  return array.sort((objA, objB) => Number(objB.postDate) - Number(objA.postDate),);
+}
+
+// const getDateOrderPosts = async (arrayofPosts) => {
+//   if (arrayofPosts == []){
+//     throw "No posts to order"
+//   }
+//   arrayofOrderedPosts = [];
+//   for (let i = 0; i < arrayofPosts.length; i++) {
+//     if (arrayofPosts[i].!=) {
+//       for (let j = 0; j < userList[i].posts.length; j++) {
+//         arrayofPosts.push(userList[i].posts[j]);
+//       }
+//     }
+//   }
+//   return arrayofPosts;
+// };
 
 //GIVEN user: _id objectID 
 const getAllPosts = async (userId) => {
@@ -64,6 +101,7 @@ const getAllPosts = async (userId) => {
 
     return userList.posts;
   };
+
 
   const getPost = async (postId) => {
     if (!postId) throw 'You must provide an id to search for';
@@ -99,6 +137,8 @@ const getAllPosts = async (userId) => {
 module.exports = {
     createPost,
     getAllPosts,
-    getPost
+    getPost,
+    getAllPostsNoUser,
+    sortedDesc,
 
 };
