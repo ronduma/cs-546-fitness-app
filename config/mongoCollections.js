@@ -19,4 +19,5 @@ const getCollectionFn = (collection) => {
 module.exports = {
   users: getCollectionFn('user_collection'),
   workouts: getCollectionFn('workout_collection')
+  
 };

@@ -1,0 +1,37 @@
+<h1>{{message}}</h1>
+
+<h4>Ratio of Body Workouts</h4>
+<div>
+    <p>This graph is to shows which body group {{session}} workouts the most within the week</p>
+</div>
+
+
+<div class="popup-content">
+    <div class ="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{{!-- ratio of type of body workouts --}}
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Upper Body %', 'Core %', 'Lower Body %'],
+      datasets: [{
+        data: [{{upper_per}}, {{core_per}}, {{lower_per}}],
+        backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)'
+    ],
+        borderWidth: 1
+      }]
+    }
+  });
+</script>

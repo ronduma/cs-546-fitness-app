@@ -5,5 +5,7 @@ module.exports = {
     user: userData,
     post: postData,
     workouts: workoutData
+    
+};
 
-}
+
