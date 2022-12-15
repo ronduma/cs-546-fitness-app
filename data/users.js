@@ -51,6 +51,10 @@ const createUser = async (
   if (!insertInfo.acknowledged || !insertInfo.insertedId) {
     throw "Could not add user";
   }
+  // let userId = newUser["_id"].toString();
+
+  // newUser["_id"] = userId;
+  // return newUser;
   return {insertedUser : true} 
 };
 

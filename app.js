@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const app = express();
 const session = require('express-session');
@@ -53,42 +55,60 @@ app.use(async (req, res, next) => {
   next();
 });
 
-configRoutes(app);
+// configRoutes(app);
 
-app.listen(3000, () => {
-  console.log("We've now got a server!");
-  console.log('Your routes will be running on http://localhost:3000');
-});
+// app.listen(3000, () => {
+//   console.log("We've now got a server!");
+//   console.log('Your routes will be running on http://localhost:3000');
+// });
 
-// //TEST POSTS AND USER ADD
+//TEST POSTS AND USER ADD
 // const users = require('./data/users');
 // const posts = require('./data/posts');
 // const connection = require('./config/mongoConnection');
+// const stats = require('./data/statsDiagram')
 // const main = async () => {
 //     const db = await connection.dbConnection();
 
 //     await db.dropDatabase();
-//     user1 = await users.createUser("dtran", "dtran3@stevens.edu", "Password123!");
-//     console.log(user1);//2
-//     console.log('user1 Dylan has been added!');
 
+//     try{
+//       let user1 = await users.createUser("dtran", "dtran3@stevens.edu", "Password123!");
+//       let _id = user1._id;
+//       await users.addExercise(_id.toString(), "benchpress", "145", "5", "5", "Monday", "Upper Body");
+//       await users.addExercise(_id.toString(), "dumb bell benchpress", "145", "5", "5", "Monday", "Upper Body");
+//       // await users.getUserById(_id.toString());
+//       let exercise = await stats.getAllExcercise(_id.toString());
+//       let ratio = await stats.groupRatio(_id.toString());
+//       console.log(ratio);//2
+      
+//     }catch(e){
+//       console.log(e);
+//     }
+//     // console.log('user1 Dylan has been added!');
 
-//     user1 = await users.createUser("dtran31@stevens.edu", "dtran", "12345678", "dylan", 20, "5ft 10in", 170, ["Hit a PR for bench", "Do 3x12 with 25's on bicep curl", "Bench 80's"], "PF", "Zyzz");
-//     console.log(user1);//2
-//     console.log('user1 Dylan has been added!');
-//     user2 = await users.createUser("DDDDD@stevens.edu", "dtran", "12345678", "dylan", 20, "5ft 10in", 170, ["Hit a PR for bench", "Do 3x12 with 25's on bicep curl", "Bench 80's"], "PF", "Zyzz");
-//     console.log(user2);//2
+//     // await users.addExercise(user1._id, "Bench Press", 
+//     // "145", "2", "2", "Monday", "Upper Body");
 
-//     //Create POSTS
-//     post1= await posts.createPost("6386e01babaf0b74a877b322", "Fake postTitle", "An nonempty post");
-//     console.log(post1);//2
+//     // let upper = await stats.upperData("639adb04984e43c1f2827c56");
+    
+//     // console.log(upper);
+//     // // user1 = await users.createUser("dtran31@stevens.edu", "dtran", "12345678", "dylan", 20, "5ft 10in", 170, ["Hit a PR for bench", "Do 3x12 with 25's on bicep curl", "Bench 80's"], "PF", "Zyzz");
+//     // console.log(user1);//2
+//     // console.log('user1 Dylan has been added!');
+//     // user2 = await users.createUser("DDDDD@stevens.edu", "dtran", "12345678", "dylan", 20, "5ft 10in", 170, ["Hit a PR for bench", "Do 3x12 with 25's on bicep curl", "Bench 80's"], "PF", "Zyzz");
+//     // console.log(user2);//2
 
-//     post2= await posts.createPost("6386e01babaf0b74a877b322", "Fake postTitle2", "2 An nonempty post");
-//     console.log(post2);//2
+//     // //Create POSTS
+//     // post1= await posts.createPost("6386e01babaf0b74a877b322", "Fake postTitle", "An nonempty post");
+//     // console.log(post1);//2
 
-// //Get all post of user2 which has no posts []
-//     getAllpost= await posts.getAllPosts("6386e40aad58eff67e5563a2");
-//     console.log(getAllpost);//2
+//     // post2= await posts.createPost("6386e01babaf0b74a877b322", "Fake postTitle2", "2 An nonempty post");
+//     // console.log(post2);//2
+
+// // //Get all post of user2 which has no posts []
+// //     getAllpost= await posts.getAllPosts("6386e40aad58eff67e5563a2");
+// //     console.log(getAllpost);//2
 
 //     await connection.closeConnection();
 // }

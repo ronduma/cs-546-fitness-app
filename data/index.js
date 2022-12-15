@@ -6,4 +6,5 @@ module.exports = {
     posts: postsData,
     users: usersData,
     workouts: workoutData
+    
 };
