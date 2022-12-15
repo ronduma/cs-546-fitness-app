@@ -60,26 +60,3 @@ app.listen(3000, () => {
   console.log('Your routes will be running on http://localhost:3000');
 });
 
-//TEST POSTS AND USER ADD
-// const users = require('./data/users');
-// const posts = require('./data/posts');
-// const connection = require('./config/mongoConnection');
-// const main = async () => {
-//     const db = await connection.dbConnection();
-
-
-//     ////Creaste POSTS
-//     // post1= await posts.createPost("6386e01babaf0b74a877b322", "Fake postTitle", "An nonempty post");
-//     // console.log(post1);//2
-
-//     // post2= await posts.createPost("6386e01babaf0b74a877b322", "Fake postTitle2", "2 An nonempty post");
-//     // console.log(post2);//2
-
-// //Get all post of user2 which has no posts []
-//     getAllpost= await posts.getAllPostsNoUser();
-//     console.log(getAllpost);//2
-
-//     await connection.closeConnection();
-// }
-
-// main();

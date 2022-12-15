@@ -1,4 +1,5 @@
 const emailValidator = require("email-validator");
+const {ObjectId} = require('mongodb');
 const e = require("express");
 
 function checkString(strVal, varName) {
@@ -19,22 +20,25 @@ function checkString(strVal, varName) {
   return strVal;
 }
 function checkNumber(numVal, varName) {
-  if (!numVal){
-    if (/^[aeiou]$/.test(varName.charAt(0))){
-      `Error: You must supply an ${varName}!`;
-    }
-    else{
-      `Error: You must supply a ${varName}!`;
-    }
-  }
-  if (isNaN(numVal))
-    throw `Error: ${numVal} is not a valid value for ${varName} as it only contains nondigits`;
-
+  if (numVal === null) throw `Error: You must supply a ${varName}!`;
   numVal = parseInt(numVal);
-
+  if (isNaN(numVal)) throw `Error: ${numVal} is not a valid value for ${varName} as it contains nondigits`;
   if (typeof numVal !== "number") throw `Error: ${varName} must be a number!`;
-
   return parseInt(numVal);
+}
+function checkPosNum(numVal, varName){
+  numVal = checkNumber(numVal, varName);
+  if(numVal <= 0) throw `Error: ${varName} must be a positive number!`
+  return numVal
+}
+function checkId (id, varName){
+  if (!id) throw `Error: You must provide a ${varName}`;
+  if (typeof id !== 'string') throw `Error: ${varName} must be of type string`;
+  id = id.trim();
+  if (id.length === 0)
+    throw `Error: ${varName} must not be empty`;
+  if(!ObjectId.isValid(ObjectId(id))) throw `${varName} must be a valid ObjectId`
+  return id
 }
 function validateUsername(username){
   if (!username) throw 'Error: You must supply a username.'
@@ -187,11 +191,28 @@ if (postbody.trim().length <5) {
   }
 
 return postbody.trim();
+}
+
+function checkDay(day){
+  let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  if(!days.includes(day)){
+    throw `${day} is not a valid day of the week`
+  }
+  return day;
+}
+function checkBodyGroup(group){
+  let bodyGroups = ['Upper Body', 'Lower Body', 'Core'];
+  if(!bodyGroups.includes(group)){
+    throw `${group} is not a valid body group`
+  }
+  return group;
 
 }
 module.exports = {
   checkString,
   checkNumber,
+  checkPosNum,
+  checkId,
   validateUsername,
   validateEmail,
   validatePassword,
@@ -200,5 +221,7 @@ module.exports = {
   checkGoals,
   validatePostTitle,
   validatePostBody,
+  checkDay,
+  checkBodyGroup
 
 };

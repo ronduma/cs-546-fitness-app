@@ -10,6 +10,13 @@
     color: grey;
 }
 
+.bold-title{
+    font-weight: 700;
+    color: black;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
 .header-spacing{
     padding-left: 20px;
     padding-top: 10px;
@@ -24,6 +31,16 @@
     padding: 20px;
 }
 
+.item-border{
+    border: 2px solid black;
+
+}
+
+.item-border-dash{
+    border: 1px dashed black;
+    max-width: 50%
+}
+
 .workout{
     font-size: 20px;
     font-weight: 700;
@@ -35,6 +52,12 @@
     font-size: 14px;
     font-weight: 700;
 }
+
+.exercise-simple{
+    font-size: 14px;
+    font-weight: 700;
+}
+
 .sub-exercise{
     line-height: 1;
     font-size: 12px;
@@ -94,4 +117,13 @@ font-size: 0.8em;
 border-bottom: 2px solid #333333;
 border-right: 2px solid #333333;
 border-left: 2px solid #333333;
+}
+.schedule-exercise{
+    line-height: 0.5;
+    font-size: 12px;
+}
+
+.input-param{
+    padding: 5px;
+
 }
