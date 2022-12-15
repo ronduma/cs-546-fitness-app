@@ -1,16 +1,43 @@
-(function () {
-    const schedulerForm = document.getElementById('scheduler-form');
-    const exerciseList = document.getElementById('exercise-form');
-    const updateButton = document.getElementById('addExerciseButton');
-    updateButton.addEventListener('click', () => {
-        document.createElement('label', {for: 'exerciseName', class: 'input-param', value: 'Exercise Name'})
-        exerciseList.append(`<label for="exerciseName" class="input-param">Exercise Name: </label>`);
-        exerciseList.innerHTML = exerciseList.innerHTML + `<input type="text" name="exerciseName" id="exerciseName" required="required" placeholder="Exercise Name"> <br>`
-        exerciseList.innerHTML = exerciseList.innerHTML + `<label for="exerciseWeight" class="input-param">Exercise Weight</label>`
-        exerciseList.innerHTML = exerciseList.innerHTML + `<input type="number" name="exerciseWeight" id="exerciseWeight" required="required" placeholder="Exercise Weight"><br>`
-        exerciseList.innerHTML = exerciseList.innerHTML + `<label for="numSets" class="input-param">Number of Sets: </label>`
-        exerciseList.innerHTML = exerciseList.innerHTML + `<input type="number" name="numSets" id="numSets" required="required" placeholder="Number of Sets"><br>`
-        exerciseList.innerHTML = exerciseList.innerHTML + `<label for="numReps" class="input-param">Number of Reps: </label>`
-        exerciseList.innerHTML = exerciseList.innerHTML + `<input type="number" name="numReps" id="numReps" required="required" placeholder="Number of Reps">`
-    });
-})();
+(function ($) {
+    var newExerciseForm = $('#scheduler-form'),
+        newNameInput = $('#exerciseName'),
+        newDayInput = $('#dayOfWeek'),
+        newWeightInput  = $('#exerciseWeight'),
+        newNumSetsInput = $('#numSets'),
+        newNumRepsInput = $('#numReps'),
+        newBodyGroupInput = $('#bodyGroup'),
+        wholePage = $('#main-page-AJAX');
+
+    newExerciseForm.submit(function (event) {
+        event.preventDefault();
+
+        var newName = newNameInput.val();
+        var newDay = newDayInput.val();
+        var newWeight = newWeightInput.val();
+        var newNumSets = newNumSetsInput.val();
+        var newNumReps = newNumRepsInput.val();
+        var newBodyGroup = newBodyGroupInput.val();
+
+        if(newName && newDay && newWeight && newNumSets && newNumReps && newBodyGroup){
+            var requestConfig = {
+                method: 'POST',
+                url: '/scheduler',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    exerciseName: newName,
+                    exerciseWeight: newWeight,
+                    numSets: newNumSets,
+                    numReps: newNumReps,
+                    dayOfWeek: newDay,
+                    bodyGroup: newBodyGroup
+                })
+            };
+            $.ajax(requestConfig).then(function(responseMessage){
+                console.log(responseMessage);
+                var newPage = $(responseMessage);
+                wholePage.replaceWith(newPage);
+            });
+        }
+    })
+
+})(window.jQuery);

@@ -5,6 +5,7 @@ const data = require('../data');
 const userData = data.users;
 const workoutData = data.workouts;
 const helpers = require('../helpers');
+const xss = require('xss');
 
 router.get('/', async (req, res) => {
     if(req.session.user){
@@ -22,16 +23,16 @@ router.get('/', async (req, res) => {
         });
     }
 });
-
+//Change this route to use AJAX
 router.post('/', async (req,res) => {
     if(req.session.user){
         try{
-            req.body.exerciseName = helpers.checkString(req.body.exerciseName, 'Exercise Name');
-            req.body.exerciseWeight = helpers.checkPosNum(parseInt(req.body.exerciseWeight), 'Exercise Weight');
-            req.body.numSets = helpers.checkPosNum(parseInt(req.body.numSets), 'Number of Sets');
-            req.body.numReps = helpers.checkPosNum(parseInt(req.body.numReps), 'Number of Reps');
-            req.body.dayOfWeek = helpers.checkDay(req.body.dayOfWeek);
-            req.body.bodyGroup = helpers.checkBodyGroup(req.body.bodyGroup);
+            req.body.exerciseName = helpers.checkString(xss(req.body.exerciseName), 'Exercise Name');
+            req.body.exerciseWeight = helpers.checkPosNum(parseInt(xss(req.body.exerciseWeight)), 'Exercise Weight');
+            req.body.numSets = helpers.checkPosNum(parseInt(xss(req.body.numSets)), 'Number of Sets');
+            req.body.numReps = helpers.checkPosNum(parseInt(xss(req.body.numReps)), 'Number of Reps');
+            req.body.dayOfWeek = helpers.checkDay(xss(req.body.dayOfWeek));
+            req.body.bodyGroup = helpers.checkBodyGroup(xss(req.body.bodyGroup));
         }catch(e){
             res.status(400).render('scheduler', {
                 title: 'Scheduler \• Jimbro',
@@ -43,7 +44,7 @@ router.post('/', async (req,res) => {
         try{
             const thisUser = await userData.getUserByUsername(req.session.user);
             const userId = thisUser._id;
-            await userData.addExercise(userId, req.body.exerciseName, req.body.exerciseWeight, req.body.numSets, req.body.numReps, req.body.dayOfWeek, req.body.bodyGroup);
+            await userData.addExercise(userId, xss(req.body.exerciseName), xss(req.body.exerciseWeight), xss(req.body.numSets), xss(req.body.numReps), xss(req.body.dayOfWeek), xss(req.body.bodyGroup));
             res.status(200).render('scheduler', {
                 title: 'Scheduler \• Jimbro',
                 message: 'Exercise successfully added',
@@ -91,8 +92,8 @@ router.get('/preset', async (req,res) => {
 router.post('/preset', async (req,res) => {
     if(req.session.user){
         try{
-            req.body.sampleWorkoutName = helpers.checkString(req.body.sampleWorkoutName, 'Sample Workout Name');
-            req.body.dayOfWeek = helpers.checkDay(req.body.dayOfWeek);
+            req.body.sampleWorkoutName = helpers.checkString(xss(req.body.sampleWorkoutName), 'Sample Workout Name');
+            req.body.dayOfWeek = helpers.checkDay(xss(req.body.dayOfWeek));
         }catch(e){
             res.status(400).render('scheduler', {
                 title: 'Scheduler \• Jimbro',
@@ -102,10 +103,10 @@ router.post('/preset', async (req,res) => {
             return;
         }
         try{
-            const thisWorkout = await workoutData.getWorkoutByName(req.body.sampleWorkoutName);
-            const thisUser = await users.getUserByUsername(req.session.user);
+            const thisWorkout = await workoutData.getWorkoutByName(xss(req.body.sampleWorkoutName));
+            const thisUser = await userData.getUserByUsername(req.session.user);
             const userId = thisUser._id;
-            const dayOfWeek = req.body.dayOfWeek;
+            const dayOfWeek = xss(req.body.dayOfWeek);
             const bodyGroup = thisWorkout.bodyGroup;
             for(let i=0; i< thisWorkout.workout.length; i++){
                 const exerciseName = thisWorkout.workout[i].exercise;
@@ -138,7 +139,7 @@ router.post('/preset', async (req,res) => {
 
 router.get('/schedule', async (req,res) => {
     if(req.session.user){
-        const thisUser = await users.getUserByUsername(req.session.user);
+        const thisUser = await userData.getUserByUsername(req.session.user);
         let lists = {
             mondayList: {dayPlanned: 'Monday', list: []},
             tuesdayList: {dayPlanned: 'Tuesday', list: []},
@@ -184,7 +185,7 @@ router.get('/schedule', async (req,res) => {
 
 router.get('/goals', async (req,res) => {
     if(req.session.user){
-        const thisUser = await users.getUserByUsername(req.session.user);
+        const thisUser = await userData.getUserByUsername(req.session.user);
         res.status(200).render('goals', {
             title : "Scheduler \• Jimbro",
             message : "Here you can set or update your Body Group Weekly goals",
@@ -207,13 +208,13 @@ router.get('/goals', async (req,res) => {
 
 router.post('/goals', async(req,res) => {
     if(req.session.user){
-        const thisUser = await users.getUserByUsername(req.session.user);
+        const thisUser = await userData.getUserByUsername(req.session.user);
         let updatedCount = 0;
         //Check each input, if it is not passed in then use the old goal value
-        if(!req.body.upperGoal) {req.body.upperGoal = thisUser.bodyGroupGoals.upperGoal;}
+        if(!xss(req.body.upperGoal)) {req.body.upperGoal = thisUser.bodyGroupGoals.upperGoal;}
         else{
             try{
-                req.body.upperGoal = helpers.checkNumber(req.body.upperGoal, 'Upper Body Goal');
+                req.body.upperGoal = helpers.checkNumber(xss(req.body.upperGoal), 'Upper Body Goal');
                 updatedCount++;
             }catch(e){
                 res.status(400).render('goals', {
@@ -229,12 +230,11 @@ router.post('/goals', async(req,res) => {
                 return;
             }
         }
-        console.log('Passed upper')
 
-        if(!req.body.lowerGoal) {req.body.lowerGoal = thisUser.bodyGroupGoals.lowerGoal;}
+        if(!xss(req.body.lowerGoal)) {req.body.lowerGoal = thisUser.bodyGroupGoals.lowerGoal;}
         else{
             try{
-                req.body.lowerGoal = helpers.checkNumber(req.body.lowerGoal, 'Lower Body Goal');
+                req.body.lowerGoal = helpers.checkNumber(xss(req.body.lowerGoal), 'Lower Body Goal');
                 updatedCount++;
             }catch(e){
                 res.status(400).render('goals', {
@@ -250,12 +250,11 @@ router.post('/goals', async(req,res) => {
                 return;
             }
         }
-        console.log('Passed Lower')
 
-        if(!req.body.coreGoal) {req.body.coreGoal = thisUser.bodyGroupGoals.coreGoal;}
+        if(!xss(req.body.coreGoal)) {req.body.coreGoal = thisUser.bodyGroupGoals.coreGoal;}
         else{
             try{
-                req.body.coreGoal = helpers.checkNumber(req.body.coreGoal, 'Core Goal');
+                req.body.coreGoal = helpers.checkNumber(xss(req.body.coreGoal), 'Core Goal');
                 updatedCount++;
             }catch(e){
                 res.status(400).render('goals', {
@@ -271,7 +270,6 @@ router.post('/goals', async(req,res) => {
                 return;
             }
         }
-        console.log('Passed Core')
         //Now update the goals
         if(updatedCount === 0){
             res.status(200).render('scheduler', {
@@ -283,7 +281,7 @@ router.post('/goals', async(req,res) => {
         } 
         try{
             const userId = thisUser._id;
-            await users.updateGoals(userId, req.body.upperGoal, req.body.lowerGoal, req.body.coreGoal);
+            await userData.updateGoals(userId, xss(req.body.upperGoal), xss(req.body.lowerGoal), xss(req.body.coreGoal));
             res.status(200).render('scheduler', {
                 title: 'Scheduler \• Jimbro',
                 message: 'Goals successfully updated!',

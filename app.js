@@ -62,6 +62,7 @@ app.listen(3000, () => {
   console.log('Your routes will be running on http://localhost:3000');
 });
 
+
 //TEST POSTS AND USER ADD
 // const users = require('./data/users');
 // const posts = require('./data/posts');
@@ -114,3 +115,4 @@ app.listen(3000, () => {
 // }
 
 // main();
+
