@@ -1,8 +1,0 @@
-1) Check if user is logged in, if not direct them to login page
-2) User selects day of week
-3) Input
-    6a) Exercise name    
-    6b) Exercise weight
-    6c) Exercise sets 
-    6d) Exercise reps
-4) Add to User's workout subdocument
