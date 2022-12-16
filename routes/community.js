@@ -89,7 +89,6 @@ router.route("/:id").get(async (req, res) => {
                     title: "Post • Jimbro",
                     message: "PostID not found",
                     session: req.session.user,
-                    onepost: onepost,
                     allpost: orderedpost,
                 });
         }
