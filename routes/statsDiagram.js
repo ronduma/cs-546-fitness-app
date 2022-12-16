@@ -6,6 +6,14 @@ const stats = require('../data/statsDiagram');
 
 router.get('/', async (req,res) => {
     if(req.session.user){
+        return res.status(200).render('statsDiagram')
+    }
+    else{
+        return res.redirect('./login');
+    }
+});
+router.get('/bodygroup', async (req,res) => {
+    if(req.session.user){
         let user = await users.getUserByUsername(req.session.user);
         let userId = user._id;
         let upper = await stats.upperData(userId);
