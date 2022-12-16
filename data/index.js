@@ -1,9 +1,8 @@
-const userData=require('./users');
-const postData=require('./posts');
-const workoutData = require('./workouts');
+const usersData=require('./users');
+const postsData=require('./posts');
+const workoutsData = require('./workouts');
 module.exports = {
-    users: userData,
-    post: postData,
-    workouts: workoutData
-
-}
+    users: usersData,
+    post: postsData,
+    workouts: workoutsData
+};

@@ -18,5 +18,6 @@ const getCollectionFn = (collection) => {
 // NOTE: YOU WILL NEED TO CHANGE THE CODE BELOW TO HAVE THE COLLECTION(S) REQUIRED BY THE ASSIGNMENT */
 module.exports = {
   users: getCollectionFn('user_collection'),
-  workouts: getCollectionFn('workout_collection')
+  workouts: getCollectionFn('workout_collection'),
+  progress: getCollectionFn('progress_collection')
 };

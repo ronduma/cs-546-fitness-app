@@ -29,11 +29,19 @@ router.get('/', async (req, res) => {
 router.get('/edit', async (req, res) => {
   if(req.session.user){
     let user = await users.getUserByUsername(req.session.user);
+    console.log(user.goals)
     return res.status(200).render('edit', {
         title : "Edit Profile \• Jimbro",
         message : "this is the edit profile page",
         session : req.session.user,
-        username : user.username
+        username : user.username,
+        age : user.age,
+        heightFt : user.heightFt,
+        heightIn : user.heightIn,
+        weight : user.weight,
+        studio : user.studio,
+        coach : user.coach,
+        goals : user.goals
     });
   }
   else{
