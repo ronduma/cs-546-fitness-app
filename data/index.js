@@ -6,6 +6,6 @@ module.exports = {
     users: userData,
     post: postData,
     workouts: workoutData,
-    comments: commentData
+    comments: commentData,
 
 }

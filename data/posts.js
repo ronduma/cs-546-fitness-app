@@ -152,6 +152,7 @@ const getAllPosts = async (userId) => {
     if (!ObjectId.isValid(postId)) throw 'invalid object ID';
     let comments =[];
     let Post = await getPost(postId);
+    //Empty comments
     if (Post.comments == []){
       return comments;
 
@@ -164,6 +165,7 @@ const getAllPosts = async (userId) => {
 
   }
 
+
 module.exports = {
     createPost,
     getAllPosts,
@@ -171,5 +173,4 @@ module.exports = {
     getAllPostsNoUser,
     sortedDesc,
     getComments,
-
 };
