@@ -19,7 +19,7 @@
                         <p>Likes: </p>
                     </div>
                     <div>
-                        <p>Comments: </p>
+                        <a href="/community/{{id}}">Comments</a>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                         <p>Likes: </p>
                     </div>
                     <div>
-                        <p>Comments: </p>
+                        <a href="/community/{{_id}}">Comments</a>
                     </div>
                 </div>
             </div>
@@ -48,18 +48,18 @@
                 <p>
                     {{post}}
                 </p>
-                <div class="card_stats">
-                    <div>
+                <div>
                         <p>{{username}} </p>
                     </div>
+                    <div>
+                        <p>{{postDate}}</p>
+                    </div>
+                <div class="card_stats">
                     <div>
                         <p>Likes:{{likes}} </p>
                     </div>
                     <div>
-                        <p>Comments</p>
-                    </div>
-                    <div>
-                        <p>{{postDate}}</p>
+                         <a href="/community/{{_id}}">Comments</a>
                     </div>
                 </div>
             </div>

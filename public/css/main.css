@@ -141,6 +141,32 @@ border-left: 2px solid #333333;
 
 }
 
+
+
+/* comments */
+.comments {
+    width: 40%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .comments h2 {
+    background-color: #38538A;
+    color: #fff;
+    padding: 20px;
+    font-size: 1.5em;
+    text-align: center;
+  }
+  
+  .comment {
+    border-top: 1px solid #ccc;
+    padding: 20px;
+  }
+  
+
 .visibility{
     padding-left:-70px;
 }
+
