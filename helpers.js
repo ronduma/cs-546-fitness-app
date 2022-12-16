@@ -217,6 +217,21 @@ function checkBodyGroup(group){
   return group;
 
 }
+//CHECK FOR COMMENTS
+function validateComment(commentBody){
+  if (commentBody == undefined) {
+    throw 'Must provide valid commentBody';
+}
+if (typeof commentBody != 'string') {
+    throw 'Incorrect type'
+}
+if (commentBody.trim().length < 3) {
+    throw 'Enter a commentBody minimum of 3 letters';
+  }
+  return commentBody
+
+}
+
 module.exports = {
   checkString,
   checkNumber,
@@ -232,6 +247,7 @@ module.exports = {
   validatePostTitle,
   validatePostBody,
   checkDay,
-  checkBodyGroup
+  checkBodyGroup,
+  validateComment,
 
 };
