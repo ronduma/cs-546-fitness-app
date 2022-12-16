@@ -63,56 +63,47 @@ app.listen(3000, () => {
 });
 
 
-//TEST POSTS AND USER ADD
 // const users = require('./data/users');
 // const posts = require('./data/posts');
+// const comments = require('./data/comments')
 // const connection = require('./config/mongoConnection');
-// const stats = require('./data/statsDiagram')
 // const main = async () => {
 //     const db = await connection.dbConnection();
 
-//     await db.dropDatabase();
+//     post2= await posts.createPost("testuser", "test user post", "An nonempty post");
+//     console.log(post2);//2
 
-//     try{
-//       let user1 = await users.createUser("dtran", "dtran3@stevens.edu", "Password123!");
-//       let _id = user1._id;
-//       await users.addExercise(_id.toString(), "benchpress", "145", "5", "5", "Monday", "Upper Body");
-//       await users.addExercise(_id.toString(), "dumb bell benchpress", "145", "5", "5", "Monday", "Upper Body");
-//       // await users.getUserById(_id.toString());
-//       let exercise = await stats.getAllExcercise(_id.toString());
-//       let ratio = await stats.groupRatio(_id.toString());
-//       console.log(ratio);//2
-      
-//     }catch(e){
-//       console.log(e);
-//     }
-//     // console.log('user1 Dylan has been added!');
+// ///Get all post of user2 which has no posts []
+//     getAllpost= await posts.getAllPosts("6386e40aad58eff67e5563a2");
+//     console.log(getAllpost);//2
 
-//     // await users.addExercise(user1._id, "Bench Press", 
-//     // "145", "2", "2", "Monday", "Upper Body");
+//     post= await posts.createPost("testuser", "test user post222", "An nonempty post");
+//     console.log(post);//2
 
-//     // let upper = await stats.upperData("639adb04984e43c1f2827c56");
+//     getAllpost = await posts.getAllPostsNoUser();
+//     console.log(getAllpost);
+
+//     desc = posts.sortedDesc(getAllpost);
+//     console.log(desc);
+
+//     getpost= await posts.getPost('6392b11a9d1bcf3c4b28c59f');
+//     console.log(getpost);
+//     getComments = await posts.getComments('6392b11a9d1bcf3c4b28c59f');
+//     console.log(getComments);
+//     createdComment = await posts.createComment('testuser','639bc26e99f4a15566e44a70', 'comment','1st comment on DDD');
+//     console.log(createdComment);
+//     getComments = await posts.getComments('6392b11a9d1bcf3c4b28c59f');
+//     console.log(getComments);
     
-//     // console.log(upper);
-//     // // user1 = await users.createUser("dtran31@stevens.edu", "dtran", "12345678", "dylan", 20, "5ft 10in", 170, ["Hit a PR for bench", "Do 3x12 with 25's on bicep curl", "Bench 80's"], "PF", "Zyzz");
-//     // console.log(user1);//2
-//     // console.log('user1 Dylan has been added!');
-//     // user2 = await users.createUser("DDDDD@stevens.edu", "dtran", "12345678", "dylan", 20, "5ft 10in", 170, ["Hit a PR for bench", "Do 3x12 with 25's on bicep curl", "Bench 80's"], "PF", "Zyzz");
-//     // console.log(user2);//2
+    // createdcomment = await comments.createComment('639bc26e99f4a15566e44a70', 'comment','2nd comment on DDD');
+    // console.log(createdcomment);
+    // // searchedcomment = await comments.searchCommentbyID('639c144710a21b5b1fa57c98');
+    // // console.log(searchedcomment);
+    // commentlistofpost = await comments.searchCommentbyPostId('639bc26e99f4a15566e44a70');
+    // console.log(commentlistofpost);
 
-//     // //Create POSTS
-//     // post1= await posts.createPost("6386e01babaf0b74a877b322", "Fake postTitle", "An nonempty post");
-//     // console.log(post1);//2
-
-//     // post2= await posts.createPost("6386e01babaf0b74a877b322", "Fake postTitle2", "2 An nonempty post");
-//     // console.log(post2);//2
-
-// // //Get all post of user2 which has no posts []
-// //     getAllpost= await posts.getAllPosts("6386e40aad58eff67e5563a2");
-// //     console.log(getAllpost);//2
-
+    
 //     await connection.closeConnection();
 // }
 
 // main();
-
