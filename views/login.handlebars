@@ -2,14 +2,16 @@
     {{!-- <div>{{message}}</div>  --}}
     <h1>Welcome to <span class="navbar-brand">jimbro</span></h1>
     <form method="POST" id="login-form" action="/login">
-        <div class="form-row my-3">
-            <input type="text" name="usernameInput" id="usernameInput" placeholder="Username">
+        <div class="form-row my-3 form-floating gx-1">
+            <input type="text" class="form-control" name="usernameInput" id="usernameInput" placeholder="Username">
+            <label for="usernameInput">Username</label>
         </div>
-        <div class="form-row my-3">
-            <input type="password" name="passwordInput" id="passwordInput" placeholder="Password">
+        <div class="form-row my-3 form-floating gx-1">
+            <input type="password" class="form-control" name="passwordInput" id="passwordInput" placeholder="Password">
+            <label for="passwordInput">Password</label>
         </div>
         <div class="form-row d-flex justify-content-center my-3">
-            <button type="submit">Submit</button>
+            <button type="submit" class="btn btn-primary">Log In</button>
         </div>
     </form>
     <div>{{error}}</div>

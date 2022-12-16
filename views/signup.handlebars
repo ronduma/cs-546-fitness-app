@@ -2,22 +2,28 @@
     {{!-- <div>{{message}}</div> --}}
     <h1>Welcome to <span class="navbar-brand">jimbro</span></h1>
     <form method="POST" id="registration-form" action="/signup">
-        <div class="form-row my-3">
-            <input type="text" name="usernameInput" id="usernameInput" placeholder="Username">
+        <div class="form-row my-3 form-floating gx-1">
+            <input type="text" class="form-control" name="usernameInput" id="usernameInput" placeholder="Username">
+            <label for="usernameInput">Username</label>
         </div>
-        <div class="form-row my-3">
-            <input type="email" name="emailInput" id="emailInput" placeholder="example@email.com">
+        <div class="form-row my-3 form-floating gx-1">
+            <input type="email" class="form-control" name="emailInput" id="emailInput" placeholder="example@email.com">
+            <label for="emailInput">Email</label>
         </div>
-        <div class="form-row my-3">
-            <input type="password" name="passwordInput" id="passwordInput" placeholder="Password">
+        <div class="form-row my-3 form-floating gx-1">
+            <input type="password" class="form-control" name="passwordInput" id="passwordInput" placeholder="Password">
+            <label for="passwordInput">Password</label>
         </div>
-        <div class="form-row my-3">
-            <input type="password" name="confirmPasswordInput" id="confirmPasswordInput" placeholder="Confirm Password">
+        <div class="form-row my-3 form-floating gx-1">
+            <input type="password" class="form-control" name="confirmPasswordInput" id="confirmPasswordInput" placeholder="Confirm Password">
+            <label for="confirmPasswordInput">Confirm Password</label>
         </div>
         <div class="form-row d-flex justify-content-center my-3">
-            <button type="submit">Submit</button>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
         </div>
     </form>
+    <div><input type="checkbox" onclick="myFunction()">Show Password</div>
     <div>{{error}}</div>
     <a href="/login">Already have an account? Click here to log-in</a>
 </div>
+<script src="/public/js/passwordVisibility.js"></script>

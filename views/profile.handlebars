@@ -1,10 +1,42 @@
-<h1>{{message}}</h1>
-<div>Hello, {{username}}.</div>
-<a href="/profile/edit">Edit Profile</a>
-<div>Your Information</div>
-<div>Age: {{age}}</div>
-<div>Height: {{heightFt}} feet {{heightIn}} inches</div>
-<div>Weight: {{weight}}</div>
-<div>Gym/Studio: {{studio}}</div>
-<div>Coach: {{coach}}</div>
-<div>Goals: {{goals}}</div>
+{{!-- <h1>{{message}}</h1> --}}
+<div class="container text-center">
+    <div class="row d-flex justify-content-center mt-4">
+        <div class="col-md-4">
+            <i class="fa fa-solid fa-dumbbell fa-2xl mb-3"></i>
+            <h1>Hello, {{username}}.</h1>
+            <h5 class="mt-3 mb-4">Your Information</h5> 
+            <fieldset disabled>
+                <form class="row g-3" id="registration-form" action="/profile/edit">
+                    <div class="col-md-6 form-floating gx-1">
+                        <input type="number" class="form-control" name="ageInput" id="ageInput" required="required" placeholder="Age" value="{{age}}">
+                        <label for="ageInput">Age</label>
+                    </div>
+                    <div class="col-md-6 form-floating gx-1">
+                        <input type="number" class="form-control" name="weightInput" id="weightInput" required="required" placeholder="Weight" value="{{weight}}">
+                        <label for="weightInput">Weight</label>
+                    </div>
+                    <div class="col-md-6 form-floating gx-1">
+                        <input type="number" class="form-control" name="heightFeetInput" id="heightFeetInput" required="required" placeholder="Height (Feet)" value="{{heightFt}}">
+                        <label for="heightFeetInput">Height (Feet)</label>
+                    </div>
+                    <div class="col-md-6 form-floating gx-1">
+                        <input type="number" class="form-control" name="heightInchesInput" id="heightInchesInput" required="required" placeholder="Height (Inches)" value="{{heightIn}}">
+                        <label for="heightInchesInput">Height (Inches)</label>
+                    </div>
+                    <div class="col-12 form-floating gx-1">
+                        <input type="text" class="form-control" name="studioInput" id="studioInput" required="required" placeholder="Gym/Studio" value="{{studio}}">
+                        <label for="studioInput">Studio</label>
+                    </div>
+                    <div class="col-12 form-floating gx-1">
+                        <input type="text" class="form-control" name="coachInput" id="coachInput" required="required" placeholder="Coach" value="{{coach}}">
+                        <label for="coachInput">Coach</label>
+                    </div>
+                    <div class="col-12 form-floating gx-1">
+                        <textarea name="goalsInput" class="form-control" id="goalsInput" placeholder="Write your goals here, each goal separated by a new line!" style="height:15vh">{{goals}}</textarea>
+                        <label for="goalsInput">Goals</label>
+                    </div>
+                </form>
+            </fieldset>
+            <a class="btn btn-primary mt-3" href="/profile/edit">Edit Profile</a>
+        </div>
+    </div>
