@@ -11,7 +11,8 @@ const createUser = async (
   password,
   firstName=undefined,
   age=undefined,
-  height=undefined,
+  heightFt=undefined,
+  heightIn=undefined,
   weight=undefined,
   goals=undefined,
   studio=undefined,
@@ -37,7 +38,8 @@ const createUser = async (
     password: password,
     firstName: firstName,
     age: age,
-    height: height,
+    heightFt: heightFt,
+    heightIn: heightIn,
     weight: weight,
     goals: goals,
     studio: studio,
@@ -181,19 +183,7 @@ const addExercise = async (
   const exerciseId = newExercise._id.toString();
   thisUser.workoutRoutine.push(newExercise);
   let updatedUser = {
-    username: thisUser.username,
-    email: thisUser.email,
-    password: thisUser.password,
-    firstName: thisUser.firstName,
-    age: thisUser.age,
-    height: thisUser.height,
-    weight: thisUser.weight,
-    goals: thisUser.goals,
-    studio: thisUser.studio,
-    coach: thisUser.coach,
-    posts: thisUser.posts,
-    workoutRoutine: thisUser.workoutRoutine,
-    bodyGroupGoals: thisUser.bodyGroupGoals
+    workoutRoutine: thisUser.workoutRoutine
   }
   const userCollection = await users();
   const updateInfo = await userCollection.updateOne({_id: ObjectId(userId)}, {$set: updatedUser});
@@ -223,18 +213,6 @@ const updateGoals = async (userId, upperGoal, lowerGoal, coreGoal) => {
     coreGoal: coreGoal
   };
   const updatedUser = {
-    username: thisUser.username,
-    email: thisUser.email,
-    password: thisUser.password,
-    firstName: thisUser.firstName,
-    age: thisUser.age,
-    height: thisUser.height,
-    weight: thisUser.weight,
-    goals: thisUser.goals,
-    studio: thisUser.studio,
-    coach: thisUser.coach,
-    posts: thisUser.posts,
-    workoutRoutine: thisUser.workoutRoutine,
     bodyGroupGoals: newGoals
   };
   const userCollection = await users();

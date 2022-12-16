@@ -255,7 +255,7 @@ router.post('/goals', async(req,res) => {
             }
         }
 
-        if(xss(req.body.coreGoal) === null) {req.body.coreGoal = thisUser.bodyGroupGoals.coreGoal;}
+        if(xss(req.body.coreGoal) === '') {req.body.coreGoal = thisUser.bodyGroupGoals.coreGoal;}
         else{
             try{
                 req.body.coreGoal = helpers.checkNumber(xss(req.body.coreGoal), 'Core Goal');
