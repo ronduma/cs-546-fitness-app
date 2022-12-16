@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const app = express();
 const session = require('express-session');
@@ -59,6 +61,7 @@ app.listen(3000, () => {
   console.log("We've now got a server!");
   console.log('Your routes will be running on http://localhost:3000');
 });
+
 
 // const users = require('./data/users');
 // const posts = require('./data/posts');

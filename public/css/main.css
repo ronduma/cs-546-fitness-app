@@ -129,6 +129,7 @@ border-left: 2px solid #333333;
 }
 
 
+
 /* comments */
 .comments {
     width: 40%;
@@ -151,3 +152,8 @@ border-left: 2px solid #333333;
     padding: 20px;
   }
   
+
+.visibility{
+    padding-left:-70px;
+}
+
