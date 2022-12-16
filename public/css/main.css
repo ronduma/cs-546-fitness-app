@@ -10,11 +10,18 @@ a.navbar-brand{
     font-size: 20pt;
 }
 
+.fa-dumbbell{
+    color:#325288; 
+}
 
 /* Home */
 #banner{
     background-color: #325288;
     color:white;
+}
+
+.greeting{
+    color:#325288; 
 }
 
 .ital-title{

@@ -2,8 +2,10 @@
     <div class="row d-flex justify-content-center mt-4">
         <div class="col-md-4">
             <i class="fa fa-solid fa-dumbbell fa-2xl mb-3"></i>
-            <h1>Edit Profile</h1> 
-            <h5 class="mt-3 mb-4">Your Information</h5> 
+            <div class="greeting">
+                <h1>Edit Profile</h1> 
+                <h5 class="mt-3 mb-4">Your Information</h5> 
+            </div>
             <form class="row g-3" method="POST" id="registration-form" action="/profile/edit" novalidate>
                 <div class="col-md-6 form-floating gx-1">
                     <input type="number" class="form-control" name="ageInput" id="ageInput" required="required" placeholder="Age" value="{{age}}">
