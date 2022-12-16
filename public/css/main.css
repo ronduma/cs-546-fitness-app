@@ -1,7 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@800&display=swap');
 
 .navbar-brand{
-    font-family: 'Comfortaa', cursive;
+    font-family: 'Dosis', sans-serif;
+    padding:0;
+}
+
+a.navbar-brand{
+    color:#325288; 
+    font-size: 20pt;
+}
+
+.fa-dumbbell{
+    color:#325288; 
+}
+
+/* Home */
+#banner{
+    background-color: #325288;
+    color:white;
+}
+
+.greeting{
+    color:#325288; 
 }
 
 .ital-title{
@@ -61,6 +81,13 @@
 .sub-exercise{
     line-height: 1;
     font-size: 12px;
+}
+
+/* Sign Up / Login */
+
+.error{
+    color:darkred;
+    font-style:italic;
 }
 
 /* Community */
