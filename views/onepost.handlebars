@@ -1,0 +1,59 @@
+
+<h1>{{message}}</h1>
+
+
+<div class="card">
+            <h3>{{onepost.postTitle}}</h3>
+            <div class="card__content">
+                <p>
+                    {{onepost.post}}
+                </p>
+                <div>
+                        <p>{{onepost.username}} </p>
+                    </div>
+                    <div>
+                        <p>{{onepost.postDate}}</p>
+                    </div>
+                <div class="card_stats">
+                    <div>
+                        <p>Likes:{{onepost.likes}} </p>
+                    </div>
+                    <div>
+                         {{!-- We are able to go back to community page --}}
+                        <a href="/community">Back to community</a>
+                    </div>
+                </div>
+            </div>
+</div>
+<p>
+<form action="/community/{{id}}" method="POST" id="comment-post" class="user-post">
+            <label for="commentDetailsInput">Reply to {{onepost.username}}</label>
+             <input id = "commentDetailsInput" class="commentDetailsInput" placeholder="Comment" name="commentDetailsInput" required minlength="3">
+            <br>
+
+            <button type="submit" class="submission">Submit</button>
+        </form>
+        <div>
+                {{#if err}}
+                        <br>
+                        <p class="err">{{error}}</p>
+                        {{/if}}
+
+            </div>
+{{!-- <a href="/commentpost" class="createbutton">Reply</a> --}}
+<div class="comments">
+  <h2>Comment Section</h2>
+  {{#if allcomments.length}}
+    {{#each allcomments}}
+  <div class="comment">
+    <div class="comment-header">
+      <h3 class="username">{{user}}</h3>
+      <p class="date">{{time}}</p>
+    </div>
+    <p class="comment-text">{{comment}}</p>
+  </div>
+              {{/each}}
+{{/if}}
+
+  </div>
+
