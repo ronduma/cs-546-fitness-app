@@ -51,7 +51,7 @@ router.post('/', async (req,res) => {
                 session: req.session.user
             });
         }catch(e){
-            res.status(500).render('scheduler', {
+            res.status(200).render('scheduler', {
                 title: 'Scheduler \• Jimbro',
                 message: e,
                 session: req.session.user

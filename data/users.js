@@ -161,6 +161,7 @@ const addExercise = async (
   day = helpers.checkDay(day);
   bodyGroup = helpers.checkBodyGroup(bodyGroup);
   const thisUser = await getUserById(userId);
+  thisUser.workoutRoutine.forEach(elem => {if(elem.name.toLowerCase() === name.toLowerCase() && elem.dayPlanned === day) throw `Error: ${name} already exists on ${day}`})
   const userName = thisUser.username;
   let newExercise = {
     _id: new ObjectId(),
