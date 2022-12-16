@@ -1,0 +1,29 @@
+<a href="/communitypost" class="createbutton">Comment on this Post</a>
+<h1>{{message}}</h1>
+
+
+<div class="card">
+            <h3>{{onepost.postTitle}}</h3>
+            <div class="card__content">
+                <p>
+                    {{onepost.post}}
+                </p>
+                <div>
+                        <p>{{onepost.username}} </p>
+                    </div>
+                    <div>
+                        <p>{{onepost.postDate}}</p>
+                    </div>
+                <div class="card_stats">
+                    <div>
+                        <p>Likes:{{onepost.likes}} </p>
+                    </div>
+                    <div>
+                         <a href="/community/{{_id}}">Comments</a>
+                    </div>
+                </div>
+            </div>
+</div>
+
+{{!-- We are able to go back to community page --}}
+ <a href="/community">Back to community</a>

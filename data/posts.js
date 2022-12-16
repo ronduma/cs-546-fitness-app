@@ -29,7 +29,8 @@ const createPost = async (user, postTitle, post) => {
     throw "Empty String or just just spaces for post";
   }
   const userCollection = await userDatabase();
-  let currDate = new Date().toUTCString()
+  let currDate = new Date();
+  //console.log(currDate);
 
   let newPost = {
     _id : ObjectId(),
@@ -63,9 +64,17 @@ const getAllPostsNoUser = async () => {
   }
   return arrayofPosts;
 };
-
+function sortbyDate( a, b ) {
+  if ( a.postDate > b.postDate ){
+    return -1;
+  }
+  if ( a.postDate < b.postDate ){
+    return 1;
+  }
+  return 0;
+}
 function sortedDesc(array) {
-  return array.sort((objA, objB) => Number(objB.postDate) - Number(objA.postDate),);
+  return array.sort(sortbyDate);
 }
 
 // const getDateOrderPosts = async (arrayofPosts) => {
@@ -133,6 +142,27 @@ const getAllPosts = async (userId) => {
       return postfound;
   
   };
+//Get comment array from1 post
+  const getComments = async (postId) => {
+    if (!postId) throw 'You must provide an id to search for';
+    if (typeof postId !== 'string') throw 'Id must be a string';
+    if (postId.trim().length === 0)
+        throw 'Id cannot be an empty string or just spaces';
+    postId = postId.trim();
+    if (!ObjectId.isValid(postId)) throw 'invalid object ID';
+    let comments =[];
+    let Post = await getPost(postId);
+    if (Post.comments == []){
+      return comments;
+
+    }
+    else {
+      return Post.comments;
+
+    }
+  
+
+  }
 
 module.exports = {
     createPost,
@@ -140,5 +170,6 @@ module.exports = {
     getPost,
     getAllPostsNoUser,
     sortedDesc,
+    getComments,
 
 };
