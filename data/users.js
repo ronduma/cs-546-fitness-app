@@ -108,16 +108,17 @@ const updateProfile = async (
     coach : coach,
     goals : goals
   }
+  console.log(updatedValues)
   const userCollection = await users();
   let user = await getUserByUsername(username);
-  console.log(user._id)
+  console.log(typeof user._id)
   const update = await userCollection.updateOne(
-    {_id: user._id},
+    {_id: ObjectId(user._id)},
     {$set: updatedValues}
   );
   console.log(update)
   user = await getUserByUsername(username);
-
+  // console.log(user)
   return user
 }
 
