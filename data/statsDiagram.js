@@ -73,12 +73,25 @@ const groupRatio = async(userId) =>{
     let result = [upper.length, core.length, lower.length];
 
     return result;
-}
+} 
 
+//gets the overall weights of a specific excercise
+const getWeights = async(userId, exercise) => {
+    let workout_lst = await getAllExcercise(userId);
+    let result = [];
+    for(let i = 0; i < workout_lst.length; i++){
+        if(workout_lst[i].name === exercise){
+            result.push(workout_lst[i]["weight"]);
+        }
+    }
+
+    return result;
+}
 module.exports = {
     getAllExcercise,
     upperData,
     lowerData,
     coreData,
-    groupRatio
+    groupRatio,
+    getWeights
 }
