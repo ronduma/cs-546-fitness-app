@@ -20,10 +20,19 @@ function checkString(strVal, varName) {
   return strVal;
 }
 function checkNumber(numVal, varName) {
+  if (!numVal) throw `Error: You must supply a ${varName}!`;
+  numVal = parseInt(numVal);
+  if (isNaN(numVal)) throw `Error: ${numVal} is not a valid value for ${varName} as it contains nondigits`;
+  if (typeof numVal !== "number") throw `Error: ${varName} must be a number!`;
+  return parseInt(numVal);
+}
+function checkNumGoal(numVal, varName){
   if (numVal === null) throw `Error: You must supply a ${varName}!`;
   numVal = parseInt(numVal);
   if (isNaN(numVal)) throw `Error: ${numVal} is not a valid value for ${varName} as it contains nondigits`;
   if (typeof numVal !== "number") throw `Error: ${varName} must be a number!`;
+  if(numVal < 0) throw `Error: ${varName} must be a positive number!`;
+  if(numVal > 35) throw `Error: You must have a realistic value for ${varName}. ${numVal} is too high!`
   return parseInt(numVal);
 }
 function checkPosNum(numVal, varName){
@@ -161,6 +170,38 @@ function checkGoals(goals){
     return true;
 
 }
+
+//COMMUNITY POSTS
+function validatePostTitle(postTitle){
+  if (postTitle == undefined) {
+    throw 'Must provide valid Post Title';
+}
+if (typeof postTitle != 'string') {
+    throw 'Incorrect type'
+}
+if (postTitle.trim().length < 3) {
+    throw 'Enter a Post Title minimum of 3 letters';
+  }
+
+
+return postTitle.trim();
+
+
+}
+function validatePostBody(postbody){
+  if (postbody == undefined) {
+    throw 'Must provide valid Post Details';
+}
+if (typeof postbody != 'string') {
+    throw 'Incorrect type'
+}
+if (postbody.trim().length <5) {
+    throw 'Enter a Post Details minimum of 5 letters';
+  }
+
+return postbody.trim();
+}
+
 function checkDay(day){
   let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   if(!days.includes(day)){
@@ -174,10 +215,12 @@ function checkBodyGroup(group){
     throw `${group} is not a valid body group`
   }
   return group;
+
 }
 module.exports = {
   checkString,
   checkNumber,
+  checkNumGoal,
   checkPosNum,
   checkId,
   validateUsername,
@@ -186,6 +229,9 @@ module.exports = {
   checkStringHasAtPeriod,
   checkHeight,
   checkGoals,
+  validatePostTitle,
+  validatePostBody,
   checkDay,
   checkBodyGroup
+
 };
