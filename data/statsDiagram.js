@@ -13,7 +13,7 @@ const users_js = require('./users');
         // upper, lower, core
 // circle graph will show which type of exercise the user does the most
 const getAllExcercise = async(userId) =>{
-    if(!userId) throw 'Need movieId input';
+    if(!userId) throw 'Need userId input';
     if(typeof userId !== 'string' ||  userId.trim().length <= 0) throw 'userId needs to be a string';
     if(!ObjectId.isValid(userId)) throw 'invalid object Id';
     let person = await users_js.getUserById(userId);
@@ -78,10 +78,40 @@ const groupRatio = async(userId) =>{
 //gets the overall weights of a specific excercise
 const getWeights = async(userId, exercise) => {
     let workout_lst = await getAllExcercise(userId);
+    let counter  = 0;
+    for(let i = 0; i < workout_lst.length; i++){
+        if(workout_lst[i].name === exercise){
+            counter = 1;
+        }
+    }
+    if(counter == 0){
+        throw 'Need to have the workout within scheduler.';
+    }
     let result = [];
     for(let i = 0; i < workout_lst.length; i++){
         if(workout_lst[i].name === exercise){
             result.push(workout_lst[i]["weight"]);
+        }
+    }
+
+    return result;
+}
+
+const getDays = async(userId, exercise) => {
+    let workout_lst = await getAllExcercise(userId);
+    let counter  = 0;
+    for(let i = 0; i < workout_lst.length; i++){
+        if(workout_lst[i].name === exercise){
+            counter = 1;
+        }
+    }
+    if(counter == 0){
+        throw 'Need to have the workout within scheduler.';
+    }
+    let result = [];
+    for(let i = 0; i < workout_lst.length; i++){
+        if(workout_lst[i].name === exercise){
+            result.push(workout_lst[i]["day"]);
         }
     }
 
@@ -93,5 +123,6 @@ module.exports = {
     lowerData,
     coreData,
     groupRatio,
-    getWeights
+    getWeights,
+    getDays
 }

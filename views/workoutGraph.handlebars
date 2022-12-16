@@ -1,0 +1,36 @@
+<h1>{{message}}</h1>
+
+<div>
+    <p>This tracks how much weight is being used for {{session}}</p>
+</div>
+
+
+<div class="popup-content">
+    <div class ="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{{!-- progress of workout line chart --}}
+<script>
+  const ctx = document.getElementById('myChart');
+  
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+    labels: [{{legend}}],
+    datasets: [{
+        label: "Progress in Pounds",
+        data: [{{data}}],
+        fill: false,
+        borderColor:  'rgb(102, 255, 178)',
+        tension: 0.1
+      }]
+    }
+  });
+</script>
