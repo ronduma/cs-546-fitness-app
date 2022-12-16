@@ -30,6 +30,8 @@ const createUser = async (
   const userCollection = await users();
   const userExists = await userCollection.findOne({username: username});
   if (userExists){throw 'Error: A user with that username already exists.'}
+  const emailExists = await userCollection.findOne({email: email});
+  if (emailExists){throw 'Error: A user with that email already exists.'}
   password = await bcrypt.hash(password, saltRounds);
   let newUser = {
     username: username,

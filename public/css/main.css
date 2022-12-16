@@ -76,6 +76,13 @@ a.navbar-brand{
     font-size: 12px;
 }
 
+/* Sign Up / Login */
+
+.error{
+    color:darkred;
+    font-style:italic;
+}
+
 /* Community */
 .createbutton {
     background-color: #1DA1F2;

@@ -3,6 +3,7 @@ const router = express.Router();
 const helpers = require('../helpers');
 const users = require('../data/users');
 const path = require('path');
+const xss = require('xss');
 
 router.get('/', async (req, res) => {
     if(req.session.user){
@@ -19,10 +20,10 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    let username = req.body.usernameInput;
-    let email = req.body.emailInput;
-    let password = req.body.passwordInput;
-    let confirmPassword = req.body.confirmPasswordInput;
+    let username = xss(req.body.usernameInput);
+    let email = xss(req.body.emailInput);
+    let password = xss(req.body.passwordInput);
+    let confirmPassword = xss(req.body.confirmPasswordInput);
     try {
       helpers.validateUsername(username);
       helpers.validateEmail(email);
@@ -33,9 +34,8 @@ router.post('/', async (req, res) => {
     }
     try {
       let user = await users.createUser(username, email, password);
-      console.log(user)
+      // console.log(user)
       if ((await user).insertedUser === false){
-        console.log("u suck")
         return res.status(500).json("Internal Server Error");
       }
       return res.redirect('/login');

@@ -1,4 +1,3 @@
-const emailValidator = require("email-validator");
 const {ObjectId} = require('mongodb');
 const e = require("express");
 
@@ -13,8 +12,12 @@ function checkString(strVal, varName) {
   }
   if (typeof strVal !== "string") throw `Error: ${varName} must be a string!`;
   strVal = strVal.trim();
-  if (strVal.length === 0)
-    throw `Error: ${varName} cannot be an empty string or string with just spaces`;
+  if (strVal.length === 0){
+    if (varName === 'studio') throw 'Error: You must enter in a fitness studio / gym location.'
+    else if (varName === 'coach') throw 'Error: You must enter in a coach / personal trainer.'
+    else if (varName === 'goals') throw 'Error: You must enter in a personal fitness goal.'
+    else throw `Error: ${varName} cannot be an empty string or string with just spaces`;
+  }
   if (!isNaN(strVal))
     throw `Error: ${strVal} is not a valid value for ${varName} as it only contains digits`;
   return strVal;
@@ -24,6 +27,9 @@ function checkNumber(numVal, varName) {
   numVal = parseInt(numVal);
   if (isNaN(numVal)) throw `Error: ${numVal} is not a valid value for ${varName} as it contains nondigits`;
   if (typeof numVal !== "number") throw `Error: ${varName} must be a number!`;
+  if (varName === 'age' || varName === 'weight' || varName === 'heightFt' || varName === 'heightIn'){
+    if (numVal < 0) throw 'Error: Numeric entries must be positive numbers.'
+  }
   return parseInt(numVal);
 }
 function checkNumGoal(numVal, varName){
@@ -50,11 +56,11 @@ function checkId (id, varName){
   return id
 }
 function validateUsername(username){
-  if (!username) throw 'Error: You must supply a username.'
+  if (!username || !username.trim().length) throw 'Error: You must supply a username.'
   if (typeof username != "string"){
       throw 'Error: Username must be a string.'
   }
-  username = username.toLowerCase();
+  username = username.trim().toLowerCase();
   if (username.length < 3){
       throw 'Error: Username must at least be 3 characters long.'
   }
@@ -66,15 +72,22 @@ function validateUsername(username){
   return true
 }
 function validatePassword(password) {
-  if (!password) throw `Error: You must supply a password.`;
-  if (typeof password !== "string") throw `Error: Password must be a string.`;
-  //source for regex
+  if (!password || !password.trim().length) throw 'Error: You must supply a password.';
+  if (typeof password !== "string") throw 'Error: Password must be a string.';
+  password = password.trim();
+  //source for regex:
   //https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
   if (!/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(password)) throw 'Error: Password should be at least 6 characters long, and have at least one uppercase character, one number and one special character.'
   return true;
 }
 function validateEmail(email) {
-  return emailValidator.validate(email);
+  if (!email || !email.trim().length) throw 'Error: You must supply an email.';
+  if (typeof email !== "string") throw 'Error: Email must be a string.';
+  email = email.trim();
+  //email validation is near impossible, source for simple validation regex: 
+  //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw 'Error: Invalid email.'
+  return true;
 }
 function checkStringHasAtPeriod(str) {
   let specialChar = /[.@]/;
