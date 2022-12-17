@@ -165,6 +165,63 @@ const getAllPosts = async (userId) => {
 
   }
 
+  const getLikes = async (postId) => {
+    if (!postId) throw 'You must provide an id to search for';
+    if (typeof postId !== 'string') throw 'Id must be a string';
+    if (postId.trim().length === 0)
+        throw 'Id cannot be an empty string or just spaces';
+    postId = postId.trim();
+    if (!ObjectId.isValid(postId)) throw 'invalid object ID';
+    let Post = await getPost(postId);
+    if (Post.likes == 0){
+      return 0;
+
+    }
+    else {
+      return Post.likes;
+
+    }
+
+  }
+
+  //in order to add like we need the currentuser the Post we are liking
+const addLike = async (currentuser, postuser, postId) => {
+  if (!currentuser) throw 'You must be loginned in to like a post';
+  if (typeof currentuser !== 'string') throw 'currentuser must be a string';
+  if (!postuser) throw 'You must be loginned in to like a post';
+  if (typeof postuser !== 'string') throw 'currentuser must be a string';
+  // console.log(currentuser + postuser);
+  if (postuser.toLowerCase() == currentuser.toLowerCase()) {
+    throw 'Can not like your own post';
+  }
+  if (!postId) throw 'You must provide an id to search for';
+  if (typeof postId !== 'string') throw 'Id must be a string';
+  if (postId.trim().length === 0)
+    throw 'Id cannot be an empty string or just spaces';
+  postId = postId.trim();
+  if (!ObjectId.isValid(postId)) throw 'invalid object ID';
+  //ADD the like 
+  const userCollection = await userDatabase();
+  let post = await getPost(postId);
+  let postlikes = await getLikes(postId);
+  let newlikes = postlikes + 1;
+  console.log(newlikes);
+  // const insertedInfo = await userCollection.updateOne({ username: postuser, posts: postId }, {
+  //   $set:
+  //   { getPostById(postId).likes : newlikes }
+  // }  // update
+  // );
+  console.log(insertedInfo)
+  if (!insertedInfo.acknowledged || !insertedInfo.insertedId) {
+    throw "Could not add like";
+  }
+
+
+  return { addedLike: true };
+
+}
+  
+
 
 module.exports = {
     createPost,
@@ -173,4 +230,6 @@ module.exports = {
     getAllPostsNoUser,
     sortedDesc,
     getComments,
+    getLikes,
+    addLike,
 };

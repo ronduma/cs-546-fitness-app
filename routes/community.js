@@ -62,10 +62,26 @@ router.route("/:id").get(async (req, res) => {
         return;
     }
     else {
+        let id = req.params.id;
         try {
-            let id = req.params.id;
+         id = helpers.checkId(id);
+        }
+        catch(e){
+            let allposts = await postData.getAllPostsNoUser();
+        let orderedpost = postData.sortedDesc(allposts);
+        res.status(400).render("community", {
+            title: "Community • Jimbro",
+            message: "this is the community page and postId not found",
+            session: req.session.user,
+            allpost: orderedpost,
+        });
+        return;
+
+        }
+        try {
             // console.log(id);
-            const onepost = await postData.getPost(id);
+            let id = req.params.id;
+            const onepost = await postData.getPost(id.trim());
             let idString = id.toString();
             console.log(onepost);
             console.log("WE got the post")
