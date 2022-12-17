@@ -41,17 +41,25 @@ router.post('/', async (req,res) => {
         let upper = await stats.upperData(userId);
         let core  = await stats.coreData(userId);
         let lower = await stats.lowerData(userId);
+
         
         let upper_percentage = (upper.length / (upper.length + core.length + lower.length)) * 100;
         let core_percentage = (core.length / (upper.length + core.length + lower.length)) * 100 ;
         let lower_percentage = (lower.length / (upper.length + core.length + lower.length)) * 100;
         
+        let total = upper.length + core.length + lower.length;
+        let isEmpty = false;
+
+        if(total === 0){
+            isEmpty = true;
+        }
 
         return res.status(200).render('BodyGroup', {
             title: "Sign Up \• Jimbro",
             message: req.session.user + " Diagram",
             session: req.session.user,
             upper_per: upper_percentage,
+            isEmpty: isEmpty,
             core_per: core_percentage,
             lower_per: lower_percentage,
 
@@ -79,11 +87,13 @@ router.post('/', async (req,res) => {
 router.post('/workoutProgress', async (req,res) => {
     let search = req.body;
     search = search.scroll;
-    console.log(search);
+
+    //console.log(search);
     let current = await users.getUserByUsername(req.session.user);
     let current_data = await stats.getWeights(current._id, search);
     let current_days = await stats.getDays(current._id, search);
-    console.log(current_data);
+    //console.log(current_data);
+
     return res.status(200).render('workoutGraph', {
         title: "Sign Up \• Jimbro",
         message: req.session.user + " " + search + " weight progress",
