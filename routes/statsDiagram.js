@@ -73,6 +73,7 @@ router.post('/', async (req,res) => {
                 result.push(lst[i].name);
             }
         }
+        console.log(result);
         return res.status(200).render('WorkoutProgress', {
             title: "Sign Up \• Jimbro",
             message: "Pick progress",
@@ -89,7 +90,8 @@ router.post('/workoutProgress', async (req,res) => {
     let search = req.body;
     search = search.scroll;
 
-    //console.log(search);
+    // console.log(search);
+
     let current = await users.getUserByUsername(req.session.user);
     let current_data = await stats.getWeights(current._id, search);
     
@@ -104,8 +106,6 @@ router.post('/workoutProgress', async (req,res) => {
             }
         }
     }
-    console.log(sus_data);
-    console.log(sus_days);
 
     return res.status(200).render('workoutGraph', {
         title: "Sign Up \• Jimbro",

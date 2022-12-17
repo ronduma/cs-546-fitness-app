@@ -79,8 +79,10 @@ const groupRatio = async(userId) =>{
 const getWeights = async(userId, exercise) => {
     let workout_lst = await getAllExcercise(userId);
     let counter  = 0;
+    console.log(exercise);
+    console.log(workout_lst);
     for(let i = 0; i < workout_lst.length; i++){
-        if(workout_lst[i].name == exercise){
+        if(workout_lst[i].name === exercise){
             counter = 1;
         }
     }
@@ -89,11 +91,11 @@ const getWeights = async(userId, exercise) => {
     }
     let result = [];
     for(let i = 0; i < workout_lst.length; i++){
-        if(workout_lst[i].name == exercise){
+        if(workout_lst[i]["name"] === exercise){
             result.push(workout_lst[i]);
         }
     }
-
+    // console.log(result);
     return result;
 }
 
