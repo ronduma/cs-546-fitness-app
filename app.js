@@ -1,70 +1,70 @@
 
 
-const express = require('express');
-const app = express();
-const session = require('express-session');
-const configRoutes = require('./routes');
-const exphbs = require('express-handlebars');
+// const express = require('express');
+// const app = express();
+// const session = require('express-session');
+// const configRoutes = require('./routes');
+// const exphbs = require('express-handlebars');
 
-const static = express.static(__dirname + '/public');
-app.use('/public', static);
+// const static = express.static(__dirname + '/public');
+// app.use('/public', static);
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+// app.use(express.json());
+// app.use(express.urlencoded({extended: true}));
 
-app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
+// app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
+// app.set('view engine', 'handlebars');
 
-app.use(
-  session({
-    name: 'AuthCookie',
-    secret: "some secret string!",
-    saveUninitialized: true,
-    resave: false
-  })
-);
+// app.use(
+//   session({
+//     name: 'AuthCookie',
+//     secret: "some secret string!",
+//     saveUninitialized: true,
+//     resave: false
+//   })
+// );
   
-app.use('/profile', (req, res, next) => {
-  if (!req.session.user) {
-    return res.render('../views/login');
-  } else {
-    next();
-  }
-});
+// app.use('/profile', (req, res, next) => {
+//   if (!req.session.user) {
+//     return res.render('../views/login');
+//   } else {
+//     next();
+//   }
+// });
 
-app.use('/login', (req, res, next) => {
-  if (req.session.user) {
-    return res.redirect('/profile');
-  } else {
-    next();
-  }
-});
+// app.use('/login', (req, res, next) => {
+//   if (req.session.user) {
+//     return res.redirect('/profile');
+//   } else {
+//     next();
+//   }
+// });
 
-app.use(async (req, res, next) => {
-  let timestamp = new Date().toUTCString();
-  if (req.session.user){
-    console.log("[" + timestamp + "]" + ": " + req.method + " " + req.originalUrl + (" Authenticated User"))
-  }
-  else{
-    console.log("[" + timestamp + "]" + ": " + req.method + " " + req.originalUrl + (" Non-Authenticated User"))
-  }
-  next();
-});
+// app.use(async (req, res, next) => {
+//   let timestamp = new Date().toUTCString();
+//   if (req.session.user){
+//     console.log("[" + timestamp + "]" + ": " + req.method + " " + req.originalUrl + (" Authenticated User"))
+//   }
+//   else{
+//     console.log("[" + timestamp + "]" + ": " + req.method + " " + req.originalUrl + (" Non-Authenticated User"))
+//   }
+//   next();
+// });
 
-configRoutes(app);
+// configRoutes(app);
 
-app.listen(3000, () => {
-  console.log("We've now got a server!");
-  console.log('Your routes will be running on http://localhost:3000');
-});
+// app.listen(3000, () => {
+//   console.log("We've now got a server!");
+//   console.log('Your routes will be running on http://localhost:3000');
+// });
 
 
-// const users = require('./data/users');
-// const posts = require('./data/posts');
-// const comments = require('./data/comments')
-// const connection = require('./config/mongoConnection');
-// const main = async () => {
-//     const db = await connection.dbConnection();
+const users = require('./data/users');
+const posts = require('./data/posts');
+const comments = require('./data/comments')
+const connection = require('./config/mongoConnection');
+const main = async () => {
+    const db = await connection.dbConnection();
 
 // //     post2= await posts.createPost("testuser", "test user post", "An nonempty post");
 // //     console.log(post2);//2
@@ -90,12 +90,12 @@ app.listen(3000, () => {
 // //     console.log(createdComment);
 // //     getComments = await posts.getComments('6392b11a9d1bcf3c4b28c59f');
 // //     console.log(getComments);
-//     // Likes = await posts.getLikes('639d0b172f817779dfe34568');
-//     // console.log(Likes);
-//     // addlike = await posts.addLike('comment', 'testuser','639d0b172f817779dfe34568');
-//     // console.log(addlike);
-//     // newLikes = await posts.getLikes('639d0b172f817779dfe34568');
-//     // console.log(newLikes);
+    Likes = await posts.getLikes('639d22eed76ee68b93768bb3');
+    console.log(Likes);
+    addlike = await posts.addLike('comment', 'ron','639d22eed76ee68b93768bb3');
+    console.log(addlike);
+    newLikes = await posts.getLikes('639d22eed76ee68b93768bb3');
+    console.log(newLikes);
     
 // //     createdcomment = await comments.createComment('639bc26e99f4a15566e44a70', 'comment','2nd comment on DDD');
 // //     console.log(createdcomment);
@@ -106,6 +106,6 @@ app.listen(3000, () => {
 
     
 //     await connection.closeConnection();
-// }
+}
 
-// main();
+main();

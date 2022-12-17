@@ -206,13 +206,17 @@ const addLike = async (currentuser, postuser, postId) => {
   let postlikes = await getLikes(postId);
   let newlikes = postlikes + 1;
   console.log(newlikes);
-  // const insertedInfo = await userCollection.updateOne({ username: postuser, posts: postId }, {
-  //   $set:
-  //   { getPostById(postId).likes : newlikes }
-  // }  // update
-  // );
+  console.log(currentuser, postuser, postId)
+  let author = await userData.getUserByUsername(postuser);
+  console.log(author._id)
+  const insertedInfo = await userCollection.updateOne(
+    { username : postuser, "posts._id": ObjectId(postId) }, {
+    $set:
+    { "posts.$.likes": newlikes }
+  }  // update
+  );
   console.log(insertedInfo)
-  if (!insertedInfo.acknowledged || !insertedInfo.insertedId) {
+  if (!insertedInfo.acknowledged || !insertedInfo.modifiedCount) {
     throw "Could not add like";
   }
 
