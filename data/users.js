@@ -51,14 +51,10 @@ const createUser = async (
     bodyGroupGoals: bodyGroupGoals
   };
   const insertInfo = await userCollection.insertOne(newUser);
-  console.log(insertInfo)
+  // console.log(insertInfo)
   if (!insertInfo.acknowledged || !insertInfo.insertedId) {
     throw "Could not add user";
   }
-  // let userId = newUser["_id"].toString();
-
-  // newUser["_id"] = userId;
-  // return newUser;
   return {insertedUser : true} 
 };
 
@@ -112,15 +108,15 @@ const updateProfile = async (
     coach : coach,
     goals : goals
   }
-  console.log(updatedValues)
+  // console.log(updatedValues)
   const userCollection = await users();
   let user = await getUserByUsername(username);
-  console.log(typeof user._id)
+  // console.log(typeof user._id)
   const update = await userCollection.updateOne(
     {_id: ObjectId(user._id)},
     {$set: updatedValues}
   );
-  console.log(update)
+  // console.log(update)
   user = await getUserByUsername(username);
   // console.log(user)
   return user

@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "seedWorkout": "node ./tasks/seedWorkouts.js"
+    "seed": "node ./tasks/seed.js",
+    "seedWorkouts": "node ./tasks/seedWorkouts.js"
   },
   "repository": {
     "type": "git",

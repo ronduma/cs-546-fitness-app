@@ -5,10 +5,10 @@ Built using HTML, CSS, Bootstrap, Express, Node.js, and MongoDB.
 
 ## How to Setup
 Run `npm install` to install the required dependencies for our project.  
+To populate the database with sample users that have profiles, scheduled workouts, and posts/comments, run the seed task using
+    `npm run seed`
 To fill in the sample workouts, run the seedWorkouts task using 
     `npm run seedWorkouts`
-To fill in the sample user logins, run the ____ task using
-    npm run `____`
 To start the website, just run 
     `npm start`
 You can now navigate the website and explore its features!
@@ -20,7 +20,8 @@ You can now navigate the website and explore its features!
 - In addition, an authenticated user will be able to view their own profile which includes information about their account.
 
 ## Additional Extra Features
-- Ability to Click on Others Profiles
+- Ability to Click on Others' Profiles
+
 
 ## GitHub Link
 - https://github.com/ronduma/cs-546-fitness-app
