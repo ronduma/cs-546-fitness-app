@@ -90,12 +90,15 @@ const main = async () => {
 // //     console.log(createdComment);
 // //     getComments = await posts.getComments('6392b11a9d1bcf3c4b28c59f');
 // //     console.log(getComments);
-    Likes = await posts.getLikes('639d22eed76ee68b93768bb3');
-    console.log(Likes);
-    addlike = await posts.addLike('comment', 'ron','639d22eed76ee68b93768bb3');
-    console.log(addlike);
-    newLikes = await posts.getLikes('639d22eed76ee68b93768bb3');
-    console.log(newLikes);
+    // Likes = await posts.getLikes('639a8bfb1a9390835e2f9b74');
+    // console.log(Likes);
+    // addlike = await posts.addLike('dylantran', 'testuser','639a8bfb1a9390835e2f9b74');
+    // console.log(addlike);
+    // newLikes = await posts.getLikes('639a8bfb1a9390835e2f9b74');
+    // console.log(newLikes);
+    // addlike = await posts.addLike('trang', 'testuser','639a8bfb1a9390835e2f9b74');
+    // console.log(addlike);
+
     
 // //     createdcomment = await comments.createComment('639bc26e99f4a15566e44a70', 'comment','2nd comment on DDD');
 // //     console.log(createdcomment);
@@ -105,7 +108,7 @@ const main = async () => {
 //     // console.log(commentlistofpost);
 
     
-//     await connection.closeConnection();
+    await connection.closeConnection();
 }
 
 main();
