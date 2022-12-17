@@ -1,17 +1,16 @@
-# CS 546 Web Programming I Final Project: Jimbro
+# Jimbro
 A fitness web application designed with the goal of improving the user's ability to plan and track their workouts.
 
-Final Project for CS-546 at Stevens Institute of Technology by Ron Dumalagan, Erik Anhorn, Dylan Tran, and Jae Jang.
 Built using HTML, CSS, Bootstrap, Express, Node.js, and MongoDB.
 
 ## How to Setup
-Run 'npm install' to install the required dependencies for our project.  
+Run `npm install` to install the required dependencies for our project.  
 To fill in the sample workouts, run the seedWorkouts task using 
-    'npm run seedWorkouts'.
+    `npm run seedWorkouts`
 To fill in the sample user logins, run the ____ task using
-    npm run '____'
+    npm run `____`
 To start the website, just run 
-    'npm start'
+    `npm start`
 You can now navigate the website and explore its features!
 
 ## How the Application Works
