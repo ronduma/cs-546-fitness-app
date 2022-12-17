@@ -6,7 +6,7 @@ const path = require('path');
 router.get('/', async (req, res) => {
     res.clearCookie('AuthCookie');
     req.session.destroy();
-    return res.redirect("/homepage")
+    return res.redirect("/home")
 });
 
 module.exports = router;
