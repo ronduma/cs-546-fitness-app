@@ -15,9 +15,13 @@
                         <p>{{onepost.postDate}}</p>
                     </div>
                 <div class="card_stats">
-                    <div>
-                        <p>Likes:{{onepost.likes}} </p>
-                    </div>
+                  <form action="/community/{{id}}" method="put" id="like-post" class="user-post">
+                  <select name="liked" id="likesInput">
+                    <option value="yes">Like</option>
+                  </select>
+                  <button type="submit">💙</button>
+                  </form>
+                  <p>Likes:{{onepost.likes}} </p>
                     <div>
                          {{!-- We are able to go back to community page --}}
                         <a href="/community">Back to community</a>

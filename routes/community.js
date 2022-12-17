@@ -41,6 +41,8 @@ router.get("/", async (req, res) => {
 //     } else {
 //         let allposts = await postData.getAllPostsNoUser();
 //         let orderedpost = await postData.sortedDesc(allposts);
+//         //add like 
+//         let likes = await postData.addLike()
 //         console.log(orderedpost);
 //         // console.log(allposts);
 //     //console.log(allposts[0]._id);
@@ -51,7 +53,7 @@ router.get("/", async (req, res) => {
 //             session: req.session.user,
 //             allpost: orderedpost,
 //         });
-//         //add like
+
 //     }
     
 
@@ -100,16 +102,15 @@ router.route("/:id").get(async (req, res) => {
             let id = req.params.id;
             const onepost = await postData.getPost(id.trim());
             let idString = id.toString();
-            console.log(onepost);
-            console.log("WE got the post")
+            //console.log(onepost);
+            // console.log("WE got the post")
             const allcomments = await commentData.searchCommentbyPostId(idString);
-            console.log(allcomments);
+            //console.log(allcomments);
             return res.status(200).render("onepost", {
                 onepost: onepost,
                 title: "Post • Jimbro",
                 message: "this is the one post",
                 session: req.session.user,
-                onepost: onepost,
                 allcomments: allcomments,
                 id:id,
             });
@@ -157,6 +158,7 @@ router.route("/:id").post(async (req, res) => {
         });
 
     } catch (e) {
+        //ONEPOST NOT DEFINED
         return res.status(404).render("onepost", {
             onepost: onepost,
             title: "Post • Jimbro",
@@ -165,6 +167,58 @@ router.route("/:id").post(async (req, res) => {
             onepost: onepost,
             allcomments: allcomments,
             id:id,
+        });
+    }
+
+});
+
+router.route("/:id").put(async (req, res) => {
+    if (!req.session.user) {
+        res.status(200).render("login", {
+            title: "Log In • Jimbro",
+            message: "You need to log in to use the Community Page.",
+            session: req.session.user,
+        });
+    } 
+    let id = req.params.id;
+    console.log(id);
+    console.log(req.body.likesInput);
+    
+    try {
+            // console.log(id);
+        //Check the elements for comment
+        const onepost = await postData.getPost(id);
+        let postuser = onepost.username;
+        console.log(postuser);
+        const addedlike = await postData.addLike(req.session.user, postuser,id);
+        console.log(addedlike);
+        let idString = id.toString();
+        const allcomments = await commentData.searchCommentbyPostId(idString);
+        const newpost = await postData.getPost(id);
+        if ((await addedlike).addedLike == true){
+            return res.status(404).render("onepost", {
+                onepost: newpost,
+                title: "Post • Jimbro",
+                message: "this is the one post but didnt add newly added comment",
+                session: req.session.user,
+                allcomments: allcomments,
+                id:id,
+            });
+
+        }
+
+
+    } catch (e) {
+        console.log("we errored")
+        return res.status(404).render("onepost", {
+            onepost: onepost,
+            title: "Post • Jimbro",
+            message: "this is the one post but didnt add newly added comment",
+            session: req.session.user,
+            onepost: onepost,
+            allcomments: allcomments,
+            id:id,
+            err: e,
         });
     }
 
