@@ -45,9 +45,17 @@ router.post('/', async (req,res) => {
             const thisUser = await userData.getUserByUsername(req.session.user);
             const userId = thisUser._id;
             await userData.addExercise(userId, xss(req.body.exerciseName), xss(req.body.exerciseWeight), xss(req.body.numSets), xss(req.body.numReps), xss(req.body.dayOfWeek), xss(req.body.bodyGroup));
-            res.status(200).json({ message: 'Exercise added successfully!'});
+            res.status(200).render('scheduler', {
+                title: 'Scheduler \• Jimbro',
+                message: 'Exercise added successfully!',
+                session: req.session.user
+            });
         }catch(e){
-            res.status(200).json({message: e});
+            res.status(200).render('scheduler', {
+                title: 'Scheduler \• Jimbro',
+                message: e,
+                session: req.session.user
+            });
         }
     }
     else{
@@ -302,62 +310,6 @@ router.post('/goals', async(req,res) => {
             message : "You need to log in to use the Scheduler",
             session : req.session.user
         });
-    }
-});
-
-router.get('/remove', async(req,res) => {
-    if(req.session.user){
-        res.status(200).render('remove', {
-            title : "Scheduler \• Jimbro",
-            message : "Here you can remove an exercise from your schedule",
-            session : req.session.user
-        });
-    }
-    else{
-        res.status(200).render('login', {
-            title : "Log In \• Jimbro",
-            message : "You need to log in to use the Scheduler",
-            session : req.session.user
-        });
-    }
-});
-
-router.post('/remove', async(req,res) => {
-    if(req.session.user){
-        try{
-            req.body.dayOfWeek = helpers.checkDay(xss(req.body.dayOfWeek));
-            req.body.removeExerciseName = helpers.checkString(xss(req.body.removeExerciseName), 'Remove Exercise Name');
-        }catch(e){
-            res.status(400).render('scheduler', {
-                title: 'Scheduler \• Jimbro',
-                message: e,
-                session: req.session.user
-            });
-            return;
-        }
-        try{
-            const thisUser = await userData.getUserByUsername(req.session.user);
-            const userId = thisUser._id;
-            await userData.removeExercise(xss(req.body.removeExerciseName), xss(req.body.dayOfWeek), userId);
-            res.status(200).render('scheduler', {
-                title: 'Scheduler \• Jimbro',
-                message: `Exercise ${req.body.removeExerciseName} was successfully removed from ${req.body.dayOfWeek}'s schedule!`,
-                session: req.session.user
-            });
-        }catch(e){
-            res.status(400).render('scheduler', {
-                title: 'Scheduler \• Jimbro',
-                message: e,
-                session: req.session.user
-            });
-        }
-    }
-    else{
-        res.status(200).render('login', {
-            title : "Log In \• Jimbro",
-            message : "You need to log in to use the Scheduler",
-            session : req.session.user
-        }); 
     }
 });
 module.exports = router;

@@ -1,5 +1,5 @@
 <div id="scheduler-page">
-    <h1 class="header-spacing" id='response-message'>{{message}}</h1>
+    <h1 class="header-spacing">{{message}}</h1>
     <form id="scheduler-form" class="input-param">
         <div>
             <label for="dayOfWeek" class="input-param">Choose a day of the week for the exercise: </label>
@@ -32,14 +32,17 @@
                 <option value="Core">Core</option>
             </select>
             <br>
+            <label for="submitButton" class="input-param" hidden="true">Submit</label>
             <button type="submit" name="submitButton" id="submitButton" >Submit</button>
             <br>
         </div>
     </form>
+    <label for="presetButton" class="input-param" hidden="true">Use preset workout</label>
     <button type="button" id="presetButton" onclick="sampleRedirect()">Use Preset Workout</button>
+    <label for="scheduleButton" class="input-param" hidden="true">View your schedule</label>
     <button type="button" id="scheduleButton" onclick="scheduleRedirect()">View your schedule</button>
+    <label for="goalsButton" class="input-param" hidden="true">Set/Update your body group goals</label>
     <button type="button" id="goalsButton" onclick="goalRedirect()">Set/Update your body group goals</button>
-    <button type="button" id="removeButton" onclick="removeRedirect()">Remove an exercise</button>
     <script>
         function sampleRedirect(){
             window.location.href='/scheduler/preset';
@@ -48,10 +51,7 @@
             window.location.href='/scheduler/schedule';
         }
         function goalRedirect(){
-            window.location.href='/scheduler/goals';
-        }
-        function removeRedirect(){
-            window.location.href='/scheduler/remove';
+            window.location.href='/scheduler/goals'
         }
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="

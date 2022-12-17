@@ -18,8 +18,10 @@
         {{/each}}
     </select>
     <br>
+    <label for="submitButton" class="input-param" hidden="true">Submit</label>
     <button type="submit" name="submitButton" id="submitButton">Submit</button>
 </form>
+<label for="schedulerButton" class="input-param" hidden="true">Return to scheduler</label>
 <button type="button" id="schedulerButton" onclick="schedulerRedirect()">Return to scheduler</button>
 <script>
     function schedulerRedirect(){
