@@ -15,7 +15,6 @@ app.use(express.urlencoded({extended: true}));
 app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-// TODO: copy paste from lab 10 to figure out signup/login
 app.use(
   session({
     name: 'AuthCookie',
@@ -37,9 +36,6 @@ app.use('/login', (req, res, next) => {
   if (req.session.user) {
     return res.redirect('/profile');
   } else {
-    //here I',m just manually setting the req.method to post since it's usually coming from a form
-    // console.log("2")
-    // req.method = 'GET';
     next();
   }
 });

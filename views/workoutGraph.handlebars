@@ -1,0 +1,49 @@
+<h1>{{message}}</h1>
+
+<div>
+    <p>This tracks how much weight is being used for {{session}}</p>
+</div>
+
+
+<div class="popup-content">
+    <div class ="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+
+{{#if isEmpty}}
+<p>You have no workouts to show a  for {{session}}</p>
+  <label for="home" class="input-param" hidden="true">Home Page</label>
+  <a type="button" id="home" href ='/home'>Home Page</a>
+{{else}}  
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{{!-- progress of workout line chart --}}
+<script>
+  const ctx = document.getElementById('myChart');
+  
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+    labels: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7'],
+    datasets: [{
+        label: "Progress in Pounds",
+        data: [{{data}}],
+        fill: false,
+        borderColor:  'rgb(102, 255, 178)',
+        tension: 0.1
+      }]
+    }
+  });
+
+</script>
+
+<div>
+  <a type="button" id="home" href ='/statsDiagram'>Workout Progress</a>
+</div>
+{{/if}}
+

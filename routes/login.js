@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const users = require('../data/users');
 const path = require('path');
+const xss = require('xss');
 
 router.get('/', async (req, res) => {
     return res.status(200).render('login', {
@@ -12,8 +13,8 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    let username = req.body.usernameInput;
-    let password = req.body.passwordInput;
+    let username = xss(req.body.usernameInput);
+    let password = xss(req.body.passwordInput);
     try {
       await users.checkUser(username, password);
       req.session.user = username;

@@ -1,0 +1,15 @@
+<h1>{{message}}</h1>
+
+<h4>Choose what workout you want to observe</h4>
+
+<form action="/statsDiagram/workoutProgress" method="POST">
+    <label for="scroll" class="input-param">Choose Workout</label>
+    <select name="scroll" id="workoutProgress">
+        {{#each list}}
+        
+         <option value="{{this}}">{{this}}</option>
+        {{/each}}
+    </select>   
+    <p><input type="submit"></input></p>
+
+</form>
