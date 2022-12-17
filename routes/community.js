@@ -69,6 +69,7 @@ router.route("/:id").get(async (req, res) => {
             let idString = id.toString();
             console.log(onepost);
             console.log("WE got the post")
+            let author = await users.getUserByUsername(onepost.username);
             const allcomments = await commentData.searchCommentbyPostId(idString);
             console.log(allcomments);
             return res.status(200).render("onepost", {
@@ -79,6 +80,7 @@ router.route("/:id").get(async (req, res) => {
                 onepost: onepost,
                 allcomments: allcomments,
                 id:id,
+                userId : author._id
             });
         } catch (e) {
             let allposts = await postData.getAllPostsNoUser();
@@ -122,6 +124,7 @@ router.route("/:id").post(async (req, res) => {
             onepost: onepost,
             allcomments: allcomments,
             id:id,
+            userId : author
         });
 
     } catch (e) {
@@ -136,6 +139,28 @@ router.route("/:id").post(async (req, res) => {
         });
     }
 
+});
+
+router.get('/profile/:id', async (req, res) => {
+    if(req.session.user){
+      let user = await users.getUserById(req.params.id);
+      return res.status(200).render('communityProfile', {
+          title : user.username.concat("'s Profile \• Jimbro"),
+          message : "this is the profile page",
+          session : req.session.user,
+          username : user.username,
+          age : user.age,
+          heightFt : user.heightFt,
+          heightIn : user.heightIn,
+          weight : user.weight,
+          studio : user.studio,
+          coach : user.coach,
+          goals : user.goals
+      });
+    }
+    else{
+      return res.redirect('/login');
+    }
 });
 
 module.exports = router;
