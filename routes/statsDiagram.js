@@ -88,6 +88,7 @@ router.post('/', async (req,res) => {
 router.post('/workoutProgress', async (req,res) => {
     let search = req.body;
     search = search.scroll;
+
     //console.log(search);
     let current = await users.getUserByUsername(req.session.user);
     let current_data = await stats.getWeights(current._id, search);
@@ -105,6 +106,7 @@ router.post('/workoutProgress', async (req,res) => {
     }
     console.log(sus_data);
     console.log(sus_days);
+
     return res.status(200).render('workoutGraph', {
         title: "Sign Up \• Jimbro",
         message: req.session.user + " " + search + " weight progress",

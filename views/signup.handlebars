@@ -1,29 +1,29 @@
 <div class="d-flex flex-column justify-content-center align-items-center mt-5">
     {{!-- <div>{{message}}</div> --}}
-    <h1>Welcome to <span class="navbar-brand">jimbro</span></h1>
+    <h1 class="greeting">Welcome to <span class="navbar-brand">jimbro</span></h1>
     <form method="POST" id="registration-form" action="/signup">
         <div class="form-row my-3 form-floating gx-1">
-            <input type="text" class="form-control" name="usernameInput" id="usernameInput" placeholder="Username">
+            <input type="text" class="form-control" name="usernameInput" id="usernameInput" placeholder="Username" value="{{username}}">
             <label for="usernameInput">Username</label>
         </div>
         <div class="form-row my-3 form-floating gx-1">
-            <input type="email" class="form-control" name="emailInput" id="emailInput" placeholder="example@email.com">
+            <input type="email" class="form-control" name="emailInput" id="emailInput" placeholder="example@email.com" value="{{email}}">
             <label for="emailInput">Email</label>
         </div>
         <div class="form-row my-3 form-floating gx-1">
-            <input type="password" class="form-control" name="passwordInput" id="passwordInput" placeholder="Password">
+            <input type="password" class="form-control" name="passwordInput" id="passwordInput" placeholder="Password" value="{{password}}">
             <label for="passwordInput">Password</label>
         </div>
         <div class="form-row my-3 form-floating gx-1">
-            <input type="password" class="form-control" name="confirmPasswordInput" id="confirmPasswordInput" placeholder="Confirm Password">
+            <input type="password" class="form-control" name="confirmPasswordInput" id="confirmPasswordInput" placeholder="Confirm Password" value="{{confirmPassword}}">
             <label for="confirmPasswordInput">Confirm Password</label>
         </div>
+        <div><input type="checkbox" onclick="toggle()"> Show Password</div>
         <div class="form-row d-flex justify-content-center my-3">
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </div>
     </form>
-    <div><input type="checkbox" onclick="myFunction()">Show Password</div>
-    <div>{{error}}</div>
-    <a href="/login">Already have an account? Click here to log-in</a>
+    <div class="error">{{error}}</div>
+    <a href="/login" class="mt-2">Already have an account? Click here to log-in</a>
 </div>
-<script src="/public/js/passwordVisibility.js"></script>
+<script src="/public/js/formFrontend.js"></script>

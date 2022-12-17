@@ -9,8 +9,12 @@ const profileRoutes = require('./profile');
 const logoutRoutes = require('./logout');
 const statsDiagram = require('./statsDiagram');
 const communityPostRoutes = require('./communitypost');
+const error404 = require('./error404');
 
 const constructorMethod = (app) => {
+    app.get('/', (req,res) => {
+        res.redirect('/home');
+    });
     app.use('/home', homeRoutes);
     app.use('/workouts', workoutsRoutes);
     app.use('/scheduler', schedulerRoutes);
@@ -21,9 +25,10 @@ const constructorMethod = (app) => {
     app.use('/login', loginRoutes);
     app.use('/profile', profileRoutes);
     app.use('/logout', logoutRoutes);
-    app.use('/statsDiagram', statsDiagram)
+    app.use('/statsDiagram', statsDiagram);
+    app.use('/error', error404);
     app.use('*', (req, res) => {
-        res.redirect('/home');
+        res.redirect('/error');
     });
 };
 

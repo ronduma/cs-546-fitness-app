@@ -12,11 +12,13 @@
     </div>
 </div>
 
+
 {{#if isEmpty}}
 <p>You have no workouts to show a diagram for {{session}}</p>
   <label for="home" class="input-param" hidden="true">Home Page</label>
   <a type="createButton" id="home" href ='/home'>Home Page</a>
 {{else}}  
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 {{!-- ratio of type of body workouts --}}
@@ -38,5 +40,7 @@
       }]
     }
   });
+
 </script>
 {{/if}}
+

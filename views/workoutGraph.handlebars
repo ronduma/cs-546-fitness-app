@@ -11,11 +11,13 @@
     </div>
 </div>
 
+
 {{#if isEmpty}}
 <p>You have no workouts to show a  for {{session}}</p>
   <label for="home" class="input-param" hidden="true">Home Page</label>
   <a type="button" id="home" href ='/home'>Home Page</a>
 {{else}}  
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -37,9 +39,12 @@
       }]
     }
   });
+
 </script>
+
 <div>
   <label for="home" class="input-param" hidden="true">Workout Progress</label>
   <a type="button" id="home" href ='/WorkoutProgress'>Workout Progress</a>
 </div>
 {{/if}}
+
