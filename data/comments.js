@@ -3,6 +3,8 @@ const mongoCollections = require('../config/mongoCollections');
 const {ObjectId} = require('mongodb');
 const { comments } = require('../config/mongoCollections');
 const helpers = require('../helpers');
+const { users } = require('../config/mongoCollections');
+const postData = require('./posts');
 
 
 const searchCommentbyID = async (commentid) => {
@@ -44,6 +46,7 @@ const searchCommentbyPostId = async (postId) => {
 const createComment = async(postId, user, comment) => {
     //need the current user
     const commentCollection = await comments();
+    // const userCollection = await users();
     if (!user || user == undefined) {
       throw "user not provided";
     }
@@ -67,7 +70,7 @@ const createComment = async(postId, user, comment) => {
     //check if postuser and user is the same. Cant comment on your own post
     let currDate = new Date();
     //console.log(currDate);
-  
+    
     let newComment = {
       _id : ObjectId(),
       postId: postId.trim(),
@@ -76,6 +79,7 @@ const createComment = async(postId, user, comment) => {
       time: currDate,
     };
     //update the post user 
+
     const insertedInfo = await commentCollection.insertOne(newComment);
     if(!insertedInfo.acknowledged || !insertedInfo.insertedId) throw 'Could not add Comment'
 

@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
         });
     } else {
         let allposts = await postData.getAllPostsNoUser();
-        let orderedpost = postData.sortedDesc(allposts);
+        let orderedpost = await postData.sortedDesc(allposts);
         //console.log(orderedpost);
         // console.log(allposts);
     //console.log(allposts[0]._id);
@@ -32,11 +32,28 @@ router.get("/", async (req, res) => {
 });
 
 // router.post('/', async (req, res) => {
-//     res.status(200).render('communitypost', {
-//         title : "Communitypost \• Jimbro",
-//         message : "this is the community Post page",
-//         session : req.session.user
-//     });
+//     if (!req.session.user) {
+//         res.status(200).render("login", {
+//             title: "Log In • Jimbro",
+//             message: "You need to log in to use the Community Page.",
+//             session: req.session.user,
+//         });
+//     } else {
+//         let allposts = await postData.getAllPostsNoUser();
+//         let orderedpost = await postData.sortedDesc(allposts);
+//         console.log(orderedpost);
+//         // console.log(allposts);
+//     //console.log(allposts[0]._id);
+//     // console.log(allposts[0].postTitle)
+//         res.status(200).render("community", {
+//             title: "Community • Jimbro",
+//             message: "this is the community page!",
+//             session: req.session.user,
+//             allpost: orderedpost,
+//         });
+//         //add like
+//     }
+    
 
 // });
 
@@ -52,7 +69,7 @@ router.route("/:id").get(async (req, res) => {
     //if not valid postid and logined 
     if (!req.params.id && req.session.user){
         let allposts = await postData.getAllPostsNoUser();
-        let orderedpost = postData.sortedDesc(allposts);
+        let orderedpost = await postData.sortedDesc(allposts);
         res.status(200).render("community", {
             title: "Community • Jimbro",
             message: "this is the community page",
@@ -68,7 +85,7 @@ router.route("/:id").get(async (req, res) => {
         }
         catch(e){
             let allposts = await postData.getAllPostsNoUser();
-        let orderedpost = postData.sortedDesc(allposts);
+        let orderedpost = await postData.sortedDesc(allposts);
         res.status(400).render("community", {
             title: "Community • Jimbro",
             message: "this is the community page and postId not found",
@@ -98,7 +115,7 @@ router.route("/:id").get(async (req, res) => {
             });
         } catch (e) {
             let allposts = await postData.getAllPostsNoUser();
-            let orderedpost = postData.sortedDesc(allposts);
+            let orderedpost = await postData.sortedDesc(allposts);
             res
                 .status(404)
                 .render("community", {

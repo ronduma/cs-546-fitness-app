@@ -230,7 +230,7 @@ const addLike = async (currentuser, postuser, postId) => {
   console.log(likeArray);
   let newArray = likeArray;
 
-  //Check duplicates 
+  //Check duplicates I DONT WANT A USER Liking same post
   //
   if (newArray.length != 0){
     for (elem of newArray){
