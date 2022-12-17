@@ -73,7 +73,7 @@ router.post('/', async (req,res) => {
                 result.push(lst[i].name);
             }
         }
-        console.log(result);
+        // console.log(result);
         return res.status(200).render('WorkoutProgress', {
             title: "Sign Up \• Jimbro",
             message: "Pick progress",
