@@ -30,7 +30,13 @@ router.post('/', async (req, res) => {
       helpers.validatePassword(password);
       if (password !== confirmPassword) throw 'Error: Passwords do not match. Please try again.'
     } catch (e) {
-      return res.status(400).render("../views/signup", { error : e });
+      return res.status(400).render("../views/signup", { 
+        error : e,
+        username : username,
+        email : email,
+        password : password,
+        confirmPassword : confirmPassword
+      });
     }
     try {
       let user = await users.createUser(username, email, password);
