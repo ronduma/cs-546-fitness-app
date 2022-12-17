@@ -53,6 +53,7 @@ router.post('/', async (req,res) => {
         if(total === 0){
             isEmpty = true;
         }
+
         return res.status(200).render('BodyGroup', {
             title: "Sign Up \• Jimbro",
             message: req.session.user + " Diagram",
@@ -86,11 +87,13 @@ router.post('/', async (req,res) => {
 router.post('/workoutProgress', async (req,res) => {
     let search = req.body;
     search = search.scroll;
+
     //console.log(search);
     let current = await users.getUserByUsername(req.session.user);
     let current_data = await stats.getWeights(current._id, search);
     let current_days = await stats.getDays(current._id, search);
     //console.log(current_data);
+
     return res.status(200).render('workoutGraph', {
         title: "Sign Up \• Jimbro",
         message: req.session.user + " " + search + " weight progress",
