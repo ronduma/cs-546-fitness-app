@@ -79,6 +79,8 @@ const groupRatio = async(userId) =>{
 const getWeights = async(userId, exercise) => {
     let workout_lst = await getAllExcercise(userId);
     let counter  = 0;
+    console.log(exercise);
+    console.log(workout_lst);
     for(let i = 0; i < workout_lst.length; i++){
         if(workout_lst[i].name === exercise){
             counter = 1;
@@ -89,34 +91,15 @@ const getWeights = async(userId, exercise) => {
     }
     let result = [];
     for(let i = 0; i < workout_lst.length; i++){
-        if(workout_lst[i].name === exercise){
-            result.push(workout_lst[i]["weight"]);
+        if(workout_lst[i]["name"] === exercise){
+            result.push(workout_lst[i]);
         }
     }
-
+    // console.log(result);
     return result;
 }
 
-const getDays = async(userId, exercise) => {
-    let workout_lst = await getAllExcercise(userId);
-    let counter  = 0;
-    for(let i = 0; i < workout_lst.length; i++){
-        if(workout_lst[i].name === exercise){
-            counter = 1;
-        }
-    }
-    if(counter == 0){
-        throw 'Need to have the workout within scheduler.';
-    }
-    let result = [];
-    for(let i = 0; i < workout_lst.length; i++){
-        if(workout_lst[i].name === exercise){
-            result.push(workout_lst[i]["day"]);
-        }
-    }
 
-    return result;
-}
 module.exports = {
     getAllExcercise,
     upperData,
@@ -124,5 +107,4 @@ module.exports = {
     coreData,
     groupRatio,
     getWeights,
-    getDays
 }

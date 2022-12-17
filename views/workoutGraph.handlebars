@@ -29,7 +29,7 @@
   new Chart(ctx, {
     type: 'line',
     data: {
-    labels: [{{legend}}],
+    labels: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5', 'Day6', 'Day7'],
     datasets: [{
         label: "Progress in Pounds",
         data: [{{data}}],
@@ -41,5 +41,10 @@
   });
 
 </script>
+
+<div>
+  <label for="home" class="input-param" hidden="true">Workout Progress</label>
+  <a type="button" id="home" href ='/WorkoutProgress'>Workout Progress</a>
+</div>
 {{/if}}
 
