@@ -5,8 +5,7 @@
         newWeightInput  = $('#exerciseWeight'),
         newNumSetsInput = $('#numSets'),
         newNumRepsInput = $('#numReps'),
-        newBodyGroupInput = $('#bodyGroup'),
-        wholePage = $('#main-page-AJAX');
+        newBodyGroupInput = $('#bodyGroup')
 
     newExerciseForm.submit(function (event) {
         event.preventDefault();
@@ -34,8 +33,14 @@
             };
             $.ajax(requestConfig).then(function(responseMessage){
                 console.log(responseMessage);
-                var newPage = $(responseMessage);
-                wholePage.replaceWith(newPage);
+                var oldMess = document.getElementById('response-message');
+                console.log(oldMess)
+                let h1 = document.createElement('h1');
+                h1.innerHTML = responseMessage.message;
+                h1.className = 'header-spacing';
+                h1.id='response-message';
+                oldMess.replaceWith(h1);
+                event.preventDefault();
             });
         }
     })

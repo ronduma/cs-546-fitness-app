@@ -2,9 +2,9 @@
 <ul class="display-list">
     {{#each lists}}
         <li class="display-item item-border">
-            <h2 class="bold-title">{{dayPlanned}}</h3>
+            <h2 class="bold-title">{{dayPlanned}}</h2>
             {{#each list}}
-                <h4 class="exercise">{{name}}</h4>
+                <h3 class="exercise">{{name}}</h3>
                 <p class="schedule-exercise">{{weight}} lb Weight</p>
                 <p class="schedule-exercise">{{sets}} Sets</p>
                 <p class="schedule-exercise">{{reps}} Reps each</p>
@@ -25,7 +25,6 @@
     {{/each}}
 </ul>
 <br>
-<label for="schedulerButton" class="input-param" hidden="true">Return to scheduler</label>
 <button type="button" id="schedulerButton" onclick="schedulerRedirect()">Return to scheduler</button>
 <script>
     function schedulerRedirect(){
