@@ -56,6 +56,12 @@
                     </div>
                     <div>
                          <a href="/community/{{_id}}">Comments</a>
+                         <p>
+                            <form method="POST" action="/community/{{_id}}">
+                                <input name="_method" type="hidden" value="DELETE"/>
+                                <button type="submit">Delete</button>
+                            </form>
+                        </p>
                     </div>
                 </div>
             </div>
