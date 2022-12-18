@@ -267,12 +267,12 @@ if (commentBody.trim().length < 3) {
 }
 
 function ifstringonlynumbers(string){
-  let regex = /^[0-9]+$/;
+  let regex = /^[0-9 ]*$/;
   return regex.test(string);
   
 }
 function hasOnlySpecialCharater(val) {
-  let regex = /^[^a-zA-Z0-9]+$/;
+  let regex = /^[^a-zA-Z0-9 ]*$/;
   return (regex.test(val));
 }
 function hasThreeWords(str) {
