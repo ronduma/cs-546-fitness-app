@@ -220,6 +220,7 @@ const getpostByPosttitle = async (posttitle) => {
     }
   };
 
+
 //Get comment array from1 post
 const getComments = async (postId) => {
   if (!postId) throw 'You must provide an id to search for';
