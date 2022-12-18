@@ -367,6 +367,7 @@ module.exports = {
   getPost,
   getAllPostsNoUser,
   sortedDesc,
+  deletePost,
   getComments,
   getLikes,
   addLike,
