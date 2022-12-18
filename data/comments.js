@@ -71,11 +71,11 @@ const createComment = async(postId, user, comment) => {
     //check if postuser and user is the same. Cant comment on your own post
     let currDate = new Date();
     //console.log(currDate);
-    
+    helpers.validateComment(comment);
     let newComment = {
       _id : ObjectId(),
       postId: postId.trim(),
-      user: user.trim(),
+      user: user.trim().toLowerCase(),
       comment: comment,
       time: currDate,
     };

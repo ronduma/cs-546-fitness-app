@@ -32,6 +32,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    //if not loggined in go login
     if (!req.session.user) {
         res.status(200).render("login", {
             title: "Log In • Jimbro",
@@ -55,7 +56,7 @@ router.post('/', async (req, res) => {
         let likeadd = await postData.addLike(req.session.user, likeInputName, likeInputID);
         if (likeadd.addedLike == true){
             let allposts = await postData.getAllPostsNoUser();
-    let orderedpost = await postData.sortedDesc(allposts);
+            let orderedpost = await postData.sortedDesc(allposts);
 
             res.status(200).render("community", {
                 title: "Community • Jimbro",
@@ -70,7 +71,7 @@ router.post('/', async (req, res) => {
         // res.status(400).json({error: `${e}`});
         res.status(400).render("community", {
             title: "Community • Jimbro",
-            message: "User can't like same post twice",
+            message: e,
             session: req.session.user,
             allpost: orderedpost,
         });
@@ -176,6 +177,10 @@ router.route("/:id").post(async (req, res) => {
 
     } catch (e) {
         //ONEPOST NOT DEFINED
+        let id = req.params.id;
+        let allposts = await postData.getAllPostsNoUser();
+        let orderedpost = await postData.sortedDesc(allposts);
+        const allcomments = await commentData.searchCommentbyPostId(idString);
         return res.status(404).render("onepost", {
             onepost: onepost,
             title: "Post • Jimbro",

@@ -11,7 +11,6 @@ const createPost = async (user, postTitle, post) => {
   if (typeof user != "string") {
     throw "You must provide user string";
   }
-  await userData.getUserByUsername(user.trim());
 
   if (!postTitle || postTitle == undefined) {
     throw "You must provide a postTitle for user";
@@ -28,24 +27,29 @@ const createPost = async (user, postTitle, post) => {
   if (post.trim().length == 0) {
     throw "Empty String or just just spaces for post";
   }
+  helper.validatePostBody(post.trim());
+  helper.validatePostTitle(postTitle);
+
   const userCollection = await userDatabase();
+  const usern = await userData.getUserByUsername(user.trim());
   let currDate = new Date();
   //console.log(currDate);
 
   let newPost = {
     _id: ObjectId(),
-    username: user.trim(),
+    username: usern.username,
     postTitle: postTitle.trim(),
     postDate: currDate,
-    post: post,
+    post: post.trim(),
     likes: 0,
     comments: [],
     likeArray: [],
   };
-  const insertedInfo = await userCollection.updateOne({ username: user.trim() }, {
+  const insertedInfo = await userCollection.updateOne({ username: usern.username.toLowerCase() }, {
     $push:
       { posts: newPost }
   });
+  if(!insertedInfo.matchedCount && !insertedInfo.modifiedCount) throw 'Update failed';
 
   return { insertedPost: true };
 
@@ -261,7 +265,7 @@ const addLike = async (currentuser, postuser, postId) => {
     for (elem of newArray){
       //if current
       if (elem == currentuser){
-        throw 'User can not like same post more than once'
+        throw 'User can not like same post more than 1 time.'
       }
     }
   }

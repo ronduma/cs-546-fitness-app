@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
       if (totalLikes > 5) {
         level=2;
       }
-      if (commentcount >5){
+      if (commentcount >3){
         commentL=1;
       }
       if (commentcount >10){
