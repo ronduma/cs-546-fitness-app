@@ -123,7 +123,7 @@ router.route("/:id").get(async (req, res) => {
             const onepost = await postData.getPost(id.trim());
             let idString = id.toString();
             const allcomments = await commentData.searchCommentbyPostId(idString);
-            //console.log(allcomments);
+            console.log(onepost);
             return res.status(200).render("onepost", {
                 onepost: onepost,
                 title: "Post • Jimbro",
@@ -215,6 +215,7 @@ router.route("/:id").post(async (req, res) => {
 
 router.get('/profile/:id', async (req, res) => {
     if(req.session.user){
+        console.log(req.params.id);
       let user = await users.getUserById(req.params.id);
       return res.status(200).render('communityProfile', {
           title : user.username.concat("'s Profile \• Jimbro"),
