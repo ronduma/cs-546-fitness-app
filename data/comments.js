@@ -47,6 +47,7 @@ const searchCommentbyPostId = async (postId) => {
 const createComment = async(postId, user, comment) => {
     //need the current user
     const commentCollection = await comments();
+    const userCollection = await users();
     // const userCollection = await users();
     if (!user || user == undefined) {
       throw "user not provided";
@@ -80,6 +81,7 @@ const createComment = async(postId, user, comment) => {
       time: currDate,
     };
     //update the post user 
+    let databaseUser = await userData.getUserByUsername(user.trim().toLowerCase());
 
     const insertedInfo = await commentCollection.insertOne(newComment);
     if(!insertedInfo.acknowledged || !insertedInfo.insertedId) throw 'Could not add Comment'
@@ -97,6 +99,8 @@ const createComment = async(postId, user, comment) => {
   const commentCollection = await comments();
   let allComments = await getAllComments();
   //allcomments -> each comment has username check username and username 
+  const userCollection = await users();
+  let databaseUser = await userData.getUserByUsername(username.trim().toLowerCase());
   let count =0;
   for (commentvalue of allComments){
     // console.log(comment)
