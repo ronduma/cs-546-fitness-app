@@ -9,7 +9,7 @@
 <div class="communityContainer">
     <div class=" cards">
         <div class="card">
-            <h3>Challenge: 5k run Hoboken Pier in 2 weeks</h3>
+            <h3>EXAMPLE POST: Challenge: 5k run Hoboken Pier in 2 weeks</h3>
             <div class="card__content">
                 <p>
                     Think you're up to the challenge. Recently picked up running and trying to keep improving
@@ -20,22 +20,6 @@
                     </div>
                     <div>
                         <a href="/community/{{id}}">Comments</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <h3>Challenge: 1k run Hoboken Pier in 2 weeks</h3>
-            <div class="card__content">
-                <p>
-                    Think you're up to the challenge. Recently picked up running and trying to keep improving
-                </p>
-                <div class="card_stats">
-                    <div>
-                        <p>Likes: </p>
-                    </div>
-                    <div>
-                        <a href="/community/{{_id}}">Comments</a>
                     </div>
                 </div>
             </div>
@@ -54,9 +38,20 @@
                     <div>
                         <p>{{postDate}}</p>
                     </div>
+                    
                 <div class="card_stats">
                     <div>
-                        <p>Likes:{{likes}} </p>
+                        <form action="/community" method="POST" id="like-post" class="user-post">
+            <label type="hidden" for="LikeInputID"></label>
+             <input type="hidden" name="LikeInputID" id="LikeInput" value={{_id}}>
+             <label type="hidden" for="LikeInputname"></label>
+             <input type="hidden" name="LikeInputname" id="LikeInput" value={{username}}>
+            <button type="submit" class="submission">💙</button>
+                        </form>
+                    </div>
+                    <div>
+                             </a>
+                        <p id="like-amount">Likes: {{likes}} </p>
                     </div>
                     <div>
                          <a href="/community/{{_id}}">Comments</a>
@@ -68,4 +63,6 @@
         </div>
 
     </div>
-        <a class="nav-link" href="/community">Click here view the top posts!</a>
+</div>
+{{!-- This has nothing --}}
+<script src="/public/js/like.js"></script>

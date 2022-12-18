@@ -7,8 +7,7 @@ const xss = require('xss');
 
 router.get('/', async (req, res) => {
     if(req.session.user){
-      // what is protected? 
-        return res.redirect('/protected');
+        return res.redirect('/profile');
       }
       else{
         return res.status(200).render('signup', {

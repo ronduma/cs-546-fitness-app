@@ -3,6 +3,9 @@ const mongoCollections = require('../config/mongoCollections');
 const {ObjectId} = require('mongodb');
 const { comments } = require('../config/mongoCollections');
 const helpers = require('../helpers');
+const { users } = require('../config/mongoCollections');
+const postData = require('./posts');
+const userData = require('./users');
 
 
 const searchCommentbyID = async (commentid) => {
@@ -18,7 +21,7 @@ const getAllComments = async () => {
     const commentCollection = await comments();
     const commentList = await commentCollection.find({}).toArray();
     if (!commentList) throw "Could not get all users";
-    // console.log(movieList);
+    // console.log(movieList); 
     for (let i = 0; i < commentList.length; i++) {
         commentList[i]._id = commentList[i]._id.toString();
     }
@@ -44,6 +47,7 @@ const searchCommentbyPostId = async (postId) => {
 const createComment = async(postId, user, comment) => {
     //need the current user
     const commentCollection = await comments();
+    // const userCollection = await users();
     if (!user || user == undefined) {
       throw "user not provided";
     }
@@ -67,23 +71,47 @@ const createComment = async(postId, user, comment) => {
     //check if postuser and user is the same. Cant comment on your own post
     let currDate = new Date();
     //console.log(currDate);
-  
+    helpers.validateComment(comment);
     let newComment = {
       _id : ObjectId(),
       postId: postId.trim(),
-      user: user.trim(),
+      user: user.trim().toLowerCase(),
       comment: comment,
       time: currDate,
     };
     //update the post user 
+
     const insertedInfo = await commentCollection.insertOne(newComment);
     if(!insertedInfo.acknowledged || !insertedInfo.insertedId) throw 'Could not add Comment'
 
     return {insertedComment: true};
   }
 
+  //get all comments by a user
+  const getAllCommentsCountByUser = async (username) => {
+  if (!username) throw 'You must provide an username to search for';
+  if (typeof username !== 'string') throw 'username must be a string';
+  if (username.trim().length === 0)
+    throw 'username cannot be an empty string or just spaces';
+  username = username.toLowerCase();
+  const commentCollection = await comments();
+  let allComments = await getAllComments();
+  //allcomments -> each comment has username check username and username 
+  let count =0;
+  for (commentvalue of allComments){
+    // console.log(comment)
+
+    if (commentvalue.user == username){
+      count++;
+    }
+  }
+  return count;
+  
+  }
+
 module.exports = {
     searchCommentbyID,
     createComment,
     searchCommentbyPostId,
+    getAllCommentsCountByUser,
 }

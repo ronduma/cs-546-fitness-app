@@ -66,37 +66,104 @@ app.listen(3000, () => {
 // const main = async () => {
 //     const db = await connection.dbConnection();
 
-//     post2= await posts.createPost("testuser", "test user post", "An nonempty post");
-//     console.log(post2);//2
+// // //     post2= await posts.createPost("testuser", "test user post", "An nonempty post");
+// // //     console.log(post2);//2
 
-// ///Get all post of user2 which has no posts []
-//     getAllpost= await posts.getAllPosts("6386e40aad58eff67e5563a2");
-//     console.log(getAllpost);//2
+// // // /Get all post of user2 which has no posts []
+// // //     getAllpost= await posts.getAllPosts("6386e40aad58eff67e5563a2");
+// // //     console.log(getAllpost);//2
 
-//     post= await posts.createPost("testuser", "test user post222", "An nonempty post");
-//     console.log(post);//2
+// // //     post= await posts.createPost("testuser", "test user post222", "An nonempty post");
+// // //     console.log(post);//2
 
-//     getAllpost = await posts.getAllPostsNoUser();
-//     console.log(getAllpost);
+// // //     getAllpost = await posts.getAllPostsNoUser();
+// // //     console.log(getAllpost);
 
-//     desc = posts.sortedDesc(getAllpost);
-//     console.log(desc);
+// // //     desc = posts.sortedDesc(getAllpost);
+// // //     console.log(desc);
 
-//     getpost= await posts.getPost('6392b11a9d1bcf3c4b28c59f');
-//     console.log(getpost);
-//     getComments = await posts.getComments('6392b11a9d1bcf3c4b28c59f');
-//     console.log(getComments);
-//     createdComment = await posts.createComment('testuser','639bc26e99f4a15566e44a70', 'comment','1st comment on DDD');
-//     console.log(createdComment);
-//     getComments = await posts.getComments('6392b11a9d1bcf3c4b28c59f');
-//     console.log(getComments);
+// // //     getpost= await posts.getPost('6392b11a9d1bcf3c4b28c59f');
+// // //     console.log(getpost);
+// // //     getComments = await posts.getComments('6392b11a9d1bcf3c4b28c59f');
+// // //     console.log(getComments);
+// // //     createdComment = await posts.createComment('testuser','639bc26e99f4a15566e44a70', 'comment','1st comment on DDD');
+// // //     console.log(createdComment);
+// // //     getComments = await posts.getComments('6392b11a9d1bcf3c4b28c59f');
+// // //     console.log(getComments);
+//     // Likes = await posts.getLikes('639a8bfb1a9390835e2f9b74');
+//     // console.log(Likes);
+//     // addlike = await posts.addLike('dylantran', 'testuser','639a8bfb1a9390835e2f9b74');
+//     // console.log(addlike);
+//     // newLikes = await posts.getLikes('639a8bfb1a9390835e2f9b74');
+//     // console.log(newLikes);
+//     // addlike = await posts.addLike('trang', 'testuser','639a8bfb1a9390835e2f9b74');
+//     // console.log(addlike);
+
     
-    // createdcomment = await comments.createComment('639bc26e99f4a15566e44a70', 'comment','2nd comment on DDD');
-    // console.log(createdcomment);
-    // // searchedcomment = await comments.searchCommentbyID('639c144710a21b5b1fa57c98');
-    // // console.log(searchedcomment);
-    // commentlistofpost = await comments.searchCommentbyPostId('639bc26e99f4a15566e44a70');
-    // console.log(commentlistofpost);
+// // //     createdcomment = await comments.createComment('639bc26e99f4a15566e44a70', 'comment','2nd comment on DDD');
+// // //     console.log(createdcomment);
+// //     // searchedcomment = await comments.searchCommentbyID('639c144710a21b5b1fa57c98');
+// //     // console.log(searchedcomment);
+// //     // commentlistofpost = await comments.searchCommentbyPostId('639bc26e99f4a15566e44a70');
+// //     // console.log(commentlistofpost);
+
+    
+//     await connection.closeConnection();
+// }
+
+// main();
+
+// const users = require('./data/users');
+// const posts = require('./data/posts');
+// const comments = require('./data/comments')
+// const connection = require('./config/mongoConnection');
+// const main = async () => {
+//     const db = await connection.dbConnection();
+
+// // //     post2= await posts.createPost("testuser", "test user post", "An nonempty post");
+// // //     console.log(post2);//2
+
+// // // /Get all post of user2 which has no posts []
+// // //     getAllpost= await posts.getAllPosts("6386e40aad58eff67e5563a2");
+// // //     console.log(getAllpost);//2
+
+// // //     post= await posts.createPost("testuser", "test user post222", "An nonempty post");
+// // //     console.log(post);//2
+
+// // //     getAllpost = await posts.getAllPostsNoUser();
+// // //     console.log(getAllpost);
+
+// // //     desc = posts.sortedDesc(getAllpost);
+// // //     console.log(desc);
+
+// // //     getpost= await posts.getPost('6392b11a9d1bcf3c4b28c59f');
+// // //     console.log(getpost);
+// // //     getComments = await posts.getComments('6392b11a9d1bcf3c4b28c59f');
+// // //     console.log(getComments);
+// // //     createdComment = await posts.createComment('testuser','639bc26e99f4a15566e44a70', 'comment','1st comment on DDD');
+// // //     console.log(createdComment);
+// // //     getComments = await posts.getComments('6392b11a9d1bcf3c4b28c59f');
+// // //     console.log(getComments);
+//     // Likes = await posts.getLikes('639a8bfb1a9390835e2f9b74');
+//     // console.log(Likes);
+//     // addlike = await posts.addLike('dylantran', 'testuser','639a8bfb1a9390835e2f9b74');
+//     // console.log(addlike);
+//     // newLikes = await posts.getLikes('639a8bfb1a9390835e2f9b74');
+//     // console.log(newLikes);
+//     // addlike = await posts.addLike('trang', 'testuser','639a8bfb1a9390835e2f9b74');
+//     // console.log(addlike);
+
+    
+// // //     createdcomment = await comments.createComment('639bc26e99f4a15566e44a70', 'comment','2nd comment on DDD');
+// // //     console.log(createdcomment);
+// //     // searchedcomment = await comments.searchCommentbyID('639c144710a21b5b1fa57c98');
+// //     // console.log(searchedcomment);
+// //     // commentlistofpost = await comments.searchCommentbyPostId('639bc26e99f4a15566e44a70');
+// //     // console.log(commentlistofpost);
+//     commentlistofpost = await posts.getLikesfromUsername('testuser');
+//     console.log(commentlistofpost);
+//     commentCount = await comments.getAllCommentsCountByUser('testuser');
+//     console.log(commentCount);
 
     
 //     await connection.closeConnection();

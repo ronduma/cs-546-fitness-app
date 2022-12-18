@@ -195,6 +195,9 @@ if (typeof postTitle != 'string') {
 if (postTitle.trim().length < 3) {
     throw 'Enter a Post Title minimum of 3 letters';
   }
+  if (ifstringonlynumbers(postTitle.trim()) == true || hasOnlySpecialCharater(postTitle.trim())== true){
+    throw 'PostTitle can not be only numbers or only special characters'
+  }
 
 
 return postTitle.trim();
@@ -210,6 +213,9 @@ if (typeof postbody != 'string') {
 }
 if (postbody.trim().length <5) {
     throw 'Enter a Post Details minimum of 5 letters';
+  }
+  if (ifstringonlynumbers(postbody.trim()) == true || hasOnlySpecialCharater(postbody.trim())== true){
+    throw 'PostBody can not be only numbers or only special characters'
   }
 
 return postbody.trim();
@@ -241,9 +247,23 @@ if (typeof commentBody != 'string') {
 if (commentBody.trim().length < 3) {
     throw 'Enter a commentBody minimum of 3 letters';
   }
-  return commentBody
+  if (ifstringonlynumbers(commentBody.trim()) == true || hasOnlySpecialCharater(commentBody.trim())== true){
+    throw 'Input can not be only numbers or only special characters'
+  }
+  return commentBody;
 
 }
+
+function ifstringonlynumbers(string){
+  let regex = /^[0-9]+$/;
+  return regex.test(string);
+  
+}
+function hasOnlySpecialCharater(val) {
+  let regex = /^[^a-zA-Z0-9]+$/;
+  return (regex.test(val));
+}
+
 
 module.exports = {
   checkString,
@@ -262,5 +282,7 @@ module.exports = {
   checkDay,
   checkBodyGroup,
   validateComment,
+  ifstringonlynumbers,
+  hasOnlySpecialCharater,
 
 };

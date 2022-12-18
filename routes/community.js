@@ -16,11 +16,11 @@ router.get("/", async (req, res) => {
         });
     } else {
         let allposts = await postData.getAllPostsNoUser();
-        let orderedpost = postData.sortedDesc(allposts);
+        let orderedpost = await postData.sortedDesc(allposts);
         //console.log(orderedpost);
         // console.log(allposts);
-    //console.log(allposts[0]._id);
-    // console.log(allposts[0].postTitle)
+        //console.log(allposts[0]._id);
+        // console.log(allposts[0].postTitle)
         res.status(200).render("community", {
             title: "Community • Jimbro",
             message: "this is the community page",
@@ -31,15 +31,54 @@ router.get("/", async (req, res) => {
     }
 });
 
-// router.post('/', async (req, res) => {
-//     res.status(200).render('communitypost', {
-//         title : "Communitypost \• Jimbro",
-//         message : "this is the community Post page",
-//         session : req.session.user
-//     });
+router.post('/', async (req, res) => {
+    //if not loggined in go login
+    if (!req.session.user) {
+        res.status(200).render("login", {
+            title: "Log In • Jimbro",
+            message: "You need to log in to use the Community Page.",
+            session: req.session.user,
+        });
+    }
+    let likeInputID = req.body.LikeInputID;
+    let likeInputName = req.body.LikeInputname;
+    console.log(likeInputID);
+    console.log(likeInputName);
+    //check inputs
+    try {
+        helpers.checkId(likeInputID, likeInputID);
+        let username=await users.getUserByUsername(likeInputName);
+        //Check likeinputName
+    } catch (e) {
+        res.redirect('/community');
+    }
+    try {
+        let likeadd = await postData.addLike(req.session.user, likeInputName, likeInputID);
+        if (likeadd.addedLike == true){
+            let allposts = await postData.getAllPostsNoUser();
+            let orderedpost = await postData.sortedDesc(allposts);
 
-// });
+            res.status(200).render("community", {
+                title: "Community • Jimbro",
+                message: "this is the community page!",
+                session: req.session.user,
+                allpost: orderedpost,
+            });
+        }
+    } catch (e) {
+        let allposts = await postData.getAllPostsNoUser();
+        let orderedpost = await postData.sortedDesc(allposts);
+        // res.status(400).json({error: `${e}`});
+        res.status(400).render("community", {
+            title: "Community • Jimbro",
+            message: e,
+            session: req.session.user,
+            allpost: orderedpost,
+        });
+    }
 
+});
+//CHECK THE ERROR CHECKING IN ROUTIES
 router.route("/:id").get(async (req, res) => {
     //
     if (!req.session.user) {
@@ -48,11 +87,11 @@ router.route("/:id").get(async (req, res) => {
             message: "You need to log in to use the Community Page.",
             session: req.session.user,
         });
-    } 
+    }
     //if not valid postid and logined 
-    if (!req.params.id && req.session.user){
+    if (!req.params.id && req.session.user) {
         let allposts = await postData.getAllPostsNoUser();
-        let orderedpost = postData.sortedDesc(allposts);
+        let orderedpost = await postData.sortedDesc(allposts);
         res.status(200).render("community", {
             title: "Community • Jimbro",
             message: "this is the community page",
@@ -62,34 +101,46 @@ router.route("/:id").get(async (req, res) => {
         return;
     }
     else {
+        let id = req.params.id;
         try {
-            let id = req.params.id;
+            id = helpers.checkId(id);
+        }
+        catch (e) {
+            let allposts = await postData.getAllPostsNoUser();
+            let orderedpost = await postData.sortedDesc(allposts);
+            res.status(400).render("community", {
+                title: "Community • Jimbro",
+                message: "this is the community page and postId not found",
+                session: req.session.user,
+                allpost: orderedpost,
+            });
+            return;
+
+        }
+        try {
             // console.log(id);
-            const onepost = await postData.getPost(id);
+            let id = req.params.id;
+            const onepost = await postData.getPost(id.trim());
             let idString = id.toString();
-            console.log(onepost);
-            console.log("WE got the post")
             const allcomments = await commentData.searchCommentbyPostId(idString);
-            console.log(allcomments);
+            //console.log(allcomments);
             return res.status(200).render("onepost", {
                 onepost: onepost,
                 title: "Post • Jimbro",
                 message: "this is the one post",
                 session: req.session.user,
-                onepost: onepost,
                 allcomments: allcomments,
-                id:id,
+                id: id,
             });
         } catch (e) {
             let allposts = await postData.getAllPostsNoUser();
-            let orderedpost = postData.sortedDesc(allposts);
+            let orderedpost = await postData.sortedDesc(allposts);
             res
                 .status(404)
                 .render("community", {
                     title: "Post • Jimbro",
                     message: "PostID not found",
                     session: req.session.user,
-                    onepost: onepost,
                     allpost: orderedpost,
                 });
         }
@@ -103,11 +154,28 @@ router.route("/:id").post(async (req, res) => {
             message: "You need to log in to use the Community Page.",
             session: req.session.user,
         });
-    } 
+    }
     let commentDetails = req.body.commentDetailsInput;
+    
     try {
         let id = req.params.id;
-            // console.log(id);
+        helpers.checkId(id, id);
+        const onepost = await postData.getPost(id);
+    } catch (e) {
+        let allposts = await postData.getAllPostsNoUser();
+            let orderedpost = await postData.sortedDesc(allposts);
+            res
+                .status(404)
+                .render("community", {
+                    title: "Post • Jimbro",
+                    message: e,
+                    session: req.session.user,
+                    allpost: orderedpost,
+                });
+        }
+    try {
+        let id = req.params.id;
+        // console.log(id);
         const onepost = await postData.getPost(id);
         //Check the elements for comment
         commentDetails = helpers.validateComment(commentDetails);
@@ -121,21 +189,50 @@ router.route("/:id").post(async (req, res) => {
             session: req.session.user,
             onepost: onepost,
             allcomments: allcomments,
-            id:id,
+            id: id,
         });
 
     } catch (e) {
+        //ONEPOST NOT DEFINED
+        let id = req.params.id;
+        let allposts = await postData.getAllPostsNoUser();
+        const onepost = await postData.getPost(id);
+        let orderedpost = await postData.sortedDesc(allposts);
+        let idString = id.toString();
+        const allcomments = await commentData.searchCommentbyPostId(idString);
         return res.status(404).render("onepost", {
             onepost: onepost,
             title: "Post • Jimbro",
-            message: "this is the one post but didnt add newly added comment",
+            message: e,
             session: req.session.user,
             onepost: onepost,
             allcomments: allcomments,
-            id:id,
+            id: id,
         });
     }
 
+});
+
+router.get('/profile/:id', async (req, res) => {
+    if(req.session.user){
+      let user = await users.getUserById(req.params.id);
+      return res.status(200).render('communityProfile', {
+          title : user.username.concat("'s Profile \• Jimbro"),
+          message : "this is the profile page",
+          session : req.session.user,
+          username : user.username,
+          age : user.age,
+          heightFt : user.heightFt,
+          heightIn : user.heightIn,
+          weight : user.weight,
+          studio : user.studio,
+          coach : user.coach,
+          goals : user.goals
+      });
+    }
+    else{
+      return res.redirect('/login');
+    }
 });
 
 module.exports = router;
