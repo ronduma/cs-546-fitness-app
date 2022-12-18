@@ -201,6 +201,10 @@ if (postTitle.trim().length < 3) {
   if (ifstringonlynumbers(postTitle.trim()) == true || hasOnlySpecialCharater(postTitle.trim())== true){
     throw 'Error: PostTitle can not be only numbers or only special characters'
   }
+  if (numbersspacesorspecial(postTitle.trim()) == true){
+    throw 'Error: posttitle can not be only numbers and special characters'
+  }
+  
 
 
 return postTitle.trim();
@@ -222,6 +226,9 @@ if (postbody.trim().length <5) {
   }
   if (hasfiveWords(postbody.trim()) != true){
     throw 'Error: postBody needs to be longer than 5 words'
+  }
+  if (numbersspacesorspecial(postbody.trim()) == true){
+    throw 'Error: postbody can not be only numbers and special characters'
   }
 
 return postbody.trim();
@@ -259,6 +266,10 @@ if (commentBody.trim().length < 3) {
   if (ifstringonlynumbers(commentBody.trim()) == true || hasOnlySpecialCharater(commentBody.trim())== true){
     throw 'Error: Input can not be only numbers or only special characters'
   }
+  //edge case
+  if (numbersspacesorspecial(commentBody.trim()) == true){
+    throw 'Error: comment can not be only numbers and special characters'
+  }
   return commentBody;
 
 }
@@ -268,6 +279,13 @@ function ifstringonlynumbers(string){
   return regex.test(string);
   
 }
+
+function numbersspacesorspecial(string){
+  let regex = /^[`!@#$%^&*() _+\-=\[\]{};':"\\|,.<>\/?~\d]*$/;
+  return regex.test(string);
+  
+}
+
 function hasOnlySpecialCharater(val) {
   let regex = /^[^a-zA-Z0-9 ]*$/;
   return (regex.test(val));
@@ -307,5 +325,6 @@ module.exports = {
   validateComment,
   ifstringonlynumbers,
   hasOnlySpecialCharater,
+  numbersspacesorspecial,
 
 };
