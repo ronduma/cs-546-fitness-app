@@ -388,6 +388,7 @@ async function main() {
     const Post1 = await postData.createPost("bob", "Challenge: Running around Hoboken under 1hr", "This 1.97 square mile city is pretty small but its a good jog");
     const Post2 = await postData.createPost("eve", "Lift Weekly Goal Completed: 35lbs", "Reached 35 lbs on the Overhead Press. Getting closer to my goal");
     const Post3 = await postData.createPost("bob", "Review on Planet fitness", "This Hoboken gym left little to be desired. Super Busy all the time");
+    // const Post4 = await postData.createPost("ron", "Lift Weekly Goal Completed: 35lbs", "Reached 35 lbs on the Overhead Press. Getting closer to my goal");
     console.log("Sample Posts and Sample Likes:");
     console.log();
     // let allpost = await postData.getAllPostsNoUser()

@@ -34,7 +34,12 @@ const createPost = async (user, postTitle, post) => {
   const usern = await userData.getUserByUsername(user.trim());
   let currDate = new Date();
   //console.log(currDate);
-
+  let allpost = await getAllPostsNoUser();
+  for (elem of allpost){
+    if (elem.postTitle.trim() == postTitle){
+      throw "Error: Post with this title already exist!"
+    }
+  }
   let newPost = {
     _id: ObjectId(),
     username: usern.username,
