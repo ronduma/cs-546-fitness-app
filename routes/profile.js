@@ -31,6 +31,8 @@ router.get('/', async (req, res) => {
       if (commentcount >10){
         commentL=2;
       }
+      let userPosts = user.posts;
+      //   console.log("POSTS:", userPosts)
       return res.status(200).render('profile', {
           title : "Profile \• Jimbro",
           message : "this is the profile page",
@@ -44,7 +46,8 @@ router.get('/', async (req, res) => {
           coach : user.coach,
           goals : user.goals,
           level: level,
-          commentkarma: commentL
+          commentkarma: commentL,
+          userPosts : userPosts
       });
     }
     else{
