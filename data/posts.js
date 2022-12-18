@@ -179,8 +179,48 @@ const getpostByPosttitle = async (posttitle) => {
     throw 'post not found';
   }
   //postfound returns the Entire post
+      return postfound;
+      
+  };
+  // const insertedInfo = await userCollection.updateOne({username:user.trim()},{$push: 
+  //   {posts: newPost}}); 
+  const deletePost = async(postId, username) =>{
+    if(!postId || !username) throw 'no inputs';
+    if(!helper.validateUsername(username)) throw 'Must have valid username';
+    if (typeof postId !== 'string') throw 'Id must be a string';
+    if (postId.trim().length === 0) throw 'Id cannot be an empty string or just spaces';
+      postId = postId.trim();
+      if (!ObjectId.isValid(postId)) throw 'invalid object ID';
+
+      // deletes post
+      let ID = null;
+      
+      let result = null;
+
+      const current_user = await userData.getUserByUsername(username);
+
+      let list_posts = current_user["posts"];
+      for(let i =0; i < list_posts.length; i++){
+        let a = list_posts[i];
+        if(a._id.toString() === postId){
+          result = current_user["posts"].slice(0,i).concat(current_user["posts"].slice(i+1,current_user["posts"].length));
+
+          ID = current_user["_id"];
+          break;
+        }
+      }
+
+
+    if(ID === null) throw 'there is no user with this id';
+    else{ 
+      const userCollection = await userDatabase();
+      await userCollection.updateOne({_id: ObjectId(ID)}, {$set:{posts: result}} );
+      return {deletedPost: true};
+    }
+  };
   return postfound;
 }
+
 //Get comment array from1 post
 const getComments = async (postId) => {
   if (!postId) throw 'You must provide an id to search for';
@@ -333,4 +373,5 @@ module.exports = {
   addLike,
   getLikesfromUsername,
   getpostByPosttitle,
+  deletePost,
 };
