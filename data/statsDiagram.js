@@ -14,8 +14,10 @@ const users_js = require('./users');
 // circle graph will show which type of exercise the user does the most
 const getAllExcercise = async(userId) =>{
     if(!userId) throw 'Need userId input';
-    if(typeof userId !== 'string' ||  userId.trim().length <= 0) throw 'userId needs to be a string';
+    if(typeof userId !== 'string' ||  userId.trim().length === 0) throw 'userId needs to be a string';
+    userId = userId.trim();
     if(!ObjectId.isValid(userId)) throw 'invalid object Id';
+    
     let person = await users_js.getUserById(userId);
     let exercise_list = person.workoutRoutine;
 
@@ -26,9 +28,11 @@ const getAllExcercise = async(userId) =>{
 // returns a list of all the upperBody weights
 // this will be used to create a line graph that shows the overall progress
 const upperData = async(userId) =>{
-    // if(!userId) throw 'Need movieId input';
-    // if(typeof userId !== 'string' ||  userId.trim().length <= 0) throw 'userId needs to be a string';
-    // if(!ObjectId.isValid(userId)) throw 'invalid object Id';
+    if(!userId) throw 'Need userId input';
+    if(typeof userId !== 'string' ||  userId.trim().length === 0) throw 'userId needs to be a string';
+    userId = userId.trim();
+    if(!ObjectId.isValid(userId)) throw 'invalid object Id';
+
     let workout_lst = await getAllExcercise(userId);
     let weights = [];
     for(let i = 0; i < workout_lst.length; i++){
@@ -41,6 +45,11 @@ const upperData = async(userId) =>{
 }
 
 const lowerData = async(userId) => {
+    if(!userId) throw 'Need userId input';
+    if(typeof userId !== 'string' ||  userId.trim().length === 0) throw 'userId needs to be a string';
+    userId = userId.trim();
+    if(!ObjectId.isValid(userId)) throw 'invalid object Id';
+
     let workout_lst = await getAllExcercise(userId);
     let weights = [];
     for(let i = 0; i < workout_lst.length; i++){
@@ -53,6 +62,10 @@ const lowerData = async(userId) => {
 }
 
 const coreData = async(userId) => {
+    if(!userId) throw 'Need userId input';
+    if(typeof userId !== 'string' ||  userId.trim().length === 0) throw 'userId needs to be a string';
+    userId = userId.trim();
+    if(!ObjectId.isValid(userId)) throw 'invalid object Id';
     let workout_lst = await getAllExcercise(userId);
     let weights = [];
     for(let i = 0; i < workout_lst.length; i++){
@@ -66,6 +79,11 @@ const coreData = async(userId) => {
 
 // will show percentage ratio of all the different workouts
 const groupRatio = async(userId) =>{
+    if(!userId) throw 'Need userId input';
+    if(typeof userId !== 'string' ||  userId.trim().length === 0) throw 'userId needs to be a string';
+    userId = userId.trim();
+    if(!ObjectId.isValid(userId)) throw 'invalid object Id';
+
     let upper = await upperData(userId);
     let core = await coreData(userId);
     let lower = await lowerData(userId);
@@ -77,10 +95,14 @@ const groupRatio = async(userId) =>{
 
 //gets the overall weights of a specific excercise
 const getWeights = async(userId, exercise) => {
+    if(!userId) throw 'Need userId input';
+    if(typeof userId !== 'string' ||  userId.trim().length === 0) throw 'userId needs to be a string';
+    userId = userId.trim();
+    if(!ObjectId.isValid(userId)) throw 'invalid object Id';
+    
     let workout_lst = await getAllExcercise(userId);
     let counter  = 0;
-    console.log(exercise);
-    console.log(workout_lst);
+    exercise = helpers.checkString(exercise, 'Exercise Name');
     for(let i = 0; i < workout_lst.length; i++){
         if(workout_lst[i].name === exercise){
             counter = 1;
