@@ -54,12 +54,20 @@
                     <div>
                         <p>{{postDate}}</p>
                     </div>
+                    
                 <div class="card_stats">
                     <div>
-                            <a href="/community/{{_id}}"<span class="like-icon">💙</span>
-                             Like
+                        <form action="/community" method="POST" id="like-post" class="user-post">
+            <label type="hidden" for="LikeInputID"></label>
+             <input type="hidden" name="LikeInputID" id="LikeInput" value={{_id}}>
+             <label type="hidden" for="LikeInputname"></label>
+             <input type="hidden" name="LikeInputname" id="LikeInput" value={{username}}>
+            <button type="submit" class="submission">💙</button>
+                        </form>
+                    </div>
+                    <div>
                              </a>
-                        <p id="like-amount">{{likes}} </p>
+                        <p id="like-amount">Likes: {{likes}} </p>
                     </div>
                     <div>
                          <a href="/community/{{_id}}">Comments</a>
