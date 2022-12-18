@@ -11,7 +11,6 @@ const createPost = async (user, postTitle, post) => {
   if (typeof user != "string") {
     throw "You must provide user string";
   }
-  await userData.getUserByUsername(user.trim());
 
   if (!postTitle || postTitle == undefined) {
     throw "You must provide a postTitle for user";
@@ -28,24 +27,29 @@ const createPost = async (user, postTitle, post) => {
   if (post.trim().length == 0) {
     throw "Empty String or just just spaces for post";
   }
+  helper.validatePostBody(post.trim());
+  helper.validatePostTitle(postTitle);
+
   const userCollection = await userDatabase();
+  const usern = await userData.getUserByUsername(user.trim());
   let currDate = new Date();
   //console.log(currDate);
 
   let newPost = {
     _id: ObjectId(),
-    username: user.trim(),
+    username: usern.username,
     postTitle: postTitle.trim(),
     postDate: currDate,
-    post: post,
+    post: post.trim(),
     likes: 0,
     comments: [],
     likeArray: [],
   };
-  const insertedInfo = await userCollection.updateOne({ username: user.trim() }, {
+  const insertedInfo = await userCollection.updateOne({ username: usern.username.toLowerCase() }, {
     $push:
       { posts: newPost }
   });
+  if(!insertedInfo.matchedCount && !insertedInfo.modifiedCount) throw 'Update failed';
 
   return { insertedPost: true };
 
@@ -166,6 +170,31 @@ const getComments = async (postId) => {
 
 
 }
+//number of likes the for req.session.user
+const getLikesfromUsername = async (username) =>{
+  if (!username) throw 'You must provide an username to search for';
+  if (typeof username !== 'string') throw 'username must be a string';
+  if (username.trim().length === 0)
+    throw 'username cannot be an empty string or just spaces';
+  username = username.toLowerCase();
+  const userCollection = await userDatabase();
+  const user = await userCollection.findOne({username: username});
+  Totallikes=0;
+  if (!user){throw 'Error: The given username does not match our records. Please try again.'}
+  //user has been found from user -> check all post ->
+  let posts = await getAllPostsNoUser();
+  // console.log(posts);
+  for (entry of posts){
+    if (entry.username==username){
+      if (entry.likes >0){
+        Totallikes+=entry.likes;
+      }
+    }
+
+  }
+  return Totallikes;
+
+}
 
 const getLikes = async (postId) => {
   if (!postId) throw 'You must provide an id to search for';
@@ -193,6 +222,7 @@ const getLikeArray = async (postId) => {
     throw 'Id cannot be an empty string or just spaces';
   postId = postId.trim();
   if (!ObjectId.isValid(postId)) throw 'invalid object ID';
+  const userCollection = await userDatabase();
   let Post = await getPost(postId);
   let likeArray = [];
   if (Post.likeArray == []) {
@@ -227,6 +257,7 @@ const addLike = async (currentuser, postuser, postId) => {
 
   //We canAdd the Current username to likearray 
   let likeArray = await getLikeArray(postId);
+  console.log("hi");
   console.log(likeArray);
   let newArray = likeArray;
 
@@ -236,7 +267,7 @@ const addLike = async (currentuser, postuser, postId) => {
     for (elem of newArray){
       //if current
       if (elem == currentuser){
-        throw 'User can not like same post more than once'
+        throw 'User can not like same post more than 1 time.'
       }
     }
   }
@@ -248,7 +279,7 @@ const addLike = async (currentuser, postuser, postId) => {
       { "posts.$.likes": newlikes, "posts.$.likeArray": newArray }
   }  // update
   );
-  console.log(insertedInfo);
+  // console.log(insertedInfo);
   if (!insertedInfo.acknowledged || !insertedInfo.modifiedCount) {
     throw "Could not add like";
   }
@@ -267,4 +298,5 @@ module.exports = {
   getComments,
   getLikes,
   addLike,
+  getLikesfromUsername,
 };
