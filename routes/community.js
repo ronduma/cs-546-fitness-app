@@ -224,6 +224,43 @@ router.route("/:id").post(async (req, res) => {
     }
 
 });
+router.route("/:id").delete(async (req, res) => {
+    if (!req.session.user) {
+        res.status(200).render("login", {
+            title: "Log In • Jimbro",
+            message: "You need to log in to use the Community Page.",
+            session: req.session.user,
+        });
+    }
+    try{
+        let id = req.params.id;
+        id = helpers.checkId(id, "postId");
+        let post = await postData.deletePost(id, req.session.user);
+        let allposts = await postData.getAllPostsNoUser();
+        let orderedpost = postData.sortedDesc(allposts);
+        // console.log(orderedpost);
+        // owner = true
+        res.render("community", {
+            title: "Post • Jimbro",
+            message: "Post Deleted",
+            session: req.session.user,
+            allpost: orderedpost,
+        });
+    }catch(e){
+        console.log(e);
+        let allposts = await postData.getAllPostsNoUser();
+        let orderedpost = postData.sortedDesc(allposts);
+
+        res.render("community", {
+            title: "Post • Jimbro",
+            message: "Post Not Deleted",
+            session: req.session.user,
+            allpost: orderedpost,
+        });
+
+        // next();
+    }
+});
 
 router.get('/profile/:id', async (req, res) => {
     if(req.session.user){
