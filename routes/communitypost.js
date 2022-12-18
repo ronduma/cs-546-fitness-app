@@ -39,8 +39,8 @@ router.post('/', async (req, res) => {
     //After we validate try createPost check if insert is true and redirect to communityposts
     //console.log("try create post")
     try{
-        console.log("Trying to create post");
-        console.log(req.session.user);
+        // console.log("Trying to create post");
+        //console.log(req.session.user);
         let post= await postData.createPost(req.session.user, postTitle, postDetails);
         console.log(post);
         if ((await post).insertedPost == true){
