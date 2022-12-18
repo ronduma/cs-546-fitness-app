@@ -219,7 +219,7 @@ const getpostByPosttitle = async (posttitle) => {
     }
   };
   return postfound;
-}
+
 
 //Get comment array from1 post
 const getComments = async (postId) => {
