@@ -419,7 +419,8 @@ async function main() {
     const sampleCommenteve = await commentData.createComment(postIdof3, "eve", "This is a w challenege");
     const sampleComment1 = await commentData.createComment(postIdof1, "ron", "I got to try running sometimes. I only workout my chest and arms");
     const sampleComment3 = await commentData.createComment(postIdof1, "alice", "Good One Bob!");
-    const sampleComment2 = await commentData.createComment(postIdof2, "bob", "Nice one eve!");
+    const sampleComment2 = await commentData.createComment(postIdof2, "ron", "Nice one eve!");
+    const sampleComment6= await commentData.createComment(postIdof2, "alice", "Eve you going to reach ur goal. Lets go!");
     // const sampleComment5 = await commentData.createComment(postIdof1, "bob", "Slay queen slay");
     let allcomments = await commentData.getAllComments();
     console.log(allcomments)
