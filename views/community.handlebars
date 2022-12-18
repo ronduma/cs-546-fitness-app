@@ -3,7 +3,8 @@
     <input type="submit" class="createbutton" value="Create Post">
 </form> --}}
 
-<a href="/communitypost" class="createbutton">Create a Post</a>
+ <a href="/communitypost" class="createbutton">Create a Post</a>
+
 
 <div class="communityContainer">
     <div class=" cards">
@@ -19,7 +20,7 @@
                         <p>Likes: </p>
                     </div>
                     <div>
-                        <a href="/community/{{_id}}">Comments</a>
+                        <a href="/community/{{id}}">Comments</a>
                     </div>
                 </div>
             </div>
@@ -54,13 +55,7 @@
                         <p id="like-amount">Likes: {{likes}} </p>
                     </div>
                     <div>
-                        <a href="/community/{{_id}}">Comments</a>
-                        <p>
-                            <form method="POST" action="/community/{{_id}}">
-                                <input name="_method" type="hidden" value="DELETE"/>
-                                <button type="submit">Delete</button>
-                            </form>
-                        </p>
+                         <a href="/community/{{_id}}">Comments</a>
                     </div>
                 </div>
             </div>
