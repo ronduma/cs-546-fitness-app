@@ -241,7 +241,7 @@ if (typeof commentBody != 'string') {
 if (commentBody.trim().length < 3) {
     throw 'Enter a commentBody minimum of 3 letters';
   }
-  return commentBody
+  return commentBody;
 
 }
 
