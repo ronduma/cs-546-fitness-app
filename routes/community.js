@@ -103,6 +103,7 @@ router.route("/:id").get(async (req, res) => {
     else {
         let id = req.params.id;
         try {
+            //postid =id
             id = helpers.checkId(id);
         }
         catch (e) {
@@ -123,6 +124,9 @@ router.route("/:id").get(async (req, res) => {
             const onepost = await postData.getPost(id.trim());
             let idString = id.toString();
             const allcomments = await commentData.searchCommentbyPostId(idString);
+            const user =await users.getUserByUsername(onepost.username)
+            let userId =user._id;
+            console.log(userId);
             console.log(onepost);
             return res.status(200).render("onepost", {
                 onepost: onepost,
@@ -131,6 +135,7 @@ router.route("/:id").get(async (req, res) => {
                 session: req.session.user,
                 allcomments: allcomments,
                 id: id,
+                userId: userId,
             });
         } catch (e) {
             let allposts = await postData.getAllPostsNoUser();
