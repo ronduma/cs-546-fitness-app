@@ -156,6 +156,23 @@ router.route("/:id").post(async (req, res) => {
         });
     }
     let commentDetails = req.body.commentDetailsInput;
+    
+    try {
+        let id = req.params.id;
+        helpers.checkId(id, id);
+        const onepost = await postData.getPost(id);
+    } catch (e) {
+        let allposts = await postData.getAllPostsNoUser();
+            let orderedpost = await postData.sortedDesc(allposts);
+            res
+                .status(404)
+                .render("community", {
+                    title: "Post • Jimbro",
+                    message: e,
+                    session: req.session.user,
+                    allpost: orderedpost,
+                });
+        }
     try {
         let id = req.params.id;
         // console.log(id);
@@ -179,12 +196,14 @@ router.route("/:id").post(async (req, res) => {
         //ONEPOST NOT DEFINED
         let id = req.params.id;
         let allposts = await postData.getAllPostsNoUser();
+        const onepost = await postData.getPost(id);
         let orderedpost = await postData.sortedDesc(allposts);
+        let idString = id.toString();
         const allcomments = await commentData.searchCommentbyPostId(idString);
         return res.status(404).render("onepost", {
             onepost: onepost,
             title: "Post • Jimbro",
-            message: "this is the one post but didnt add newly added comment",
+            message: e,
             session: req.session.user,
             onepost: onepost,
             allcomments: allcomments,

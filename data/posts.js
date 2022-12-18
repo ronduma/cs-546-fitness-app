@@ -222,6 +222,7 @@ const getLikeArray = async (postId) => {
     throw 'Id cannot be an empty string or just spaces';
   postId = postId.trim();
   if (!ObjectId.isValid(postId)) throw 'invalid object ID';
+  const userCollection = await userDatabase();
   let Post = await getPost(postId);
   let likeArray = [];
   if (Post.likeArray == []) {
@@ -256,6 +257,7 @@ const addLike = async (currentuser, postuser, postId) => {
 
   //We canAdd the Current username to likearray 
   let likeArray = await getLikeArray(postId);
+  console.log("hi");
   console.log(likeArray);
   let newArray = likeArray;
 
@@ -277,7 +279,7 @@ const addLike = async (currentuser, postuser, postId) => {
       { "posts.$.likes": newlikes, "posts.$.likeArray": newArray }
   }  // update
   );
-  console.log(insertedInfo);
+  // console.log(insertedInfo);
   if (!insertedInfo.acknowledged || !insertedInfo.modifiedCount) {
     throw "Could not add like";
   }

@@ -18,6 +18,8 @@ router.post('/', async (req, res) => {
     try {
       await users.checkUser(username, password);
       req.session.user = username.toLowerCase();
+      console.log(req.session.user);
+      console.log(password);
       return res.redirect('/profile');
     } catch (e) {
       return res.status(400).render("../views/login", { error : e });
