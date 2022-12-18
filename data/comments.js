@@ -72,16 +72,23 @@ const createComment = async(postId, user, comment) => {
     //check if postuser and user is the same. Cant comment on your own post
     let currDate = new Date();
     //console.log(currDate);
+    const commentExist = await commentCollection.findOne({comment: comment.trim()});
+    if (commentExist){throw 'Error: Comment already exists!'}
     helpers.validateComment(comment);
     let newComment = {
       _id : ObjectId(),
       postId: postId.trim(),
       user: user.trim().toLowerCase(),
-      comment: comment,
+      comment: comment.trim(),
       time: currDate,
     };
-    //update the post user 
-    let databaseUser = await userData.getUserByUsername(user.trim().toLowerCase());
+    //user exist
+    const dupuser = await userCollection.findOne({username: newComment.user});
+    const post = await postData.getPost(newComment.postId)
+    // console.log(post.username)
+    if (newComment.user == post.username){
+      throw 'Error: Can not comment on your own post';
+    }
 
     const insertedInfo = await commentCollection.insertOne(newComment);
     if(!insertedInfo.acknowledged || !insertedInfo.insertedId) throw 'Could not add Comment'
@@ -118,4 +125,5 @@ module.exports = {
     createComment,
     searchCommentbyPostId,
     getAllCommentsCountByUser,
+    getAllComments,
 }

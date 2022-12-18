@@ -128,6 +128,7 @@ const getPost = async (postId) => {
   //now get review
   let found = 0;
   let postfound;
+  const userCollection = await userDatabase();
   const users = await userData.getAllUsers();
   for (const element of users) {
     let postList = element.posts;
@@ -148,6 +149,33 @@ const getPost = async (postId) => {
   return postfound;
 
 };
+const getpostByPosttitle = async (posttitle) => {
+  if (!posttitle) throw 'You must provide an str to search for';
+  if (typeof posttitle !== 'string') throw 'Id must be a string';
+  if (posttitle.trim() === 0)
+    throw 'str cannot be an empty string or just spaces';
+    posttitle = posttitle.trim();
+  helper.validatePostTitle(posttitle);
+  const userCollection = await userDatabase();
+  const users = await userData.getAllUsers();
+  found=0;
+  for (const element of users) {
+    let postList = element.posts;
+    for (iPost of postList) {
+      if (iPost.postTitle == posttitle) {
+        found++;
+        postfound = iPost;
+        break;
+      }
+
+    }
+  }
+  if (found == 0) {
+    throw 'post not found';
+  }
+  //postfound returns the Entire post
+  return postfound;
+}
 //Get comment array from1 post
 const getComments = async (postId) => {
   if (!postId) throw 'You must provide an id to search for';
@@ -257,8 +285,8 @@ const addLike = async (currentuser, postuser, postId) => {
 
   //We canAdd the Current username to likearray 
   let likeArray = await getLikeArray(postId);
-  console.log("hi");
-  console.log(likeArray);
+  //console.log("hi");
+  //console.log(likeArray);
   let newArray = likeArray;
 
   //Check duplicates I DONT WANT A USER Liking same post
@@ -299,4 +327,5 @@ module.exports = {
   getLikes,
   addLike,
   getLikesfromUsername,
+  getpostByPosttitle,
 };

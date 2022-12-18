@@ -3,6 +3,8 @@ const dbConnection = require('../config/mongoConnection');
 const data = require('../data');
 const users = data.users;
 const workout = data.workouts;
+const postData = data.post;
+const commentData = data.comments;
 
 async function main() {
     const db = await dbConnection.dbConnection();
@@ -381,6 +383,44 @@ async function main() {
     console.log('   password: Password123!');
     console.log();
   
+
+    //Create Posts 
+    const Post1 = await postData.createPost("bob", "Challenge: Running around Hoboken under 1hr", "This 1.97 square mile city is pretty small but its a good jog");
+    const Post2 = await postData.createPost("eve", "Lift Weekly Goal Completed: 35lbs", "Reached 35 lbs on the Overhead Press. Getting closer to my goal");
+    const Post3 = await postData.createPost("bob", "Review on Planet fitness", "This Hoboken gym left little to be desired. Super Busy all the time");
+    console.log("Sample Posts and Sample Likes:");
+    console.log();
+    // let allpost = await postData.getAllPostsNoUser()
+    // console.log(allpost)
+
+
+    //ADD Likes to Post
+    // console.log("Sample Likes: ");
+    const getPost1 = await postData.getpostByPosttitle("Review on Planet fitness");
+    postIdof1 = getPost1._id.toString();
+    const getPost2 = await postData.getpostByPosttitle("Lift Weekly Goal Completed: 35lbs");
+    postIdof2 = getPost2._id.toString();
+    // console.log(postId);
+    const sampleLike = await postData.addLike("eve", "bob", postIdof1);
+    const sampleLike2 = await postData.addLike("alice", "bob", postIdof1);
+    const sampleLike3 = await postData.addLike("ron", "bob", postIdof1);
+
+    let allpost = await postData.getAllPostsNoUser()
+    console.log(allpost);
+
+    //Add Comments
+    console.log("Sample Comments");
+    const sampleComment = await commentData.createComment(postIdof1, "eve", "This running challenge was pretty fun!");
+    const sampleComment1 = await commentData.createComment(postIdof1, "ron", "I got to try running sometimes. I only workout my chest and arms");
+    const sampleComment3 = await commentData.createComment(postIdof1, "alice", "Good One Bob!");
+    const sampleComment2 = await commentData.createComment(postIdof2, "bob", "Nice one eve!");
+    // const sampleComment5 = await commentData.createComment(postIdof1, "bob", "Slay queen slay");
+    let allcomments = await commentData.getAllComments();
+    console.log(allcomments)
+
+
+
+
     console.log('Done seeding database');
   
     await dbConnection.closeConnection();
