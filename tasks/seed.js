@@ -401,17 +401,22 @@ async function main() {
     postIdof1 = getPost1._id.toString();
     const getPost2 = await postData.getpostByPosttitle("Lift Weekly Goal Completed: 35lbs");
     postIdof2 = getPost2._id.toString();
+    const getPost3 = await postData.getpostByPosttitle("Challenge: Running around Hoboken under 1hr");
+    postIdof3 = getPost3._id.toString();
     // console.log(postId);
     const sampleLike = await postData.addLike("eve", "bob", postIdof1);
     const sampleLike2 = await postData.addLike("alice", "bob", postIdof1);
     const sampleLike3 = await postData.addLike("ron", "bob", postIdof1);
+    const sampleLike6 = await postData.addLike("ron", "eve", postIdof2);
 
     let allpost = await postData.getAllPostsNoUser()
     console.log(allpost);
 
     //Add Comments
     console.log("Sample Comments");
-    const sampleComment = await commentData.createComment(postIdof1, "eve", "This running challenge was pretty fun!");
+    const sampleComment = await commentData.createComment(postIdof1, "eve", "I agree Plant fitness is overrated");
+    const sampleCommentRon = await commentData.createComment(postIdof3, "ron", "This running challenge was pretty fun!");
+    const sampleCommenteve = await commentData.createComment(postIdof3, "eve", "This is a w challenege");
     const sampleComment1 = await commentData.createComment(postIdof1, "ron", "I got to try running sometimes. I only workout my chest and arms");
     const sampleComment3 = await commentData.createComment(postIdof1, "alice", "Good One Bob!");
     const sampleComment2 = await commentData.createComment(postIdof2, "bob", "Nice one eve!");
