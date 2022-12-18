@@ -218,8 +218,7 @@ const getpostByPosttitle = async (posttitle) => {
       return {deletedPost: true};
     }
   };
-  return postfound;
-}
+
 
 //Get comment array from1 post
 const getComments = async (postId) => {
