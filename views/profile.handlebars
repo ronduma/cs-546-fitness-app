@@ -42,6 +42,14 @@
                 </form>
             </fieldset>
             <a class="btn btn-primary mt-3" href="/profile/edit">Edit Profile</a>
+            <div class="container greeting mt-3 mb-5">
+                <h1>Your Posts</h1>
+                {{#each userPosts}}
+                <div class="row">
+                    <a href="/community/{{this._id}}">{{this.postTitle}}</a>
+                </div>
+                {{/each}}
+            </div>
         </div>
     </div>
 </div>

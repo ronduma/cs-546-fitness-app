@@ -126,7 +126,7 @@ router.route("/:id").get(async (req, res) => {
             const allcomments = await commentData.searchCommentbyPostId(idString);
             const user =await users.getUserByUsername(onepost.username)
             let userId =user._id;
-            console.log(userId);
+            console.log("USER ID", userId);
             console.log(onepost);
             return res.status(200).render("onepost", {
                 onepost: onepost,
@@ -222,6 +222,8 @@ router.get('/profile/:id', async (req, res) => {
     if(req.session.user){
         console.log(req.params.id);
       let user = await users.getUserById(req.params.id);
+      let userPosts = user.posts;
+    //   console.log("POSTS:", userPosts)
       return res.status(200).render('communityProfile', {
           title : user.username.concat("'s Profile \• Jimbro"),
           message : "this is the profile page",
@@ -233,7 +235,8 @@ router.get('/profile/:id', async (req, res) => {
           weight : user.weight,
           studio : user.studio,
           coach : user.coach,
-          goals : user.goals
+          goals : user.goals,
+          userPosts : userPosts
       });
     }
     else{
