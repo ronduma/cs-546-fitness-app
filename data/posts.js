@@ -166,6 +166,31 @@ const getComments = async (postId) => {
 
 
 }
+//number of likes the for req.session.user
+const getLikesfromUsername = async (username) =>{
+  if (!username) throw 'You must provide an username to search for';
+  if (typeof username !== 'string') throw 'username must be a string';
+  if (username.trim().length === 0)
+    throw 'username cannot be an empty string or just spaces';
+  username = username.toLowerCase();
+  const userCollection = await userDatabase();
+  const user = await userCollection.findOne({username: username});
+  Totallikes=0;
+  if (!user){throw 'Error: The given username does not match our records. Please try again.'}
+  //user has been found from user -> check all post ->
+  let posts = await getAllPostsNoUser();
+  // console.log(posts);
+  for (entry of posts){
+    if (entry.username==username){
+      if (entry.likes >0){
+        Totallikes+=entry.likes;
+      }
+    }
+
+  }
+  return Totallikes;
+
+}
 
 const getLikes = async (postId) => {
   if (!postId) throw 'You must provide an id to search for';
@@ -267,4 +292,5 @@ module.exports = {
   getComments,
   getLikes,
   addLike,
+  getLikesfromUsername,
 };
