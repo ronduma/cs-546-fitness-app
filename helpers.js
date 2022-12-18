@@ -196,10 +196,10 @@ if (postTitle.trim().length < 3) {
     throw 'Enter a Post Title minimum of 3 letters';
   }
   if (hasThreeWords(postTitle.trim()) != true){
-    throw 'PostTitle needs to be longer than 3 words'
+    throw 'Error: PostTitle needs to be longer than 3 words'
   }
   if (ifstringonlynumbers(postTitle.trim()) == true || hasOnlySpecialCharater(postTitle.trim())== true){
-    throw 'PostTitle can not be only numbers or only special characters'
+    throw 'Error: PostTitle can not be only numbers or only special characters'
   }
 
 
@@ -218,10 +218,10 @@ if (postbody.trim().length <5) {
     throw 'Enter a Post Details minimum of 5 letters';
   }
   if (ifstringonlynumbers(postbody.trim()) == true || hasOnlySpecialCharater(postbody.trim())== true){
-    throw 'PostBody can not be only numbers or only special characters'
+    throw 'Error: PostBody can not be only numbers or only special characters'
   }
   if (hasfiveWords(postbody.trim()) != true){
-    throw 'postBody needs to be longer than 5 words'
+    throw 'Error: postBody needs to be longer than 5 words'
   }
 
 return postbody.trim();
@@ -254,10 +254,10 @@ if (commentBody.trim().length < 3) {
     throw 'Enter a commentBody minimum of 3 letters';
   }
   if (hasThreeWords(commentBody.trim()) != true){
-    throw 'Comment needs to be longer than 3 words'
+    throw 'Error: Comment needs to be longer than 3 words'
   }
   if (ifstringonlynumbers(commentBody.trim()) == true || hasOnlySpecialCharater(commentBody.trim())== true){
-    throw 'Input can not be only numbers or only special characters'
+    throw 'Error: Input can not be only numbers or only special characters'
   }
   return commentBody;
 

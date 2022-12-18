@@ -388,34 +388,44 @@ async function main() {
     const Post1 = await postData.createPost("bob", "Challenge: Running around Hoboken under 1hr", "This 1.97 square mile city is pretty small but its a good jog");
     const Post2 = await postData.createPost("eve", "Lift Weekly Goal Completed: 35lbs", "Reached 35 lbs on the Overhead Press. Getting closer to my goal");
     const Post3 = await postData.createPost("bob", "Review on Planet fitness", "This Hoboken gym left little to be desired. Super Busy all the time");
-    // const Post4 = await postData.createPost("ron", "Lift Weekly Goal Completed: 35lbs", "Reached 35 lbs on the Overhead Press. Getting closer to my goal");
+    const Post4 = await postData.createPost("ron", "Thoughts on creatine before working out", "I'm quite curious on how impactful creatine is for more gains");
+    const Post5 = await postData.createPost("alice", "Whats the gym culture like for students at Stevens?", "Most times when I try to go to the stevens gym its too crowded. Was wondering if its worth going to?");
     console.log("Sample Posts and Sample Likes:");
     console.log();
-    // let allpost = await postData.getAllPostsNoUser()
-    // console.log(allpost)
+
 
 
     //ADD Likes to Post
-    // console.log("Sample Likes: ");
-    const getPost1 = await postData.getpostByPosttitle("Review on Planet fitness");
+    const getPost1 = await postData.getpostByPosttitle("Challenge: Running around Hoboken under 1hr");
     postIdof1 = getPost1._id.toString();
     const getPost2 = await postData.getpostByPosttitle("Lift Weekly Goal Completed: 35lbs");
     postIdof2 = getPost2._id.toString();
+    const getPost3 = await postData.getpostByPosttitle("Review on Planet fitness");
+    postIdof3 = getPost3._id.toString();
+    const getPost4 = await postData.getpostByPosttitle("Thoughts on creatine before working out");
+    postIdof4 = getPost4._id.toString();
     // console.log(postId);
     const sampleLike = await postData.addLike("eve", "bob", postIdof1);
-    const sampleLike2 = await postData.addLike("alice", "bob", postIdof1);
-    const sampleLike3 = await postData.addLike("ron", "bob", postIdof1);
+    const sampleLike1 = await postData.addLike("alice", "bob", postIdof1);
+    const sampleLike2 = await postData.addLike("ron", "bob", postIdof1);
+    const sampleLike3 = await postData.addLike("ron", "eve", postIdof2);
+    const sampleLike4 = await postData.addLike("alice", "eve", postIdof2);
+    const sampleLike5 = await postData.addLike("alice", "bob", postIdof3);
+    const sampleLike6 = await postData.addLike("bob", "ron", postIdof4);
+
 
     let allpost = await postData.getAllPostsNoUser()
     console.log(allpost);
 
     //Add Comments
     console.log("Sample Comments");
-    const sampleComment = await commentData.createComment(postIdof1, "eve", "This running challenge was pretty fun!");
-    const sampleComment1 = await commentData.createComment(postIdof1, "ron", "I got to try running sometimes. I only workout my chest and arms");
-    const sampleComment3 = await commentData.createComment(postIdof1, "alice", "Good One Bob!");
-    const sampleComment2 = await commentData.createComment(postIdof2, "bob", "Nice one eve!");
-    // const sampleComment5 = await commentData.createComment(postIdof1, "bob", "Slay queen slay");
+    const sampleComment1 = await commentData.createComment(postIdof1, "ron", "This running challenge was pretty fun!");
+    const sampleComment2 = await commentData.createComment(postIdof1, "eve", "This is a w challenege");
+    const sampleComment3 = await commentData.createComment(postIdof3, "ron", "I got to try running sometimes. I only workout my chest and arms");
+    const sampleComment4 = await commentData.createComment(postIdof3, "alice", "Good One Bob!");
+    const sampleComment = await commentData.createComment(postIdof3, "eve", "I agree Plant fitness is overrated");
+    const sampleComment5 = await commentData.createComment(postIdof2, "ron", "Nice one eve!");
+    const sampleComment6= await commentData.createComment(postIdof2, "alice", "Eve you going to reach ur goal. Lets go!");
     let allcomments = await commentData.getAllComments();
     console.log(allcomments)
 
