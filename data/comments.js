@@ -82,9 +82,11 @@ const createComment = async(postId, user, comment) => {
       comment: comment.trim(),
       time: currDate,
     };
-    //update the post user 
+    //user exist
     const dupuser = await userCollection.findOne({username: newComment.user});
-    if (dupuser){
+    const post = await postData.getPost(newComment.postId)
+    // console.log(post.username)
+    if (newComment.user == post.username){
       throw 'Error: Can not comment on your own post';
     }
 
