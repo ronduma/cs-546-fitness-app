@@ -39,6 +39,14 @@
                 </form>
             </fieldset>
             <a href="/community">Go back to Community</a>
+            <div class="container greeting mt-3 mb-5">
+                <h1>{{username}}'s Posts</h1>
+                {{#each userPosts}}
+                <div class="row">
+                    <a href="/community/{{this._id}}">{{this.postTitle}}</a>
+                </div>
+                {{/each}}
+            </div>
         </div>
     </div>
 </div>

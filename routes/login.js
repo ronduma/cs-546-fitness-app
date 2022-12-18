@@ -17,7 +17,9 @@ router.post('/', async (req, res) => {
     let password = xss(req.body.passwordInput);
     try {
       await users.checkUser(username, password);
-      req.session.user = username;
+      req.session.user = username.toLowerCase();
+      console.log(req.session.user);
+      console.log(password);
       return res.redirect('/profile');
     } catch (e) {
       return res.status(400).render("../views/login", { error : e });

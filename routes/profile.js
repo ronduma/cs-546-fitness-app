@@ -4,10 +4,35 @@ const helpers = require('../helpers');
 const users = require('../data/users');
 const path = require('path');
 const xss = require('xss');
+const posts = require('../data/posts');
+const comments = require('../data/comments');
 
 router.get('/', async (req, res) => {
     if(req.session.user){
       let user = await users.getUserByUsername(req.session.user);
+      let totalLikes = await posts.getLikesfromUsername(req.session.user);
+      // console.log(totalLikes);
+      let commentcount = await comments.getAllCommentsCountByUser(req.session.user);
+      // console.log(commentcount);
+      let commentL =0;
+      let level = 0;
+      if (totalLikes == 0) {
+        level=0;
+      }
+      if (totalLikes > 0) {
+        level=1;
+      }
+      if (totalLikes > 5) {
+        level=2;
+      }
+      if (commentcount >3){
+        commentL=1;
+      }
+      if (commentcount >10){
+        commentL=2;
+      }
+      let userPosts = user.posts;
+      //   console.log("POSTS:", userPosts)
       return res.status(200).render('profile', {
           title : "Profile \• Jimbro",
           message : "this is the profile page",
@@ -19,7 +44,10 @@ router.get('/', async (req, res) => {
           weight : user.weight,
           studio : user.studio,
           coach : user.coach,
-          goals : user.goals
+          goals : user.goals,
+          level: level,
+          commentkarma: commentL,
+          userPosts : userPosts
       });
     }
     else{

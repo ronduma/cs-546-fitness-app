@@ -30,6 +30,9 @@ function checkNumber(numVal, varName) {
   if (varName === 'age' || varName === 'weight' || varName === 'heightFt' || varName === 'heightIn'){
     if (numVal < 0) throw 'Error: Numeric entries must be positive numbers.'
   }
+  if (varName === 'heightIn'){
+    if (numVal > 11) throw 'Error: heightIn must be a value between 0 and 11 (inclusive)'
+  }
   return parseInt(numVal);
 }
 function checkNumGoal(numVal, varName){
@@ -195,6 +198,16 @@ if (typeof postTitle != 'string') {
 if (postTitle.trim().length < 3) {
     throw 'Enter a Post Title minimum of 3 letters';
   }
+  if (hasThreeWords(postTitle.trim()) != true){
+    throw 'Error: PostTitle needs to be longer than 3 words'
+  }
+  if (ifstringonlynumbers(postTitle.trim()) == true || hasOnlySpecialCharater(postTitle.trim())== true){
+    throw 'Error: PostTitle can not be only numbers or only special characters'
+  }
+  if (numbersspacesorspecial(postTitle.trim()) == true){
+    throw 'Error: posttitle can not be only numbers and special characters'
+  }
+  
 
 
 return postTitle.trim();
@@ -210,6 +223,15 @@ if (typeof postbody != 'string') {
 }
 if (postbody.trim().length <5) {
     throw 'Enter a Post Details minimum of 5 letters';
+  }
+  if (ifstringonlynumbers(postbody.trim()) == true || hasOnlySpecialCharater(postbody.trim())== true){
+    throw 'Error: PostBody can not be only numbers or only special characters'
+  }
+  if (hasfiveWords(postbody.trim()) != true){
+    throw 'Error: postBody needs to be longer than 5 words'
+  }
+  if (numbersspacesorspecial(postbody.trim()) == true){
+    throw 'Error: postbody can not be only numbers and special characters'
   }
 
 return postbody.trim();
@@ -241,9 +263,51 @@ if (typeof commentBody != 'string') {
 if (commentBody.trim().length < 3) {
     throw 'Enter a commentBody minimum of 3 letters';
   }
-  return commentBody
+  if (hasThreeWords(commentBody.trim()) != true){
+    throw 'Error: Comment needs to be longer than 3 words'
+  }
+  if (ifstringonlynumbers(commentBody.trim()) == true || hasOnlySpecialCharater(commentBody.trim())== true){
+    throw 'Error: Input can not be only numbers or only special characters'
+  }
+  //edge case
+  if (numbersspacesorspecial(commentBody.trim()) == true){
+    throw 'Error: comment can not be only numbers and special characters'
+  }
+  return commentBody;
 
 }
+
+function ifstringonlynumbers(string){
+  let regex = /^[0-9 ]*$/;
+  return regex.test(string);
+  
+}
+
+function numbersspacesorspecial(string){
+  let regex = /^[`!@#$%^&*() _+\-=\[\]{};':"\\|,.<>\/?~\d]*$/;
+  return regex.test(string);
+  
+}
+
+function hasOnlySpecialCharater(val) {
+  let regex = /^[^a-zA-Z0-9 ]*$/;
+  return (regex.test(val));
+}
+function hasThreeWords(str) {
+  // Split the string into an array of words
+  let words = str.split(' ');
+
+  // Check the length of the array
+  return words.length >= 3;
+}
+function hasfiveWords(str) {
+  // Split the string into an array of words
+  let words = str.split(' ');
+
+  // Check the length of the array
+  return words.length >= 5;
+}
+
 
 module.exports = {
   checkString,
@@ -262,5 +326,8 @@ module.exports = {
   checkDay,
   checkBodyGroup,
   validateComment,
+  ifstringonlynumbers,
+  hasOnlySpecialCharater,
+  numbersspacesorspecial,
 
 };

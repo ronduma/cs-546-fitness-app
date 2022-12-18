@@ -15,7 +15,7 @@ router.get('', async (req, res) => {
     else{
     return res.status(200).render('communitypost', {
         title : "CommunityPost \• Jimbro",
-        message : "this is the communitypost page",
+        message : "this is the CommunityPost page",
         session : req.session.user
     });
 }
@@ -24,6 +24,11 @@ router.get('', async (req, res) => {
 router.post('/', async (req, res) => {
     //console.log(req.body.postTitleInput);
     //console.log(req.body.postDetailsInput);
+    if (!req.session.user){
+        return res.render('login', {
+            title : "Log In \• Jimbro",
+        message : "this is the login page"});
+    }
 
     let postTitle = req.body.postTitleInput;
     let postDetails = req.body.postDetailsInput;
@@ -39,7 +44,8 @@ router.post('/', async (req, res) => {
     //After we validate try createPost check if insert is true and redirect to communityposts
     //console.log("try create post")
     try{
-        console.log("Trying to create post")
+        // console.log("Trying to create post");
+        //console.log(req.session.user);
         let post= await postData.createPost(req.session.user, postTitle, postDetails);
         console.log(post);
         if ((await post).insertedPost == true){
