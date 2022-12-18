@@ -6,7 +6,7 @@ Built using HTML, CSS, Bootstrap, Express, Node.js, and MongoDB.
 ## How to Setup
 Run `npm install` to install the required dependencies for our project.  
 To fill in the sample users and workouts, run the seed task using 
-    `npm run seed`
+    `npm run seed`\
 To start the website, just run 
     `npm start`
 You can now navigate the website and explore its features!

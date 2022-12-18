@@ -30,6 +30,9 @@ function checkNumber(numVal, varName) {
   if (varName === 'age' || varName === 'weight' || varName === 'heightFt' || varName === 'heightIn'){
     if (numVal < 0) throw 'Error: Numeric entries must be positive numbers.'
   }
+  if (varName === 'heightIn'){
+    if (numVal > 11) throw 'Error: heightIn must be a value between 0 and 11 (inclusive)'
+  }
   return parseInt(numVal);
 }
 function checkNumGoal(numVal, varName){
