@@ -209,6 +209,8 @@ router.route("/:id").post(async (req, res) => {
         let orderedpost = await postData.sortedDesc(allposts);
         let idString = id.toString();
         const allcomments = await commentData.searchCommentbyPostId(idString);
+        const user =await users.getUserByUsername(onepost.username)
+            let userId =user._id;
         return res.status(404).render("onepost", {
             onepost: onepost,
             title: "Post • Jimbro",
@@ -217,6 +219,7 @@ router.route("/:id").post(async (req, res) => {
             onepost: onepost,
             allcomments: allcomments,
             id: id,
+            userId: userId,
         });
     }
 

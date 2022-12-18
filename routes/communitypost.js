@@ -24,6 +24,11 @@ router.get('', async (req, res) => {
 router.post('/', async (req, res) => {
     //console.log(req.body.postTitleInput);
     //console.log(req.body.postDetailsInput);
+    if (!req.session.user){
+        return res.render('login', {
+            title : "Log In \• Jimbro",
+        message : "this is the login page"});
+    }
 
     let postTitle = req.body.postTitleInput;
     let postDetails = req.body.postDetailsInput;
