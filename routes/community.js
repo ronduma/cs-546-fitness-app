@@ -121,8 +121,6 @@ router.route("/:id").get(async (req, res) => {
             let id = req.params.id;
             const onepost = await postData.getPost(id.trim());
             let idString = id.toString();
-            //console.log(onepost);
-            // console.log("WE got the post")
             const allcomments = await commentData.searchCommentbyPostId(idString);
             //console.log(allcomments);
             return res.status(200).render("onepost", {
@@ -191,5 +189,26 @@ router.route("/:id").post(async (req, res) => {
 
 });
 
+router.get('/profile/:id', async (req, res) => {
+    if(req.session.user){
+      let user = await users.getUserById(req.params.id);
+      return res.status(200).render('communityProfile', {
+          title : user.username.concat("'s Profile \• Jimbro"),
+          message : "this is the profile page",
+          session : req.session.user,
+          username : user.username,
+          age : user.age,
+          heightFt : user.heightFt,
+          heightIn : user.heightIn,
+          weight : user.weight,
+          studio : user.studio,
+          coach : user.coach,
+          goals : user.goals
+      });
+    }
+    else{
+      return res.redirect('/login');
+    }
+});
 
 module.exports = router;

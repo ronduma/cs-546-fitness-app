@@ -203,6 +203,20 @@ const getExercise = async (exerciseId) => {
   return retExer.workoutRoutine[0];
 }
 
+const removeExercise = async(exerciseName, dayOfWeek, userId) => {
+  exerciseName = helpers.checkString(exerciseName, 'Exercise Name');
+  dayOfWeek = helpers.checkDay(dayOfWeek);
+  userId = helpers.checkId(userId, 'User Id');
+  const thisUser = await getUserById(userId);
+  const userCollection = await users();
+  const deleteInfo = await userCollection.updateOne(
+    {'workoutRoutine.name': exerciseName, 'workoutRoutine.dayPlanned': dayOfWeek}, 
+    {$pull: {'workoutRoutine': {name: exerciseName, dayPlanned: dayOfWeek}}});
+  if(deleteInfo.matchedCount === 0) throw `Error: There is no exercise ${exerciseName} on ${dayOfWeek}`;
+  if(deleteInfo.modifiedCount === 0) throw `Error: unable to remove the exercise ${exerciseName} on ${dayOfWeek}`;
+  return true;
+}
+
 const updateGoals = async (userId, upperGoal, lowerGoal, coreGoal) => {
   userId = helpers.checkId(userId, 'userId');
   upperGoal= helpers.checkNumGoal(upperGoal, 'upperGoal');
@@ -231,6 +245,7 @@ module.exports = {
   getUserByUsername,
   addExercise,
   getExercise,
+  removeExercise,
   updateGoals,
   updateProfile,
 };

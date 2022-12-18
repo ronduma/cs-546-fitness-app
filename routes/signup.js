@@ -7,8 +7,7 @@ const xss = require('xss');
 
 router.get('/', async (req, res) => {
     if(req.session.user){
-      // what is protected? 
-        return res.redirect('/protected');
+        return res.redirect('/profile');
       }
       else{
         return res.status(200).render('signup', {
@@ -30,7 +29,13 @@ router.post('/', async (req, res) => {
       helpers.validatePassword(password);
       if (password !== confirmPassword) throw 'Error: Passwords do not match. Please try again.'
     } catch (e) {
-      return res.status(400).render("../views/signup", { error : e });
+      return res.status(400).render("../views/signup", { 
+        error : e,
+        username : username,
+        email : email,
+        password : password,
+        confirmPassword : confirmPassword
+      });
     }
     try {
       let user = await users.createUser(username, email, password);

@@ -1,11 +1,10 @@
-{{!-- <h1>{{message}}</h1> --}}
 <div class="container text-center">
     <div class="row d-flex justify-content-center mt-4">
         <div class="col-md-4">
             <i class="fa fa-solid fa-dumbbell fa-2xl mb-1"></i>
             <div class="greeting">
-                <h1>Hello, {{username}}.</h1>
-                <h2 class="mt-3 mb-3">Your Information</h2> 
+                <h1>{{username}}'s Profile</h1>
+                <h2 class="mt-3 mb-3">User Information</h2> 
             </div>
             <fieldset disabled>
                 <form class="row g-3" id="registration-form" action="/profile/edit">
@@ -39,7 +38,7 @@
                     </div>
                 </form>
             </fieldset>
-            <a class="btn btn-primary mt-3" href="/profile/edit">Edit Profile</a>
+            <a href="/community">Go back to Community</a>
         </div>
     </div>
 </div>

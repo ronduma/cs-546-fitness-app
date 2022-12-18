@@ -13,7 +13,11 @@
 </div>
 
 
-
+{{#if isEmpty}}
+<p>You have no workouts to show a diagram for {{session}}</p>
+  <label for="home" class="input-param" hidden="true">Home Page</label>
+  <a type="createButton" id="home" href ='/home'>Home Page</a>
+{{else}}  
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -36,4 +40,10 @@
       }]
     }
   });
+
 </script>
+<div>
+  <a type="button" id="home" href ='/statsDiagram'>Workout Progress</a>
+</div>
+{{/if}}
+
