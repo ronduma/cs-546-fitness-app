@@ -77,7 +77,7 @@ router.post('/', async (req, res) => {
     }
 
 });
-
+//CHECK THE ERROR CHECKING IN ROUTIES
 router.route("/:id").get(async (req, res) => {
     //
     if (!req.session.user) {
