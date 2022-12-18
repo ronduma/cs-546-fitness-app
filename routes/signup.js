@@ -38,6 +38,7 @@ router.post('/', async (req, res) => {
       });
     }
     try {
+      username = username.toLowerCase();
       let user = await users.createUser(username, email, password);
       // console.log(user)
       if ((await user).insertedUser === false){
