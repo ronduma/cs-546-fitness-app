@@ -40,6 +40,7 @@ router.post('/', async (req, res) => {
             session: req.session.user,
         });
     }
+    console.log(req.body)
     let likeInputID = req.body.LikeInputID;
     let likeInputName = req.body.LikeInputname;
     console.log(likeInputID);
