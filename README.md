@@ -19,6 +19,7 @@ You can now navigate the website and explore its features!
 
 ## Additional Extra Features
 - Ability to Click on Others Profiles
+- User can remove previous posts
 
 ## GitHub Link
 - https://github.com/ronduma/cs-546-fitness-app
