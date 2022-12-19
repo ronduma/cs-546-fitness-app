@@ -9,7 +9,7 @@
 <div class="communityContainer">
     <div class=" cards">
         <div class="card">
-            <h3>EXAMPLE post title: Challenge: 5k run Hoboken Pier in 2 weeks</h3>
+            <h2>EXAMPLE post title: Challenge: 5k run Hoboken Pier in 2 weeks</h2>
             <div class="card__content">
                 <p>
                     EXAMPLE post details: Think you're up to the challenge. Recently picked up running and trying to keep improving
@@ -20,7 +20,7 @@
                         <p>Likes: </p>
                     </div>
                     <div>
-                        <a href="/community/{{id}}">Comments</a>
+                        <a href="/community/{{id}}" class="Darkblue">Comments</a>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                     {{post}}
                 </p>
                 <div>
-                        <p></p>Posted by:{{username}} </p>
+                        <p>Posted by: {{username}} </p>
                     </div>
                     <div>
                         <p>{{postDate}}</p>
@@ -43,25 +43,23 @@
                 <div class="card_stats">
                     <div>
                         <form action="/community" method="POST" id="like-post" class="user-post">
-            <label type="hidden" for="LikeInputID"></label>
-             <input type="hidden" name="LikeInputID" id="LikeInput" value={{_id}}>
-             <label type="hidden" for="LikeInputname"></label>
-             <input type="hidden" name="LikeInputname" id="LikeInput" value={{username}}>
+
+             <input class="hidden" name="LikeInputID" id="LikeInput" value={{_id}}>
+             <input class="hidden" name="LikeInputname" id="LikeInput1" value={{username}}>
             <button type="submit" class="submission">💙</button>
                         </form>
                     </div>
                     <div>
-                             </a>
                         <p id="like-amount">Likes: {{likes}} </p>
                     </div>
                     <div>
-                         <a href="/community/{{_id}}">Comments</a>
+                         <a href="/community/{{_id}}" class="Darkblue">Comments</a>
                          <p>
                             <form method="POST" action="/community/{{_id}}">
-                                <input name="_method" type="hidden" value="DELETE"/>
+                                <input name="_method" class="hidden" value="DELETE">
                                 <button type="submit">Delete</button>
                             </form>
-                        </p>
+    
                     </div>
                 </div>
             </div>
@@ -71,5 +69,5 @@
 
     </div>
 </div>
-{{!-- This has nothing --}}
+{{!-- This has nothing front end js somewhere else --}}
 <script src="/public/js/like.js"></script>
