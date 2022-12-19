@@ -18,7 +18,8 @@ You can now navigate the website and explore its features!
 - In addition, an authenticated user will be able to view their own profile which includes information about their account.
 
 ## Additional Extra Features
-- Ability to Click on Others Profiles
+- Ability to Click on Others Profiles.
+- User can remove previous post.
 
 ## GitHub Link
 - https://github.com/ronduma/cs-546-fitness-app
