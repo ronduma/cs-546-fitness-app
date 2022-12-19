@@ -102,7 +102,7 @@ a.navbar-brand{
 
 /* Community */
 .createbutton {
-    background-color: #1DA1F2;
+    background-color: #375389;
     display: inline-block;
     border-radius: 16px;
     padding: 10px 20px;
@@ -116,6 +116,10 @@ font-weight: bold;
 font-size: 20px;
 width: auto;
     
+}
+.Darkblue{
+    color: #375389;
+
 }
 .createbutton:hover {
 background-color: #007FFF;
@@ -194,3 +198,6 @@ border-left: 2px solid #333333;
     padding-left:-70px;
 }
 
+.hidden{
+    display: none;
+}
